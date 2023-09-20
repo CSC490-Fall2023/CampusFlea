@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: dev.hilla:engine-runtime:2.1.9">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/dev/hilla/engine-runtime/2.1.9/engine-runtime-2.1.9.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/dev/hilla/engine-runtime/2.1.9/engine-runtime-2.1.9-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/dev/hilla/engine-runtime/2.1.9/engine-runtime-2.1.9-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
