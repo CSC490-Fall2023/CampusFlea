@@ -1,4 +1,4 @@
-package CampusFlea.demo.pojo;
+package CampusFlea.demo.websocket.pojo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
