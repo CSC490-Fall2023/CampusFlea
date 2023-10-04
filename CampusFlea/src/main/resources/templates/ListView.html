@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Page</title>
+    <link rel="stylesheet" href="ListView.css">
+</head>
+<body>
+<main class="container">
+
+    <!-- Left Column / Product Images -->
+    <div class="left-column">
+        <img src="../Logos/productExampleImage.jpg" alt="ProductImage"> <!-- Replace with the product images -->
+    </div>
+    <!-- Right Column -->
+    <div class="right-column">
+
+        <!-- Product Description -->
+        <div class="product-description">
+            <span>Electronics</span> <!-- Replace with the product type -->
+            <h1>Xbox Wireless Controller-Shock Blue</h1> <!-- Replace with product name -->
+            <p>Compatible with Xbox One X, Xbox One S, Xbox One, Windows 10</p> <!-- Replace with product description -->
+        </div>
+
+        <!-- Product Configuration -->
+        <div class="product-configuration">
+
+            <!-- User Choice Configuration -->
+            <div class="likeShare-config">
+
+                <div class="user-choose">
+                    <button onclick="like()">Like</button>
+                    <button onclick="save()">Save</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product Pricing -->
+        <div class="product-price">
+            <span>$69.95</span> <!-- Replace with product price -->
+            <a href="#" class="contactSeller-btn">Contact Seller</a>
+        </div>
+    </div>
+    <script>
+        function like() {
+            console.log("Item Liked!");
+        }
+
+        function save() {
+            console.log("Item Saved!");
+        }
+    </script>
+</main>
+</body>
+</html>
