@@ -18,12 +18,17 @@ import java.util.List;
 public class HomePageController {
 
     private String username;
-    account user = new account();
+
 
     @GetMapping("/home")
     public String home(Model model) {
-        model.addAttribute("username", user.getUsername());
+        account user = getUser();
+
+        String username = user.getUsername();
+        model.addAttribute("username", username);
         model.addAttribute("email", user.getEmail());
+
+        System.out.println(username + user.getEmail());
 
         Listing[] listings = getListings();
 
@@ -36,8 +41,39 @@ public class HomePageController {
         return "home";
     }
 
+    // TODO: getUser by what user just logged in "session cookie?"
+
+    //--TEST FUNCTION REMOVED SOON --
+    private account getUser() {
+        // Create a new SQLite connection using the database service
+        DatabaseService dbSrv = new DatabaseService();
+        Connection conn = dbSrv.getConnection();
+
+        try {
+            // Create the query
+            String sql = "SELECT * FROM account WHERE id = 2;";
+
+            // Execute the query
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+
+
+                int id = rs.getInt("id");
+                String username = rs.getString("username");
+                String email = rs.getString("email");
+            account user = new account(id, username, email);
+
+            // Return the listings as an array
+            return user;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
     private Listing[] getListings() {
         // Create a new SQLite connection using the database service
+        // TODO: IMPLEMENT PREPARED STATEMENTS
         DatabaseService dbSrv = new DatabaseService();
         Connection conn = dbSrv.getConnection();
 

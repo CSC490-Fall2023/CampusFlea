@@ -7,7 +7,7 @@ import java.time.Instant;
 //@Table(name = "account")
 public class account implements Serializable {
 
-    private Long id;
+    private int id;
 
     private String username;
 
@@ -23,11 +23,18 @@ public class account implements Serializable {
 
     private boolean isAdmin;
 
-    public Long getId() {
+    public account(int id, String username, String email){
+        this.id = id;
+        this.username = username;
+        this.email = email;
+    }
+
+
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -39,6 +46,7 @@ public class account implements Serializable {
         this.username = username;
     }
 
+    // TODO: setters should be private for security
     public String getPassword() {
         return password;
     }
