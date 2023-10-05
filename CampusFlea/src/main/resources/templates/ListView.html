@@ -20,7 +20,8 @@
         <div class="product-description">
             <span>Electronics</span> <!-- Replace with the product type -->
             <h1>Xbox Wireless Controller-Shock Blue</h1> <!-- Replace with product name -->
-            <p>Compatible with Xbox One X, Xbox One S, Xbox One, Windows 10</p> <!-- Replace with product description -->
+            <p>Compatible with Xbox One X, Xbox One S, Xbox One, Windows 10</p>
+            <!-- Replace with product description -->
         </div>
 
         <!-- Product Configuration -->
@@ -42,6 +43,11 @@
             <a href="#" class="contactSeller-btn">Contact Seller</a>
         </div>
     </div>
+    <div class="home-button" onclick="goToHomePage()">
+        <a href="home.html">
+            <img src="../Logos/homeIcon.png" alt="HomeButton">
+        </a>
+    </div>
     <script>
         function like() {
             console.log("Item Liked!");
@@ -50,6 +56,11 @@
         function save() {
             console.log("Item Saved!");
         }
+
+        function goToHomePage() {
+            window.location.href = "home.html";
+        }
+
     </script>
 </main>
 </body>
