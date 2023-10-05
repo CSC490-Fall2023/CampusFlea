@@ -27,8 +27,7 @@ public class HomePageController {
         model.addAttribute("username", user.getUsername());
         model.addAttribute("email", user.getEmail());
 
-
-        System.out.println(user.getUsername() + user.getEmail());
+        System.out.printf("Logged in (username=%s, email=%s)\n", user.getUsername(), user.getEmail());
 
         Listing[] listings = getListings();
 
@@ -38,7 +37,6 @@ public class HomePageController {
         }
         //add to model for ThymeLeaf to read
         model.addAttribute("listings", listings);
-
 
         return "home";
     }
