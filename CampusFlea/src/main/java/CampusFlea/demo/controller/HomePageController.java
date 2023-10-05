@@ -5,7 +5,7 @@ import CampusFlea.demo.services.DatabaseService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import CampusFlea.demo.model.account;
+import CampusFlea.demo.model.Account;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -22,7 +22,7 @@ public class HomePageController {
 
     @GetMapping("/home")
     public String home(Model model) {
-        account user = getUser();
+        Account user = getUser();
 
         model.addAttribute("username", user.getUsername());
         model.addAttribute("email", user.getEmail());
@@ -40,14 +40,13 @@ public class HomePageController {
         model.addAttribute("listings", listings);
 
 
-
         return "home";
     }
 
     // TODO: getUser by what user just logged in "session cookie?"
 
     //--TEST FUNCTION REMOVED SOON --
-    private account getUser() {
+    private Account getUser() {
         // Create a new SQLite connection using the database service
         DatabaseService dbSrv = new DatabaseService();
         Connection conn = dbSrv.getConnection();
@@ -61,10 +60,10 @@ public class HomePageController {
             ResultSet rs = stmt.executeQuery(sql);
 
 
-                int id = rs.getInt("id");
-                String username = rs.getString("username");
-                String email = rs.getString("email");
-            account user = new account(id, username, email);
+            int id = rs.getInt("id");
+            String username = rs.getString("username");
+            String email = rs.getString("email");
+            Account user = new Account(id, username, email);
 
             // Return the listings as an array
             return user;

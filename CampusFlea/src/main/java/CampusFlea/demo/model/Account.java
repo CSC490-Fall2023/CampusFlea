@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.time.Instant;
 
 //@Table(name = "account")
-public class account implements Serializable {
+public class Account implements Serializable {
 
     private int id;
 
@@ -23,7 +23,7 @@ public class account implements Serializable {
 
     private boolean isAdmin;
 
-    public account(int id, String username, String email){
+    public Account(int id, String username, String email) {
         this.id = id;
         this.username = username;
         this.email = email;
