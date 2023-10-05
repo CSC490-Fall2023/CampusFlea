@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>CampusFlea Home</title>
@@ -15,6 +15,8 @@
     </div>
     <div class="container">
         <div class="user-profile">
+<!--            THIS WILL BE REMOVED ONCE IMG IS ADDED-->
+<!--           TODO: Make PFP static so it does not move with text-->
             <span class="dots"></span>
                 <!--<img src="user-profile.jpg" alt="User Profile"> User profile picture should be loaded from DB;-->
                 <p><span th:text="${username}"></span></p> <!-- Username should be loaded from DB -->
@@ -24,17 +26,24 @@
     <div class="nav-links">
         <ul>
             <li><a class="active" href="#"><i class="fa-solid fa-store"></i>Browse All</a></li>
+<!--            TODO: Filter by selling category-->
             <li><a href="#"><i class="fa-solid fa-cart-shopping"></i>Selling</a></li>
+<!--            TODO: Filter by buying category-->
             <li><a href="#"><i class="fa-solid fa-comments-dollar"></i>Buying</a></li>
+<!--            TODO: Filter by trade category-->
             <li><a href="#"><i class="fa-regular fa-handshake"></i>Trades</a></li>
+<!--            TODO: Create Saved Page-->
             <li><a href="#"><i class="fa-solid fa-bookmark"></i>Saved</a></li>
+<!--            TODO: Create Link to Messages Page-->
             <li><a href="#"><i class="fa-solid fa-message"></i>Messages</a></li>
+<!--            TODO: Create settings page -->
             <li><a href="#"><i class="fa-solid fa-gear"></i>Settings</a></li>
         </ul>
     </div>
 </div>
 <div class="content">
     <div class="search-bar">
+<!--        TODO: Make Search function work-->
         <form action="#" method="POST"> <!-- action should link to endpoint which java handles with @WebServlet("/") -->
             <button type="submit"><i class="fa fa-search"></i></button>
             <input type="text" name="search_query" placeholder="Search..."> <!--"search_query" should be the request.getParameter("search_query"); -->
@@ -44,35 +53,40 @@
     <div class="grid-container">
         <!-- Repeat this block for each item -->
         <div class="grid-item">
-            <a href="#">
+            <th:block th:each="item : ${listings}">
+<!--            TODO: Make Link to Listing page by ID-->
+                <a href="@{/templates/ListView.html}">
+<!--                TODO: Make Image Link per List Item-->
+<!--                TODO: Style Grid properly-->
             <img th:src="@{/images/List Items/item.jpg}" alt="Item 1">
             <span class="grid-title">
-<!--                TODO: Build Grid View for dynamic loading of items -->
-                <p>Item 1 Title</p>
+                <p th:text="${item.title}"></p>
                 <p>$100</p>
             </span>
             </a>
-        </div>
-        <!-- Repeat this block for each item -->
-        <div class="grid-item">
-            <a href="#">
-                <img th:src="@{/images/List Items/item.jpg}" alt="Item 1">
-                <span class="grid-title">
-                <p>Item Title</p>
-                <p>$100</p>
-            </span>
-            </a>
-        </div>
-        <div class="grid-item">
-            <a href="#">
-                <img th:src="@{/images/List Items/item.jpg}" alt="Item 1">
-                <span class="grid-title">
-                <p>Item Title</p>
-                <p>$100</p>
-            </span>
-            </a>
+        </th:block>
         </div>
     </div>
+        <!-- Repeat this block for each item -->
+<!--        <div class="grid-item">-->
+<!--            <a href="#">-->
+<!--                <img th:src="@{/images/List Items/item.jpg}" alt="Item 1">-->
+<!--                <span class="grid-title">-->
+<!--                <p>Item Title</p>-->
+<!--                <p>$100</p>-->
+<!--            </span>-->
+<!--            </a>-->
+<!--        </div>-->
+<!--        <div class="grid-item">-->
+<!--            <a href="#">-->
+<!--                <img th:src="@{/images/List Items/item.jpg}" alt="Item 1">-->
+<!--                <span class="grid-title">-->
+<!--                <p>Item Title</p>-->
+<!--                <p>$100</p>-->
+<!--            </span>-->
+<!--            </a>-->
+<!--        </div>-->
+<!--    </div>-->
 </div>
 </body>
 </html>
