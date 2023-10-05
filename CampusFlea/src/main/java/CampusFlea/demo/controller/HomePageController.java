@@ -2,12 +2,11 @@ package CampusFlea.demo.controller;
 
 import CampusFlea.demo.model.Listing;
 import CampusFlea.demo.services.AccountService;
+import CampusFlea.demo.services.ListingService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import CampusFlea.demo.model.Account;
-
-import static CampusFlea.demo.services.ListingService.getAllListings;
 
 @Controller
 public class HomePageController {
@@ -22,7 +21,7 @@ public class HomePageController {
 
         System.out.printf("Logged in (username=%s, email=%s)\n", user.getUsername(), user.getEmail());
 
-        Listing[] listings = getAllListings();
+        Listing[] listings = ListingService.getAllListings();
 
         //print to console listings w/ id
         for (Listing listing : listings) {
