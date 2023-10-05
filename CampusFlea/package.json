@@ -26,7 +26,6 @@
     "@vaadin/vaadin-material-styles": "24.1.7",
     "@vaadin/vaadin-themable-mixin": "24.1.7",
     "construct-style-sheets-polyfill": "3.1.0",
-    "jquery": "^3.7.1",
     "lit": "2.7.6"
   },
   "devDependencies": {
