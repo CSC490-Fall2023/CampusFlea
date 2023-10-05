@@ -1,24 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-<<<<<<< HEAD
-=======
-  <component name="DBNavigator.Project.DataEditorManager">
-    <record-view-column-sorting-type value="BY_INDEX" />
-    <value-preview-text-wrapping value="false" />
-    <value-preview-pinned value="false" />
-  </component>
->>>>>>> 004b191aeca5ea9e7d3f60e0a68bc8db08bd2aae
   <component name="DBNavigator.Project.DatabaseBrowserManager">
     <autoscroll-to-editor value="false" />
     <autoscroll-from-editor value="true" />
     <show-object-properties value="true" />
     <loaded-nodes />
-<<<<<<< HEAD
-=======
-  </component>
-  <component name="DBNavigator.Project.DatabaseEditorStateManager">
-    <last-used-providers />
->>>>>>> 004b191aeca5ea9e7d3f60e0a68bc8db08bd2aae
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
     <open-files />
@@ -28,12 +14,6 @@
   </component>
   <component name="DBNavigator.Project.FileConnectionMappingManager">
     <mapping file-url="file://$PROJECT_DIR$/sql/campusflea.sql" connection-id="virtual-sqlite-connection" session-id="MAIN" current-schema="" />
-<<<<<<< HEAD
-=======
-  </component>
-  <component name="DBNavigator.Project.ScriptExecutionManager" clear-outputs="true">
-    <recently-used-interfaces />
->>>>>>> 004b191aeca5ea9e7d3f60e0a68bc8db08bd2aae
   </component>
   <component name="DBNavigator.Project.Settings">
     <connections />

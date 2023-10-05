@@ -55,7 +55,7 @@
         <div class="grid-item">
             <th:block th:each="item : ${listings}">
 <!--            TODO: Make Link to Listing page by ID-->
-                <a href="@{/templates/ListView.html}">
+                <a th:href="@{listing}">
 <!--                TODO: Make Image Link per List Item-->
 <!--                TODO: Style Grid properly-->
             <img th:src="@{/images/List Items/item.jpg}" alt="Item 1">
