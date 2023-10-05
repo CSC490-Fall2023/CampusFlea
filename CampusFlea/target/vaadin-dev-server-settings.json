@@ -1,0 +1,17 @@
+{
+  "frontendFolder": "E:/csc490/Project/CampusFlea/frontend",
+  "themeFolder": "themes",
+  "themeResourceFolder": "E:/csc490/Project/CampusFlea/frontend/generated/jar-resources",
+  "staticOutput": "target/classes/META-INF/VAADIN/webapp/VAADIN/static",
+  "generatedFolder": "generated",
+  "statsOutput": "target/classes/META-INF/VAADIN/webapp/../config/",
+  "frontendBundleOutput": "target/classes/META-INF/VAADIN/webapp/",
+  "devBundleOutput": "E:/csc490/Project/CampusFlea/src/main/dev-bundle/webapp",
+  "devBundleStatsOutput": "E:/csc490/Project/CampusFlea/src/main/dev-bundle/config",
+  "jarResourcesFolder": "E:/csc490/Project/CampusFlea/frontend/generated/jar-resources",
+  "themeName": "",
+  "clientServiceWorkerSource": "E:\\csc490\\Project\\CampusFlea\\target\\sw.ts",
+  "pwaEnabled": false,
+  "offlineEnabled": false,
+  "offlinePath": "'offline.html'"
+}
