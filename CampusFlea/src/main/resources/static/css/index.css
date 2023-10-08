@@ -1,5 +1,6 @@
 * {
     font-family: 'Roboto', sans-serif;
+    text-decoration: none;
 }
 
 body, ul, li {
@@ -11,16 +12,15 @@ body, ul, li {
 .sidebar {
     width: 250px;
     height: 100vh;
-    background-color: #333;
+    background-color: #2C313A;
     color: #fff;
     position: fixed;
     top: 0;
     left: 0;
-/*    display: flex;
+    display: flex;
     flex-direction: column;
-    align-items: center;*/
+    justify-content: space-between;
     z-index: 1;
-    /*padding-top: 20px;*/
 }
 
 .sidebar .logo img {
@@ -31,20 +31,37 @@ body, ul, li {
     margin-bottom: 20px;
 }
 
+.user-details {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+}
+
 .user-profile {
+    display: inline-block;
     text-align: center;
     margin-bottom: 20px;
 }
 
+.text-container{
+    margin-left: 5px;
+    gap: 10px;
+    float: right;
+}
+
 
 .container {
-    z-index: 2;
     display: flex;
     flex-direction: column;
     align-items: center;
     position: relative;
     top: -30px;
     align-items: center;
+}
+
+.container span{
+    display: flex;
+    vertically-align: middle;
 }
 
 .container .dots {
@@ -56,14 +73,54 @@ body, ul, li {
 
 }
 
-.container span{
-    display: flex;
-    vertically-align: middle;
-    float: right;
+.container #email{
+
 }
 
-.container #email{
-    padding-top: 40%;
+.sidebar-top {
+    background-color: #15171B;
+        height: 28.8%;
+        z-index: 2;
+}
+
+.sidebar-mid {
+    background-color: #2C313A; /* Second section color */
+}
+
+.sidebar-bottom {
+   padding-top: 20px;
+       background-color: #15171B;
+       display: flex;
+       align-items: left;
+       justify-content: left;
+       padding-bottom: 20px;
+}
+
+.signout-button {
+    background-color: #007BFF; /* Button background color */
+    color: #fff; /* Button text color */
+    border: none;
+    border-radius: 4px;
+    padding: 7px 10px;
+    font-size: 14px;
+    cursor: pointer;
+
+    transition: background-color 0.3s ease-in-out;
+}
+
+.signout-button:hover {
+    background-color: #0056b3; /* Button background color on hover */
+}
+
+/* Additional styling for a neumorphic effect */
+.signout-button {
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Center the button horizontally */
+.signout-button {
+    display: block;
+    margin-left: 15px;
 }
 
 .user-profile img {
@@ -102,7 +159,7 @@ body, ul, li {
 }
 
 .nav-links .active{
-      background-color:green;
+      background-color:#4A5160;
 }
 
 .nav-links a {
@@ -115,36 +172,77 @@ body, ul, li {
     padding-right: 5%;
 }
 
-/* Define the grid container */
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 items wide */
-    gap: 40px; /* Adjust the gap between items */
+    gap: 20px;
+    max-width: 1200px;
+    margin: 20px auto;
     padding: 20px;
 }
 
-.grid-item a {
+.grid-item {
+     display: grid;
+        grid: 350px 350px / repeat(3, 350px);
+        justify-content: center;
+        grid-gap: 50px;
+}
+
+.grid-item a:nth-child() {
+  height: 200px;
+  width: 200px;
+  grid-template-columns: 3;
+}
+
+.neumorphic-card {
+    background-color: #fff;
     text-decoration: none;
-    color: black;
-    transition: box-shadow .3s;
+    border-radius: 10px;
+    box-shadow: 5px 5px 15px #b8b8b8, -5px -5px 15px #ffffff;
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.2s ease-in-out;
 }
 
-.grid-item a:hover {
-    box-shadow: 0 8px 11px rgba(33,33,33,.4);
+.neumorphic-card:hover {
+    transform: translateY(-5px);
 }
 
-.grid-title {
-    margin-top: -5px;
-    display: flex;
-    justify-content: space-between;
-
-}
-
-.grid-item img {
+.neumorphic-card img {
     max-width: 100%;
     height: auto;
-    border: 3px solid orange;
+    border-radius: 10px;
 }
+
+h2 {
+    margin-top: 10px;
+    font-size: 1.2rem;
+    color: #43484D;
+    text-decoration: none;
+}
+
+.price {
+    color: #007BFF;
+    font-size: 1.2rem;
+    text-decoration: none;
+}
+
+.item-text{
+    display: flex;
+  flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+}
+
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: none;
+    border-radius: 10px; /* Rounded rectangle style */
+}
+
 
 .search-bar {
     display: flex;
@@ -168,7 +266,19 @@ body, ul, li {
     outline: none;
 }
 
-.search-bar button {
+.add-button{
+    float: right;
+    background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 50px; /* Rounded corners for the button */
+        width: 30px;
+        height: 30px;
+        margin-right: 5px;
+        cursor: pointer;
+}
+
+.search-button {
     background-color: #007bff;
     color: white;
     border: none;
@@ -181,4 +291,124 @@ body, ul, li {
 .content {
     margin-left: 250px; /* Match the width of the sidebar */
     padding: 20px;
+    background-color: #f0f0f0;
 }
+/* FILTER BUTTON*/
+
+.filter-button {
+    text-align: right;
+    padding: 10px;
+}
+
+#filter-callout {
+    display: none;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    position: absolute;
+    z-index: 1;
+    margin-top: 10px;
+     box-shadow: 0 0.3em 0.5em rgba(0,0,0, 0.4)
+}
+
+#filter-callout h2 {
+    margin-bottom: 10px;
+}
+
+#category-filter,
+#price-range {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+#apply-filter {
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.price-input{
+  width: 100%;
+  display: flex;
+  margin: 30px 0 35px;
+}
+.price-input .field{
+  display: flex;
+  width: 100%;
+  height: 45px;
+  align-items: center;
+}
+.field input{
+  width: 100%;
+  height: 100%;
+  outline: none;
+  font-size: 19px;
+  margin-left: 12px;
+  border-radius: 5px;
+  text-align: center;
+  border: 1px solid #999;
+  -moz-appearance: textfield;
+}
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+.price-input .separator{
+  width: 130px;
+  display: flex;
+  font-size: 19px;
+  align-items: center;
+  justify-content: center;
+}
+.slider{
+  height: 5px;
+  position: relative;
+  background: #ddd;
+  border-radius: 5px;
+}
+.slider .progress{
+  height: 100%;
+  left: 25%;
+  right: 25%;
+  position: absolute;
+  border-radius: 5px;
+  background: #17A2B8;
+}
+.range-input{
+  position: relative;
+}
+.range-input input{
+  position: absolute;
+  width: 100%;
+  height: 5px;
+  top: -5px;
+  background: none;
+  pointer-events: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+input[type="range"]::-webkit-slider-thumb{
+  height: 17px;
+  width: 17px;
+  border-radius: 50%;
+  background: #17A2B8;
+  pointer-events: auto;
+  -webkit-appearance: none;
+  box-shadow: 0 0 6px rgba(0,0,0,0.05);
+}
+input[type="range"]::-moz-range-thumb{
+  height: 17px;
+  width: 17px;
+  border: none;
+  border-radius: 50%;
+  background: #17A2B8;
+  pointer-events: auto;
+  -moz-appearance: none;
+  box-shadow: 0 0 6px rgba(0,0,0,0.05);
+}
+
+

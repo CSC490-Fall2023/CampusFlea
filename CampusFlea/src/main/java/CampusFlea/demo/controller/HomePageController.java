@@ -11,11 +11,11 @@ import static CampusFlea.demo.services.ListingService.getAllListings;
 
 @Controller
 public class HomePageController {
+    // TODO: Get userId from session cookies
+    int userId = 1;
+    Account user = AccountService.getAccount(userId);
     @GetMapping("/home")
     public String home(Model model) {
-        // TODO: Get userId from session cookies
-        int userId = 1;
-        Account user = AccountService.getAccount(userId);
 
         model.addAttribute("username", user.getUsername());
         model.addAttribute("email", user.getEmail());
@@ -32,5 +32,12 @@ public class HomePageController {
         model.addAttribute("listings", listings);
 
         return "home";
+    }
+
+    @GetMapping("/settings")
+    public String userSetting(Model model){
+        model.addAttribute("username", user.getUsername());
+        model.addAttribute("email", user.getEmail());
+        return "userSetting";
     }
 }

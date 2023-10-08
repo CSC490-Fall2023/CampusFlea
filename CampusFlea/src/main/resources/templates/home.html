@@ -9,6 +9,7 @@
 </head>
 <body>
 <div class="sidebar">
+    <div class="sidebar-top">
     <span class="bg-color2"></span>
     <div class="logo">
         <img th:src="@{/images/Logos/logo.png}" alt="Logo">
@@ -19,10 +20,18 @@
 <!--           TODO: Make PFP static so it does not move with text-->
             <span class="dots"></span>
                 <!--<img src="user-profile.jpg" alt="User Profile"> User profile picture should be loaded from DB;-->
-                <p><span th:text="${username}"></span></p> <!-- Username should be loaded from DB -->
+                <div class="text-container">
+                    <p>
+                    HardCoded Username
+<!--                    <span th:text="${username}"></span>-->
+                    </p> <!-- Username should be loaded from DB -->
+
                 <p id="email"><span th:text="${email}"></span></p>
+                </div>
         </div>
     </div>
+    </div>
+    <div class="sidebar-mid">
     <div class="nav-links">
         <ul>
             <li><a class="active" href="#"><i class="fa-solid fa-store"></i>Browse All</a></li>
@@ -37,56 +46,114 @@
 <!--            TODO: Create Link to Messages Page-->
             <li><a href="#"><i class="fa-solid fa-message"></i>Messages</a></li>
 <!--            TODO: Create settings page -->
-            <li><a href="#"><i class="fa-solid fa-gear"></i>Settings</a></li>
+            <li><a th:href="@{settings}"><i class="fa-solid fa-gear"></i>Settings</a></li>
         </ul>
     </div>
 </div>
+    <div class="sidebar-bottom">
+        <button class="signout-button">Sign Out</button>
+
+    </div>
+</div>
 <div class="content">
+<!--    #SEARCH BAR#-->
+    <div class="top-bar">
     <div class="search-bar">
 <!--        TODO: Make Search function work-->
         <form action="#" method="POST"> <!-- action should link to endpoint which java handles with @WebServlet("/") -->
-            <button type="submit"><i class="fa fa-search"></i></button>
+            <button class="search-button" type="submit"><i class="fa fa-search"></i></button>
             <input type="text" name="search_query" placeholder="Search..."> <!--"search_query" should be the request.getParameter("search_query"); -->
 
         </form>
+
+        <!--    #FILTER BTN#-->
+        <div class="filter-button">
+            <button id="open-filter"><i class="fa-solid fa-filter"></i></button>
+            <div class="filter-callout" id="filter-callout">
+                <h2>Filter Options</h2>
+                <label for="category-filter">Category:</label>
+                <select id="category-filter">
+                    <option value="all">All</option>
+                    <option value="electronics">Electronics</option>
+                    <option value="clothing">Clothing</option>
+                    <option value="furniture">Furniture</option>
+                </select>
+<!--                <div class="price-input">-->
+<!--                    <div class="field">-->
+<!--                        <span>Min</span>-->
+<!--                        <input type="number" class="input-min" value="2500">-->
+<!--                    </div>-->
+<!--                    <div class="separator">-</div>-->
+<!--                    <div class="field">-->
+<!--                        <span>Max</span>-->
+<!--                        <input type="number" class="input-max" value="7500">-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="slider">-->
+<!--                    <div class="progress"></div>-->
+<!--                </div>-->
+<!--                <div class="range-input">-->
+<!--                    <input type="range" class="range-min" min="0" max="10000" value="2500" step="100">-->
+<!--                    <input type="range" class="range-max" min="0" max="10000" value="7500" step="100">-->
+<!--                </div>-->
+                <button id="apply-filter">Apply</button>
+            </div>
+
+            </div>
     </div>
+        <!--    #ADD BTN#-->
+        <button class="add-button"><i class="fa-solid fa-plus"></i></button>
+    </div>
+
+
+<!--    #GRID-CONTAINER# -->
     <div class="grid-container">
-        <!-- Repeat this block for each item -->
+        <!-- Repeat this container as needed -->
         <div class="grid-item">
             <th:block th:each="item : ${listings}">
-<!--            TODO: Make Link to Listing page by ID-->
-                <a th:href="@{listing}">
-<!--                TODO: Make Image Link per List Item-->
-<!--                TODO: Style Grid properly-->
-            <img th:src="@{/images/List Items/item.jpg}" alt="Item 1">
-            <span class="grid-title">
-                <p th:text="${item.title}"></p>
-                <p>$100</p>
-            </span>
-            </a>
-        </th:block>
+                <div class="neumorphic-card">
+                    <a th:href="@{listing}">
+                        <img th:src="@{/images/List Items/item.jpg}" alt="Product Image">
+                        <div class="item-text">
+                            <h2 th:text="${item.title}"></h2>
+                            <p class="price">$99.99</p>
+                        </div>
+                    </a>
+                </div>
+            </th:block>
         </div>
-    </div>
-        <!-- Repeat this block for each item -->
-<!--        <div class="grid-item">-->
-<!--            <a href="#">-->
-<!--                <img th:src="@{/images/List Items/item.jpg}" alt="Item 1">-->
-<!--                <span class="grid-title">-->
-<!--                <p>Item Title</p>-->
-<!--                <p>$100</p>-->
-<!--            </span>-->
-<!--            </a>-->
-<!--        </div>-->
-<!--        <div class="grid-item">-->
-<!--            <a href="#">-->
-<!--                <img th:src="@{/images/List Items/item.jpg}" alt="Item 1">-->
-<!--                <span class="grid-title">-->
-<!--                <p>Item Title</p>-->
-<!--                <p>$100</p>-->
-<!--            </span>-->
-<!--            </a>-->
-<!--        </div>-->
-<!--    </div>-->
 </div>
+</div>
+<script>
+const openFilterButton = document.getElementById("open-filter");
+const filterCallout = document.getElementById("filter-callout");
+const applyFilterButton = document.getElementById("apply-filter");
+const categoryFilter = document.getElementById("category-filter");
+const priceRange = document.getElementById("price-range");
+const priceLabel = document.getElementById("price-label");
+const priceValue = document.getElementById("price-value");
+
+// Function to open the filter callout
+openFilterButton.addEventListener("click", () => {
+    filterCallout.style.display = "block";
+});
+
+// Function to close the filter callout
+applyFilterButton.addEventListener("click", () => {
+    filterCallout.style.display = "none";
+    // Add your filtering logic here based on categoryFilter.value and priceRange.value
+    // You can update the marketplace grid accordingly
+});
+
+// Update the price label as the price range slider is moved
+priceRange.addEventListener("input", () => {
+    priceValue.textContent = priceRange.value;
+});
+
+
+</script>
+
+
+
 </body>
 </html>
