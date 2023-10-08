@@ -12,7 +12,9 @@ public class AccountService {
 
         try {
             // Create the query
-            String sql = "SELECT * FROM account WHERE id = ?;";
+            //TODO: Set ID based on Login
+            //id=1 is hardcoded for TESTING PURPOSES
+            String sql = "SELECT * FROM account WHERE id = 2;";
 
             // Execute the query
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
