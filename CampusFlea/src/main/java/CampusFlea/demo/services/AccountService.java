@@ -2,10 +2,9 @@ package CampusFlea.demo.services;
 
 import CampusFlea.demo.model.Account;
 
-import java.nio.charset.Charset;
+import java.security.MessageDigest;
 import java.sql.*;
 import java.time.Instant;
-import java.util.Random;
 
 public class AccountService {
     public static Account getAccount(int userId) {
@@ -52,6 +51,9 @@ public class AccountService {
             // Create the secret salt
             String salt = generateSalt();
 
+            // Encrypt the password
+            String encryptedPassword = encryptPassword(password, email);
+
             // Get the created time
             int timeNow = (int)(Instant.now().getEpochSecond() / 1000);
 
@@ -60,9 +62,9 @@ public class AccountService {
             // Prepare the query
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
             preparedStatement.setString(1, username);
-            preparedStatement.setString(2, password);
-            preparedStatement.setString(3, email);
-            preparedStatement.setString(4, salt);
+            preparedStatement.setString(2, encryptedPassword);
+            preparedStatement.setString(3, salt);
+            preparedStatement.setString(4, email);
             preparedStatement.setInt(5, timeNow);
             preparedStatement.setInt(6, timeNow);
 
@@ -76,9 +78,84 @@ public class AccountService {
     }
 
     private static String generateSalt() {
-        byte[] array = new byte[7]; // length is bounded by 7
-        new Random().nextBytes(array);
-        String generatedString = new String(array, Charset.forName("UTF-8"));
-        return generatedString;
+        String salt = "";
+
+        // Generate a 7-length String
+        for (int i = 0; i < 7; i++) {
+            // Generate random ASCII 33 to 126
+            int ascii = (int)(33 + (Math.random() * 93));
+            System.out.printf("ascii=%d\n", ascii);
+            salt += String.valueOf((char)ascii);
+        }
+        return salt;
+    }
+
+    private static String encryptPassword(String password, String salt) {
+        // Hash the password
+        String passwordMD5 = getMD5(password);
+
+        // Hash the salt
+        String saltMD5 = getMD5(salt);
+
+        // Hash both combined for further security
+        return getMD5(passwordMD5 + saltMD5);
+    }
+
+    private static String getMD5(String input) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            byte[] hash = md.digest(input.getBytes());
+            return new String(hash);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public static boolean isValidCredentials(String username, String password) {
+        // Get the encrypted password and salt
+        String sql = "SELECT password, salt FROM accounts WHERE username = ?;";
+
+        // Create the connection
+        DatabaseService dbSrv = new DatabaseService();
+        Connection conn = dbSrv.getConnection();
+
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setString(1, username);
+
+            // Execute the query
+            ResultSet rs = preparedStatement.executeQuery();
+
+            // Get the password and salt from query results
+            String encryptedPassword = rs.getString("password");
+            String salt = rs.getString("salt");
+
+            // Encrypt the user's entered password
+            String userEncryptedPassword = encryptPassword(password, salt);
+            return userEncryptedPassword.equals(encryptedPassword);
+        } catch (SQLException e) {
+            return false;
+        }
+    }
+
+    public static int getId(String username) {
+        // Create the query string
+        String sql = "SELECT id FROM accounts WHERE username = ?;";
+
+        // Create the connection
+        DatabaseService dbSrv = new DatabaseService();
+        Connection conn = dbSrv.getConnection();
+
+        // Prepare the query
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setString(1, username);
+
+            // Execute the query
+            ResultSet rs = preparedStatement.executeQuery();
+            return rs.getInt("id");
+        } catch (SQLException e) {
+            return -1;
+        }
     }
 }
