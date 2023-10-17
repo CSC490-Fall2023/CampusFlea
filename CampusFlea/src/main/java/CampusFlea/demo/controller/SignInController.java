@@ -9,10 +9,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class SignInController {
-//    @GetMapping("/signin")
-//    public String signin(Model model) {
-//        return "signin";
-//    }
     @GetMapping("/signin")
     public String signin(Model model) {
         model.addAttribute("user", new Account());
@@ -21,6 +17,8 @@ public class SignInController {
 
     @PostMapping("/signin")
     public String processSignIn(Account account, BindingResult bindingResult){
+        System.out.printf("Username=%s, password=%s", account.getUsername(), account.getPassword());
+
         //TODO: Change to check DB (HARDCODED)
         String validUser = "user_test";
         String validPass = "pass";
@@ -28,9 +26,8 @@ public class SignInController {
         if(account.getUsername().equals(validUser) || account.getPassword().equals(validPass)){
             return "redirect:/home";
         }
-        else
-            return "#";
 
+        System.out.println("Username/password not valid!");
+        return "#";
     }
-
 }

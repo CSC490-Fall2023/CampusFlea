@@ -1,14 +1,13 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link th:href="@{/css/signin.css}" rel="stylesheet" >
-    <title>Login</title>
+    <title>Signup</title>
 </head>
 <body>
 
 <div class="container">
-    <form th:action="@{/signin}" th:object="${user}" method="post">
+    <form th:action="@{/signup}" th:object="${user}" method="post">
         <!-- Username -->
         <label for="user">Username:</label><br>
         <input type="text" id="user" name="user" th:field="*{username}" required><br>
@@ -17,10 +16,14 @@
         <label for="pass">Password:</label><br>
         <input type="password" id="pass" name="pass" th:field="*{password}" required><br>
 
-        <!-- Login Button -->
+        <!-- Email -->
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email" th:field="*{email}" required><br>
+
+        <!-- Signup Button -->
         <div class="btn-signin">
             <button type="submit">
-                Log In
+                Signup
             </button>
         </div>
     </form>
