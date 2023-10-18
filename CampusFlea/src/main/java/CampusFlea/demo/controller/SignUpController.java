@@ -2,6 +2,7 @@ package CampusFlea.demo.controller;
 
 import CampusFlea.demo.model.Account;
 import CampusFlea.demo.services.AccountService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,7 +18,7 @@ public class SignUpController {
     }
 
     @PostMapping("/signup")
-    public String processSignUp(Account account, BindingResult bindingResult){
+    public String processSignUp(Account account, HttpSession session){
         System.out.printf("Username=%s, password=%s, Email=%s\n", account.getUsername(), account.getPassword(), account.getEmail());
 
         // Create the account
@@ -25,6 +26,13 @@ public class SignUpController {
 
         // Redirect the new user to the home page
         if (created) {
+            // Create a new session key
+            int userId = AccountService.getId(account.getUsername());
+            String sessionKey = AccountService.createLoginSession(userId);
+
+            // Save the session key
+            session.setAttribute("session_key", sessionKey);
+
             return "redirect:/home";
         }
 

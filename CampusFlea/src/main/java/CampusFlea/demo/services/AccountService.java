@@ -84,7 +84,6 @@ public class AccountService {
         for (int i = 0; i < 7; i++) {
             // Generate random ASCII 33 to 126
             int ascii = (int)(33 + (Math.random() * 93));
-            System.out.printf("ascii=%d\n", ascii);
             salt += String.valueOf((char)ascii);
         }
         return salt;
@@ -139,9 +138,48 @@ public class AccountService {
 
             // Encrypt the user's entered password
             String userEncryptedPassword = encryptPassword(password, salt);
-            return userEncryptedPassword.equals(encryptedPassword);
+
+            // Determine if is valid
+            boolean isValid = userEncryptedPassword.equals(encryptedPassword);
+
+            // Close the connection
+            conn.close();
+
+            return isValid;
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
             return false;
+        }
+    }
+
+    public static String createLoginSession(int userId) {
+        // Create a new entry, or update the existing entry if present
+        String sql = "INSERT OR REPLACE INTO login_sessions (uid, key) VALUES(?, ?);";
+
+        // Create the connection
+        DatabaseService dbSrv = new DatabaseService();
+        Connection conn = dbSrv.getConnection();
+
+        // Create a random key
+        String sessionKey = generateSalt();
+
+        // Prepare the query
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setInt(1, userId);
+            preparedStatement.setString(2, sessionKey);
+
+            // Execute the query
+            preparedStatement.executeUpdate();
+
+            // Close the connection
+            conn.close();
+
+            // Return the session key for the user to use
+            return sessionKey;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return null;
         }
     }
 
@@ -160,7 +198,36 @@ public class AccountService {
 
             // Execute the query
             ResultSet rs = preparedStatement.executeQuery();
-            return rs.getInt("id");
+
+            // Get the id
+            int id = rs.getInt("id");
+
+            // Close the connection
+            conn.close();
+
+            // Return the id
+            return id;
+        } catch (SQLException e) {
+            return -1;
+        }
+    }
+
+    public static int getUserIdFromSessionKey(String sessionKey) {
+        // Create the query
+        String sql = "SELECT uid FROM login_sessions WHERE key = ?;";
+
+        // Create the connection
+        DatabaseService dbSrv = new DatabaseService();
+        Connection conn = dbSrv.getConnection();
+
+        // Prepare the query
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setString(1, sessionKey);
+
+            // Execute the query
+            ResultSet rs = preparedStatement.executeQuery();
+            return rs.getInt("uid");
         } catch (SQLException e) {
             return -1;
         }
