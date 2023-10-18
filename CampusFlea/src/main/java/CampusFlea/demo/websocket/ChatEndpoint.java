@@ -1,85 +1,97 @@
 package CampusFlea.demo.websocket;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import CampusFlea.demo.config.GetHttpSessionConfig;
 import CampusFlea.demo.utils.MessageUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import jakarta.servlet.http.HttpSession;
-import jakarta.websocket.*;
+
+import java.sql.Date;
 import java.util.Map;
-import jakarta.websocket.server.ServerEndpoint;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
-import java.lang.Throwable;
 import CampusFlea.demo.websocket.pojo.Message;
 import com.alibaba.fastjson.JSON;
-import CampusFlea.demo.utils.MessageUtils;
+import jakarta.websocket.Session;
+import jakarta.websocket.server.ServerEndpoint;
+import jakarta.websocket.*;
 
-@ServerEndpoint(value="/chat",configurator= GetHttpSessionConfig.class)
+@ServerEndpoint(value = "/chat",configurator = GetHttpSessionConfig.class)
 @Component
 public class ChatEndpoint {
+    @Autowired
+    private ChatService chatService;
+
+    private static final Map<String,Session> onlineUsers = new ConcurrentHashMap<>();
+
     private HttpSession httpSession;
-    private static final Map<String,Session> onlineUsers= new ConcurrentHashMap<>();
+
+
     @OnOpen
-    public void onOpen(Session session,EndpointConfig config){
-        this.httpSession=(HttpSession) config.getUserProperties().get(HttpSession.class.getName());
-        String user=(String) this.httpSession.getAttribute("user");
-        //save username
+    public void onOpen(Session session, EndpointConfig config) {
+        //storage the session
+        this.httpSession = (HttpSession) config.getUserProperties().get(HttpSession.class.getName());
+        String user = (String) this.httpSession.getAttribute("user");
         onlineUsers.put(user,session);
-        //send system message
-       String message= MessageUtils.getMessage(true,null,getFriends());
-       Broadcast(message);
-    }
-    //return online friends
-    private Set<String> getFriends(){
-
-        return onlineUsers.keySet();
+        //broadcast the message like someone online or offline
+        String message = MessageUtils.getMessage(true,null,getFriends());
+        broadcastAllUsers(message);
     }
 
-    private void Broadcast(String message) {
+    public Set getFriends() {
+        Set<String> set = onlineUsers.keySet();
+        return set;
+    }
+
+    private void broadcastAllUsers(String message) {
         try {
-            //Traversal map
-            Set<Map.Entry<String,Session>> entries= onlineUsers.entrySet();
-
-            for (Map.Entry<String,Session>entry:entries) {
-                Session session=entry.getValue();
+            //travel map set
+            Set<Map.Entry<String, Session>> entries = onlineUsers.entrySet();
+            for (Map.Entry<String, Session> entry : entries) {
+                Session session = entry.getValue();
+                //sender message
                 session.getBasicRemote().sendText(message);
             }
         } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
-    /**
-     * Browser send message to service
-     * @param message
-     */
 
     @OnMessage
-    public void onMessage(String message){
-    //send message to target users
-        //JSON transfer java object(message)
+    public void onMessage(String message) {
         try {
+            //send message to users
             Message msg = JSON.parseObject(message, Message.class);
             //get receiver name
             String toName = msg.getToName();
-            String mes = msg.getMessage();
-            Session session = onlineUsers.get(toName);
+            String mess = msg.getMessage();
             String user = (String) this.httpSession.getAttribute("user");
-            String sendmessage = MessageUtils.getMessage(false, user, mes);
-            session.getBasicRemote().sendText(sendmessage);
-        }catch (Exception e){
-            e.printStackTrace();
+            //save message to database
+           ChatMessage chatMessage = new ChatMessage();
+            chatMessage.setSender(user);
+            chatMessage.setReceiver(toName);
+            chatMessage.setMessage(mess);
+            chatMessage.setTime(new Date(System.currentTimeMillis()));
+            //send message
+            Session session = onlineUsers.get(toName);
+            String msg1 = MessageUtils.getMessage(false, user, mess);
+            session.getBasicRemote().sendText(msg1);
+
+        } catch (Exception e) {
+
         }
     }
 
-    /**
-     * close websocket
-     * @param session
-     */
+
     @OnClose
     public void onClose(Session session) {
-        // remove users' session from onlineUsers
+
         String user = (String) this.httpSession.getAttribute("user");
         onlineUsers.remove(user);
+        //broadcast that someone offline
+        String message = MessageUtils.getMessage(true,null,getFriends());
+       // broadcastAllUsers(message);
     }
-    }
+}
+
+
+
