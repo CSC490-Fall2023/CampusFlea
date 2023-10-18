@@ -27,9 +27,9 @@ public class HomePageController {
         for (Listing listing : listings) {
             System.out.printf("Showing listing (id=%d, title=%s)\n", listing.getId(), listing.getTitle());
         }
-        //add to model for ThymeLeaf to read
-        model.addAttribute("listings", listings);
 
+        // Add to model for ThymeLeaf to read
+        model.addAttribute("listings", listings);
         return "home";
     }
 
