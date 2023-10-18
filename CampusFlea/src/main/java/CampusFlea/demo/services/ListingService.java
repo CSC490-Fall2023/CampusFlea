@@ -17,7 +17,7 @@ public class ListingService {
         try {
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
             preparedStatement.setInt(1, listingId);
-            ResultSet rs = preparedStatement.executeQuery(sql);
+            ResultSet rs = preparedStatement.executeQuery();
 
             String title = rs.getString("title");
             String description = rs.getString("description");

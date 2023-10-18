@@ -2,40 +2,60 @@ package CampusFlea.demo.controller;
 
 import CampusFlea.demo.model.Listing;
 import CampusFlea.demo.services.AccountService;
+import CampusFlea.demo.services.ListingService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import CampusFlea.demo.model.Account;
 
-import static CampusFlea.demo.services.ListingService.getAllListings;
-
 @Controller
 public class HomePageController {
-    // TODO: Get userId from session cookies
-    int userId = 1;
-    Account user = AccountService.getAccount(userId);
     @GetMapping("/home")
-    public String home(Model model) {
+    public String home(Model model, HttpSession session) {
+        // Get the user's session key
+        String sessionKey = (String)session.getAttribute("session_key");
 
+        // Check if session key is set
+        if (sessionKey == null) {
+            System.out.println("Did not find session key");
+            return "redirect:/signin";
+        }
+
+        System.out.printf("Found session key: %s\n", sessionKey);
+
+        // Get the user id based on the session key
+        int userId = AccountService.getUserIdFromSessionKey(sessionKey);
+
+        // Check that the session key is valid (redirect them to login otherwise)
+        if (userId == -1) {
+            return "redirect:/signin";
+        }
+
+        // Create the account object from the found userId
+        Account user = AccountService.getAccount(userId);
+
+        // Set the user and email attributes
         model.addAttribute("username", user.getUsername());
         model.addAttribute("email", user.getEmail());
 
         System.out.printf("Logged in (username=%s, email=%s)\n", user.getUsername(), user.getEmail());
 
-        Listing[] listings = getAllListings();
+        Listing[] listings = ListingService.getAllListings();
 
         //print to console listings w/ id
         for (Listing listing : listings) {
             System.out.printf("Showing listing (id=%d, title=%s)\n", listing.getId(), listing.getTitle());
         }
-        //add to model for ThymeLeaf to read
-        model.addAttribute("listings", listings);
 
+        // Add to model for ThymeLeaf to read
+        model.addAttribute("listings", listings);
         return "home";
     }
 
     @GetMapping("/settings")
     public String userSetting(Model model){
+        Account user = AccountService.getAccount(1);
         model.addAttribute("username", user.getUsername());
         model.addAttribute("email", user.getEmail());
         return "userSetting";
