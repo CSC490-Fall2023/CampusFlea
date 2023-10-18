@@ -52,7 +52,7 @@ public class AccountService {
             String salt = generateSalt();
 
             // Encrypt the password
-            String encryptedPassword = encryptPassword(password, email);
+            String encryptedPassword = encryptPassword(password, salt);
 
             // Get the created time
             int timeNow = (int)(Instant.now().getEpochSecond() / 1000);
@@ -103,9 +103,16 @@ public class AccountService {
 
     private static String getMD5(String input) {
         try {
+            // Create the hash
             MessageDigest md = MessageDigest.getInstance("MD5");
             byte[] hash = md.digest(input.getBytes());
-            return new String(hash);
+
+            // Convert byte array to String
+            StringBuilder sb = new StringBuilder();
+            for (byte b : hash) {
+                sb.append(String.format("%02x", b));
+            }
+            return sb.toString();
         } catch (Exception e) {
             return null;
         }
