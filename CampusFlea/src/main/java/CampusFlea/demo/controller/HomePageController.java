@@ -33,10 +33,11 @@ public class HomePageController {
         return "home";
     }
 
-    /*@GetMapping("/settings")
+    @GetMapping("/settings")
     public String userSetting(Model model){
+        Account user = AccountService.getAccount(1);
         model.addAttribute("username", user.getUsername());
         model.addAttribute("email", user.getEmail());
         return "userSetting";
-    }*/
+    }
 }
