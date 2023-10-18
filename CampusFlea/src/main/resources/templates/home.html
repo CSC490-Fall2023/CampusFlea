@@ -6,6 +6,7 @@
     <link th:href="@{/css/index.css}" rel="stylesheet" >
     <script src="https://kit.fontawesome.com/9113ff3c75.js" crossorigin="anonymous"></script>
     <link href="../src/main/resources/static/css/index.css" rel="stylesheet" > <!-- FOR DEV PURPOSES-->
+
 </head>
 <body>
 <div class="sidebar">
@@ -21,11 +22,11 @@
             <span class="dots"></span>
                 <!--<img src="user-profile.jpg" alt="User Profile"> User profile picture should be loaded from DB;-->
                 <div class="text-container">
-                    <p>
+                    <a th:href="@{profile}"><p>
                     HardCoded Username
 <!--                    <span th:text="${username}"></span>-->
                     </p> <!-- Username should be loaded from DB -->
-
+                    </a>
                 <p id="email"><span th:text="${email}"></span></p>
                 </div>
         </div>
@@ -34,13 +35,13 @@
     <div class="sidebar-mid">
     <div class="nav-links">
         <ul>
-            <li><a class="active" href="#"><i class="fa-solid fa-store"></i>Browse All</a></li>
+            <li><a class="active nav-item"  href="#"><i class="fa-solid fa-store"></i>Browse All</a></li>
 <!--            TODO: Filter by selling category-->
-            <li><a href="#"><i class="fa-solid fa-cart-shopping"></i>Selling</a></li>
+            <li><a href="#" class="nav-item"><i class="fa-solid fa-cart-shopping"></i>Selling</a></li>
 <!--            TODO: Filter by buying category-->
-            <li><a href="#"><i class="fa-solid fa-comments-dollar"></i>Buying</a></li>
+            <li><a href="#" class="nav-item"><i class="fa-solid fa-comments-dollar"></i>Buying</a></li>
 <!--            TODO: Filter by trade category-->
-            <li><a href="#"><i class="fa-regular fa-handshake"></i>Trades</a></li>
+            <li><a href="#" class="nav-item"><i class="fa-regular fa-handshake"></i>Trades</a></li>
 <!--            TODO: Create Saved Page-->
             <li><a href="#"><i class="fa-solid fa-bookmark"></i>Saved</a></li>
 <!--            TODO: Create Link to Messages Page-->
@@ -48,6 +49,7 @@
 <!--            TODO: Create settings page -->
             <li><a th:href="@{settings}"><i class="fa-solid fa-gear"></i>Settings</a></li>
         </ul>
+        <script th:src="@{/js/navScript.js}"></script>
     </div>
 </div>
     <div class="sidebar-bottom">
@@ -71,31 +73,29 @@
             <button id="open-filter"><i class="fa-solid fa-filter"></i></button>
             <div class="filter-callout" id="filter-callout">
                 <h2>Filter Options</h2>
-                <label for="category-filter">Category:</label>
-                <select id="category-filter">
-                    <option value="all">All</option>
-                    <option value="electronics">Electronics</option>
-                    <option value="clothing">Clothing</option>
-                    <option value="furniture">Furniture</option>
-                </select>
-<!--                <div class="price-input">-->
-<!--                    <div class="field">-->
-<!--                        <span>Min</span>-->
-<!--                        <input type="number" class="input-min" value="2500">-->
-<!--                    </div>-->
-<!--                    <div class="separator">-</div>-->
-<!--                    <div class="field">-->
-<!--                        <span>Max</span>-->
-<!--                        <input type="number" class="input-max" value="7500">-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="slider">-->
-<!--                    <div class="progress"></div>-->
-<!--                </div>-->
-<!--                <div class="range-input">-->
-<!--                    <input type="range" class="range-min" min="0" max="10000" value="2500" step="100">-->
-<!--                    <input type="range" class="range-max" min="0" max="10000" value="7500" step="100">-->
-<!--                </div>-->
+                <div class="filter-section-top">
+                    <h3>Category</h3>
+                    <hr>
+                    <label>
+                        <input type="checkbox" name="category" value="electronics"> Electronics
+                    </label>
+                    <label>
+                        <input type="checkbox" name="category" value="clothing"> Clothing
+                    </label>
+                    <label>
+                        <input type="checkbox" name="category" value="furniture"> Furniture
+                    </label>
+                </div>
+                <div class="filter-section-slide">
+                    <h3>Price Range</h3>
+                    <hr>
+                    <label for="min-price">Min:</label>
+                    <input type="number" id="min-price" name="min-price" min="0">
+                    <label for="max-price">Max:</label>
+                    <input type="number" id="max-price" name="max-price" min="0">
+                    <input type="range" id="price-range" name="price-range" min="0" max="1000">
+                    <p id="price-label">Price: <span id="price-value">0</span></p>
+                </div>
                 <button id="apply-filter">Apply</button>
             </div>
 
@@ -128,8 +128,9 @@
 const openFilterButton = document.getElementById("open-filter");
 const filterCallout = document.getElementById("filter-callout");
 const applyFilterButton = document.getElementById("apply-filter");
-const categoryFilter = document.getElementById("category-filter");
-const priceRange = document.getElementById("price-range");
+const minPriceInput = document.getElementById("min-price");
+const maxPriceInput = document.getElementById("max-price");
+const priceRangeInput = document.getElementById("price-range");
 const priceLabel = document.getElementById("price-label");
 const priceValue = document.getElementById("price-value");
 
@@ -141,15 +142,25 @@ openFilterButton.addEventListener("click", () => {
 // Function to close the filter callout
 applyFilterButton.addEventListener("click", () => {
     filterCallout.style.display = "none";
-    // Add your filtering logic here based on categoryFilter.value and priceRange.value
+    // Add your filtering logic here based on selected options and price range
     // You can update the marketplace grid accordingly
 });
 
 // Update the price label as the price range slider is moved
-priceRange.addEventListener("input", () => {
-    priceValue.textContent = priceRange.value;
+priceRangeInput.addEventListener("input", () => {
+    priceValue.textContent = priceRangeInput.value;
 });
 
+// Update the price range slider when the min or max input fields change
+minPriceInput.addEventListener("input", () => {
+    priceRangeInput.value = minPriceInput.value;
+    priceValue.textContent = minPriceInput.value;
+});
+
+maxPriceInput.addEventListener("input", () => {
+    priceRangeInput.value = maxPriceInput.value;
+    priceValue.textContent = maxPriceInput.value;
+});
 
 </script>
 

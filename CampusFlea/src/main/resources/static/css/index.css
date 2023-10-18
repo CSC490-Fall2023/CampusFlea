@@ -47,6 +47,17 @@ body, ul, li {
     margin-left: 5px;
     gap: 10px;
     float: right;
+    color:white;
+    text-decoration:none;
+}
+
+.text-container p{
+    color:white;
+}
+
+.filter-button button{
+    border: none;
+    color: gray;
 }
 
 
@@ -197,7 +208,7 @@ body, ul, li {
     background-color: #fff;
     text-decoration: none;
     border-radius: 10px;
-    box-shadow: 5px 5px 15px #b8b8b8, -5px -5px 15px #ffffff;
+    box-shadow: 1px 1px 5px #b8b8b8, -1px -1px 5px #ffffff;
     padding: 20px;
     text-align: center;
     transition: transform 0.2s ease-in-out;
@@ -298,22 +309,46 @@ h2 {
 .filter-button {
     text-align: right;
     padding: 10px;
+    cursor: pointer;
+
 }
 
 #filter-callout {
     display: none;
-    background-color: #fff;
+    background-color: #fff; /* Dark background color */
     border-radius: 10px;
+    box-shadow: 5px 5px 15px #b8b8b8, -5px -5px 15px #f0f0f0;
     padding: 20px;
-    text-align: center;
+    text-align: left;
     position: absolute;
-    z-index: 1;
     margin-top: 10px;
-     box-shadow: 0 0.3em 0.5em rgba(0,0,0, 0.4)
+    z-index: 1;
+    width: 250px; /* Adjust the width as needed */
+    color: black;
+}
+
+.filter-section-slide {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.filter-section-top {
+    display: flex;
+    flex-direction: column;
+}
+
+.filter-section-slide label {
+    margin: 10px 0 5px 0;
 }
 
 #filter-callout h2 {
     margin-bottom: 10px;
+}
+
+#filter-callout h3 {
+    margin: 0;
+    margin-top: 10px;
 }
 
 #category-filter,
