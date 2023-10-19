@@ -64,19 +64,19 @@ public class HomePageController {
     @GetMapping("/profile")
     public String profile(Model model) {
 
-        model.addAttribute("username", user.getUsername());
-        model.addAttribute("email", user.getEmail());
-
-        System.out.printf("Logged in (username=%s, email=%s)\n", user.getUsername(), user.getEmail());
-
-        Listing[] listings = getAllListings();
-
-        //print to console listings w/ id
-        for (Listing listing : listings) {
-            System.out.printf("Showing listing (id=%d, title=%s)\n", listing.getId(), listing.getTitle());
-        }
-        //add to model for ThymeLeaf to read
-        model.addAttribute("listings", listings);
+//        model.addAttribute("username", user.getUsername());
+//        model.addAttribute("email", user.getEmail());
+//
+//        System.out.printf("Logged in (username=%s, email=%s)\n", user.getUsername(), user.getEmail());
+//
+//        Listing[] listings = getAllListings();
+//
+//        //print to console listings w/ id
+//        for (Listing listing : listings) {
+//            System.out.printf("Showing listing (id=%d, title=%s)\n", listing.getId(), listing.getTitle());
+//        }
+//        //add to model for ThymeLeaf to read
+//        model.addAttribute("listings", listings);
 
         return "profile";
     }
