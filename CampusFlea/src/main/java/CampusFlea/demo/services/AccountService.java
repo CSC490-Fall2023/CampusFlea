@@ -59,19 +59,21 @@ public class AccountService {
             // Execute the query
             ResultSet rs = preparedStatement.executeQuery();
 
-            int id = rs.getInt("id");
-            String username = rs.getString("username");
-            String password = rs.getString("password");
-            String salt = rs.getString("salt");
-            String email = rs.getString("email");
-            int createdOn = rs.getInt("created_time");
-            int lastLogin = rs.getInt("last_login");
-            String bookmarks = rs.getString("bookmarks");
-            boolean isAdmin = rs.getBoolean("admin");
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String username = rs.getString("username");
+                String password = rs.getString("password");
+                String salt = rs.getString("salt");
+                String email = rs.getString("email");
+                int createdOn = rs.getInt("created_time");
+                int lastLogin = rs.getInt("last_login");
+                String bookmarks = rs.getString("bookmarks");
+                boolean isAdmin = rs.getBoolean("admin");
 
-            // Return the account
-            Account account = new Account(id, username, password, salt, email, createdOn, lastLogin, bookmarks, isAdmin);
-            accounts.add(account);
+                // Return the account
+                Account account = new Account(id, username, password, salt, email, createdOn, lastLogin, bookmarks, isAdmin);
+                accounts.add(account);
+            }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             return null;
