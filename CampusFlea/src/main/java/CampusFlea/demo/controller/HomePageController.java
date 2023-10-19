@@ -105,7 +105,6 @@ public class HomePageController {
 
         // Create the account object from the found userId
         Account user = AccountService.getAccount(userId);
-
         model.addAttribute("username", user.getUsername());
         model.addAttribute("email", user.getEmail());
 
