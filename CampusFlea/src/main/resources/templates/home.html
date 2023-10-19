@@ -116,7 +116,7 @@
                         <img th:src="@{/images/List Items/item.jpg}" alt="Product Image">
                         <div class="item-text">
                             <h2 th:text="${item.title}"></h2>
-                            <p th:text="${item.price}"></p>
+                            <p th:text="${'$' + item.price}"></p>
                         </div>
                     </a>
                 </div>
