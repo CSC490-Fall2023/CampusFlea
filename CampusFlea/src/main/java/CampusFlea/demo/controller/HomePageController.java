@@ -63,13 +63,13 @@ public class HomePageController {
 
     @GetMapping("/profile")
     public String profile(Model model) {
-
+        Account user = AccountService.getAccount(1);
         model.addAttribute("username", user.getUsername());
         model.addAttribute("email", user.getEmail());
 
         System.out.printf("Logged in (username=%s, email=%s)\n", user.getUsername(), user.getEmail());
 
-        Listing[] listings = getAllListings();
+        Listing[] listings = ListingService.getAllListings();
 
         //print to console listings w/ id
         for (Listing listing : listings) {
