@@ -23,12 +23,13 @@ public class ListingService {
             String description = rs.getString("description");
             int type = rs.getInt("type");
             int status = rs.getInt("status");
+            int price = rs.getInt("price");
             int want = rs.getInt("want");
             int have = rs.getInt("have");
             int category = rs.getInt("category");
 
             // Return the listing
-            return new Listing(listingId, title, description, type, status, want, have, category);
+            return new Listing(listingId, title, description, type, status, price, want, have, category);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             return null;
@@ -57,11 +58,12 @@ public class ListingService {
                 String description = rs.getString("description");
                 int type = rs.getInt("type");
                 int status = rs.getInt("status");
+                int price = rs.getInt("price");
                 int want = rs.getInt("want");
                 int have = rs.getInt("have");
                 int category = rs.getInt("category");
 
-                Listing listing = new Listing(id, title, description, type, status, want, have, category);
+                Listing listing = new Listing(id, title, description, type, status, price, want, have, category);
                 listings.add(listing);
             }
 
