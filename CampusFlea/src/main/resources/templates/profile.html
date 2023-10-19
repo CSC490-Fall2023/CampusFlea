@@ -22,10 +22,11 @@
   <div class="container-mid">
   <div class="section-middle">
     <div class="profile-picture">
-      <!-- User's profile picture goes here -->
+<!--      TODO: GENE: LOAD PFP DYNAMICALLY-->
+      <img th:src="@{/images/List Items/item.jpg}"  alt="Profile Picture" id="profile-image">
     </div>
     <div class="hero-title">
-      <h1>Username</h1>
+      <h1 th:text="${username}"></h1>
       <a href=""><i class="fa-regular fa-pen-to-square"></i></a>
     </div>
   </div>
