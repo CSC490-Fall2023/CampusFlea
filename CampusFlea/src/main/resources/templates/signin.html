@@ -13,12 +13,12 @@
     <form th:action="@{/signin}" th:object="${user}" method="post">
         <div class="form-group">
             <label for="user">Username:</label>
-            <input type="text" id="user" name="user" th:field="*{username}" required class="text-box"><br>
+            <input type="text" id="user" name="user" th:field="*{username}" class="text-box"><br>
         </div>
 
         <div class="form-group">
             <label for="pass">Password:</label>
-            <input type="password" id="pass" name="pass" th:field="*{password}" required class="text-box"><br>
+            <input type="password" id="pass" name="pass" th:field="*{password}" class="text-box"><br>
         </div>
         <div class="button-container">
             <div class="btn-signin">
@@ -27,7 +27,7 @@
                 </button>
             </div>
             <div class="btn-register">
-                <a th:ref="signup.html">
+                <a th:href="@{signup}">
                     <button>
                         Register
                     </button>
