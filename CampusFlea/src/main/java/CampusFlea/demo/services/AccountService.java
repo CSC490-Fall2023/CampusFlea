@@ -5,6 +5,8 @@ import CampusFlea.demo.model.Account;
 import java.security.MessageDigest;
 import java.sql.*;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AccountService {
     public static Account getAccount(int userId) {
@@ -40,6 +42,43 @@ public class AccountService {
         }
     }
 
+    public static Account[] getAllAccounts() {
+        List<Account> accounts = new ArrayList<>();
+
+        // Create a new SQLite connection using the database service
+        DatabaseService dbSrv = new DatabaseService();
+        Connection conn = dbSrv.getConnection();
+
+        try {
+            // Create the query
+            String sql = "SELECT * FROM accounts;";
+
+            // Prepare the query
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+
+            // Execute the query
+            ResultSet rs = preparedStatement.executeQuery();
+
+            int id = rs.getInt("id");
+            String username = rs.getString("username");
+            String password = rs.getString("password");
+            String salt = rs.getString("salt");
+            String email = rs.getString("email");
+            int createdOn = rs.getInt("created_time");
+            int lastLogin = rs.getInt("last_login");
+            String bookmarks = rs.getString("bookmarks");
+            boolean isAdmin = rs.getBoolean("admin");
+
+            // Return the account
+            Account account = new Account(id, username, password, salt, email, createdOn, lastLogin, bookmarks, isAdmin);
+            accounts.add(account);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+        return accounts.toArray(new Account[0]);
+    }
+
     public static boolean createAccount(String username, String password, String email) {
         // Create a new SQLite connection using the database service
         DatabaseService dbSrv = new DatabaseService();
@@ -55,7 +94,7 @@ public class AccountService {
             String encryptedPassword = encryptPassword(password, salt);
 
             // Get the created time
-            int timeNow = (int)(Instant.now().getEpochSecond() / 1000);
+            int timeNow = (int) (Instant.now().getEpochSecond() / 1000);
 
             String sql = "INSERT INTO accounts(username, password, salt, email, created_time, last_login) VALUES(?, ?, ?, ?, ?, ?)";
 
@@ -83,8 +122,8 @@ public class AccountService {
         // Generate a 7-length String
         for (int i = 0; i < 7; i++) {
             // Generate random ASCII 33 to 126
-            int ascii = (int)(33 + (Math.random() * 93));
-            salt += String.valueOf((char)ascii);
+            int ascii = (int) (33 + (Math.random() * 93));
+            salt += String.valueOf((char) ascii);
         }
         return salt;
     }

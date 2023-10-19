@@ -33,6 +33,10 @@ public class AdminCPController {
         // Create the account object from the found userId
         Account user = AccountService.getAccount(userId);
 
+        // Get all users
+        Account[] accounts = AccountService.getAllAccounts();
+        model.addAttribute("users", accounts);
+
         //TODO: Attach all users to model
 
         return "admincp";
