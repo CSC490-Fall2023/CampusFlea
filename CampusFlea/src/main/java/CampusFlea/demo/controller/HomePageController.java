@@ -83,10 +83,6 @@ public class HomePageController {
     }
 
     @GetMapping("/profile")
-<<<<<<< HEAD
-    public String profile(Model model) {
-        Account user = AccountService.getAccount(1);
-=======
     public String profile(Model model, HttpSession session) {
         // Get the user's session key
         String sessionKey = (String) session.getAttribute("session_key");
@@ -109,8 +105,6 @@ public class HomePageController {
 
         // Create the account object from the found userId
         Account user = AccountService.getAccount(userId);
-
->>>>>>> 757f644e8f09ba2550af61adc36747b9a6f9212d
         model.addAttribute("username", user.getUsername());
         model.addAttribute("email", user.getEmail());
 
