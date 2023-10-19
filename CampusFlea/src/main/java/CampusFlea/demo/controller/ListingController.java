@@ -15,7 +15,6 @@ public class ListingController {
         // Get the listing information
         int listingId = Integer.parseInt(id);
         Listing listing = ListingService.getListing(listingId);
-        //System.out.printf("listing title=%s\n", listing.getTitle());
 
         // Attach the listing object
         model.addAttribute("listing", listing);

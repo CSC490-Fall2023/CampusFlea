@@ -11,7 +11,8 @@
 
     <!-- Left Column / Product Images -->
     <div class="left-column">
-        <img th:src="@{/images/List Items/productExampleImage.jpg}" alt="ProductImage"> <!-- Replace with the product images -->
+        <img th:src="@{/images/List Items/productExampleImage.jpg}" alt="ProductImage">
+        <!-- Replace with the product images -->
     </div>
     <!-- Right Column -->
     <div class="right-column">
@@ -38,7 +39,7 @@
 
         <!-- Product Pricing -->
         <div class="product-price">
-            <span>$69.95</span> <!-- Replace with product price -->
+            <span th:text="${'$' + listing.price}"></span>
             <a href="#" class="contactSeller-btn">Contact Seller</a>
         </div>
     </div>
