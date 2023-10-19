@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="eng">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create New Listing</title>
+    <link rel="stylesheet" th:href="@{/static/css/createListing.css}">
+</head>
+<body>
+<h1>New Listing</h1>
+<form th:action="@{/submit-listing}" method="POST" enctype="multipart/form-data">
+    <label for="title">Title:</label>
+    <input type="text" id="title" name="title" required>
+
+    <label for="category">Category:</label>
+    <select id="category" name="category" required>
+        <option value="" disabled selected>Select a Category</option>
+        <option value="electronics">Electronics</option>
+        <option value="clothing">Clothing</option>
+        <option value="furniture">Furniture</option>
+        <option value="service">Services</option>
+    </select>
+
+    <label for="price">Price:</label>
+    <input type="number" id="price" name="price" step="0.01" required>
+
+    <label for="description">Description:</label>
+    <textarea id="description" name="description" required></textarea>
+
+    <label for="images">Images:</label>
+    <input type="file" id="images" name="images[]" multiple accept="image/*" required>
+
+    <input type="submit" value="Create Listing">
+    <input type="button" value="Cancel">
+</form>
+</body>
+</html>
