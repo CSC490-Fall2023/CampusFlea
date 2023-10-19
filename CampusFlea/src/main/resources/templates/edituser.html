@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit User Profile</title>
-    <link rel="stylesheet" th:href="@{/css/editUserPage.css}">
+    <link rel="stylesheet" th:href="@{../src/main/resources/static/css/edituser.css}">
 </head>
 <body>
 <div class="container">
@@ -13,7 +13,7 @@
         <form action="#" method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="username">Username:</label>
-                <input type="text" id="username" name="username" th:required="required" th:value="${user.name}">
+                <input type="text" id="username" name="username" th:required="required" th:value="${user.username}">
             </div>
 
             <div class="form-group">
@@ -21,19 +21,19 @@
                 <input type="email" id="email" name="email" th:required="required" th:value="${user.email}">
             </div>
 
-            <div class="form-group">
+            <!--<div class="form-group">
                 <label for="phoneNumber">Phone Number:</label>
-                <input type="text" id="phoneNumber" name="phoneNumber" th:value="${user.phoneNumber}">
-            </div>
+                <input type="text" id="phoneNumber" name="phoneNumber" th:value="${user.phone}">
+            </div>-->
 
             <div class="form-group">
                 <label for="password">New Password:</label>
-                <input type="password" id="password" name="password" th:value="${user.newPassword}">
+                <input type="password" id="password" name="password">
             </div>
 
             <div class="form-group">
                 <label for="confirmPassword">Confirm Password:</label>
-                <input type="password" id="confirmPassword" name="confirmPassword" th:value="${user.confirmPassword}">
+                <input type="password" id="confirmPassword" name="confirmPassword">
             </div>
 
             <div class="form-group">

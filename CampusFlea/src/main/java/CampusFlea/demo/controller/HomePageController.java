@@ -79,7 +79,7 @@ public class HomePageController {
 
         model.addAttribute("username", user.getUsername());
         model.addAttribute("email", user.getEmail());
-        return "userSetting";
+        return "usersettings";
     }
 
     @GetMapping("/profile")

@@ -19,6 +19,6 @@ public class ListingController {
 
         // Attach the listing object
         model.addAttribute("listing", listing);
-        return "ListView";
+        return "listview";
     }
 }
