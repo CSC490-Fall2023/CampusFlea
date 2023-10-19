@@ -1,20 +1,78 @@
 * {
-    font-family: 'Roboto', sans-serif;
+    font-family: "Times New Roman", Times, serif;
+    background-color: #333;
+    color: white;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
     background-color: #333;
 }
 
-.container{
-    height: 500px;
-        padding: 0;
-        margin: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-          color: white;
-
+.logocontainer {
+    text-align: center;
+    margin-top: 20px;
 }
 
-.btn-signin button{
+.logo {
+    max-width: 550px;
+    height: auto;
+}
+
+.form-group {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+label {
+    font-size: 18px;
+    display: block;
+}
+
+.text-box {
+    width: 100%;
+    height: 40px;
+    font-size: 16px;
     background-color: white;
-    color: black;
+    border: none;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    margin-top: 10px;
+}
+
+.btn-signin, .btn-register {
+    width: 48%;
+}
+
+.btn-signin button, .btn-register button {
+    width: 100%;
+    height: 50px;
+    font-size: 20px;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-register button {
+    background-color: #3498db;
+}
+
+.btn-signin button:hover {
+    background-color: #45a049;
+}
+
+.btn-register button:hover {
+    background-color: #2980b9;
 }
