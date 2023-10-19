@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>User Management</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
-    <link th:href="@{../src/main/resources/static/css/admincp.css}" rel="stylesheet">
+    <link th:href="@{/css/admincp.css}" rel="stylesheet">
 </head>
 <body>
 <div class="header-box">
@@ -29,9 +29,9 @@
     <tbody>
     <tr th:each="user : ${users}">
         <td th:text="${user.id}"></td>
-        <td th:text="${user.name}"></td>
+        <td th:text="${user.username}"></td>
         <td th:text="${user.email}"></td>
-        <td th:text="${user.roleId}"></td>
+        <td th:text="${user.isAdmin}"></td>
         <td>
             <a class="edit-button" th:href="@{'/edit/' + ${user.id}}"><i class="fas fa-edit"></i></a>
             <a class="delete-button" th:href="@{'/delete/' + ${user.id}}"><i class="fas fa-trash delete-icon"></i></a>
