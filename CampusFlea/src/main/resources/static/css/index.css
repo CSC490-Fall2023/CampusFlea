@@ -43,12 +43,15 @@ body, ul, li {
     margin-bottom: 20px;
 }
 
-.text-container{
+.text-container {
     margin-left: 5px;
-    gap: 10px;
+    display: flex;
+    /* gap: 10px; */
+    /* display: block; */
     float: right;
-    color:white;
-    text-decoration:none;
+    color: white;
+    text-decoration: none;
+    flex-direction: column;
 }
 
 .text-container p{
@@ -70,6 +73,10 @@ body, ul, li {
     align-items: center;
 }
 
+.container #email {
+    margin: auto;
+}
+
 .container span{
     display: flex;
     vertically-align: middle;
@@ -81,10 +88,6 @@ body, ul, li {
     height: 50px;
     border-radius: 50%;
     background: white;
-
-}
-
-.container #email{
 
 }
 
