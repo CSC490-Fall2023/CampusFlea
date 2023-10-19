@@ -4,13 +4,11 @@ import CampusFlea.demo.model.Account;
 import CampusFlea.demo.services.AccountService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.ui.Model;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
-@Controller
-public class EditUserPageController {
-    @GetMapping("/edituser")
-    public String editUser(Model model, HttpSession session) {
+public class AdminCPController {
+    @GetMapping("/admincp")
+    public String adminCP(Model model, HttpSession session) {
         // Get the user's session key
         String sessionKey = (String) session.getAttribute("session_key");
 
@@ -33,7 +31,7 @@ public class EditUserPageController {
         // Create the account object from the found userId
         Account user = AccountService.getAccount(userId);
 
-        model.addAttribute("user", user);
+        //TODO: Attach all users to model
 
         return "edituser";
     }

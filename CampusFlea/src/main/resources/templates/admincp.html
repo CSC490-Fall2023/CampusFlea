@@ -1,43 +1,43 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>User Management</title>
-  <link href= "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
-  <link th:href="@{/static/css/AdminManagementPage.css}" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>User Management</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <link th:href="@{../src/main/resources/static/css/admincp.css}" rel="stylesheet">
 </head>
 <body>
 <div class="header-box">
-  <h1>Users</h1>
-  <div class="search-bar">
-    <input class="search-input" type="text">
-    <button class="search-button">Search</button>
-  </div>
-  <a class="create-button" th:href="@{'/create-admin'}">Create New Admin</a>
+    <h1>Users</h1>
+    <div class="search-bar">
+        <input class="search-input" type="text">
+        <button class="search-button">Search</button>
+    </div>
+    <a class="create-button" th:href="@{'/create-admin'}">Create New Admin</a>
 </div>
 
 <table>
-  <thead>
-  <tr>
-    <th class="user-id">User ID</th>
-    <th class="user-name">Name</th>
-    <th class="user-email">Email</th>
-    <th class="user-role">Role ID</th>
-    <th class="user-action">Action</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr th:each="user : ${users}">
-    <td th:text="${user.id}"></td>
-    <td th:text="${user.name}"></td>
-    <td th:text="${user.email}"></td>
-    <td th:text="${user.roleId}"></td>
-    <td>
-      <a class="edit-button" th:href="@{'/edit/' + ${user.id}}"><i class="fas fa-edit"></i></a>
-      <a class="delete-button" th:href="@{'/delete/' + ${user.id}}"><i class="fas fa-trash delete-icon"></i></a>
-    </td>
-  </tr>
-  </tbody>
+    <thead>
+    <tr>
+        <th class="user-id">User ID</th>
+        <th class="user-name">Name</th>
+        <th class="user-email">Email</th>
+        <th class="user-role">Role ID</th>
+        <th class="user-action">Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${users}">
+        <td th:text="${user.id}"></td>
+        <td th:text="${user.name}"></td>
+        <td th:text="${user.email}"></td>
+        <td th:text="${user.roleId}"></td>
+        <td>
+            <a class="edit-button" th:href="@{'/edit/' + ${user.id}}"><i class="fas fa-edit"></i></a>
+            <a class="delete-button" th:href="@{'/delete/' + ${user.id}}"><i class="fas fa-trash delete-icon"></i></a>
+        </td>
+    </tr>
+    </tbody>
 </table>
 </body>
 </html>
