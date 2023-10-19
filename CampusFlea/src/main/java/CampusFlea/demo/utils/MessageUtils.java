@@ -18,9 +18,9 @@ public class MessageUtils {
         try {
             return objectMapper.writeValueAsString(result);
         } catch (JsonProcessingException e) {
-            // 处理异常
+           
             e.printStackTrace();
-            return ""; // 或者返回适当的错误信息
+            return ""; 
         }
     }
 }
