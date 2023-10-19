@@ -3,9 +3,11 @@ package CampusFlea.demo.controller;
 import CampusFlea.demo.model.Account;
 import CampusFlea.demo.services.AccountService;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+@Controller
 public class AdminCPController {
     @GetMapping("/admincp")
     public String adminCP(Model model, HttpSession session) {
@@ -33,6 +35,6 @@ public class AdminCPController {
 
         //TODO: Attach all users to model
 
-        return "edituser";
+        return "admincp";
     }
 }
