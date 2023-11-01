@@ -59,7 +59,7 @@ table {
 th, td {
     border-bottom: 2px solid #333;
     padding: 10px;
-    text-align: left;
+    text-align: center;
 }
 
 th.user-id, th.user-name, th.user-email, th.user-role, th.user-action {
