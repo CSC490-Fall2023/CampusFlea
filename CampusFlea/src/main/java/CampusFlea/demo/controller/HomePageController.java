@@ -135,10 +135,14 @@ public class HomePageController {
             return "redirect:/signin";
         }
 
+        // Establish a database connection
+        DatabaseService dbSrv = new DatabaseService();
+        Connection conn = dbSrv.getConnection();
+
         System.out.printf("Found session key: %s\n", sessionKey);
 
         // Get the user id based on the session key
-        int userId = AccountService.getUserIdFromSessionKey(sessionKey);
+        int userId = AccountService.getUserIdFromSessionKey(conn, sessionKey);
 
         // Check that the session key is valid (redirect them to login otherwise)
         if (userId == -1) {
@@ -146,22 +150,15 @@ public class HomePageController {
         }
 
         // Create the account object from the found userId
-        // load items from saved items in DB
         Account user = AccountService.getAccount(userId);
+
+        // Set the user and email attributes
         model.addAttribute("username", user.getUsername());
         model.addAttribute("email", user.getEmail());
 
-        System.out.printf("Logged in (username=%s, email=%s)\n", user.getUsername(), user.getEmail());
-
-        Listing[] listings = ListingService.getAllListings();
-
-        //print to console listings w/ id
-        for (Listing listing : listings) {
-            System.out.printf("Showing listing (id=%d, title=%s)\n", listing.getId(), listing.getTitle());
-        }
-        //add to model for ThymeLeaf to read
+        // Add listings to model for ThymeLeaf to read
+        Listing[] listings = ListingService.getAllListings(conn);
         model.addAttribute("listings", listings);
-
         return "saved";
     }
 
@@ -176,10 +173,14 @@ public class HomePageController {
             return "redirect:/signin";
         }
 
+        // Establish a database connection
+        DatabaseService dbSrv = new DatabaseService();
+        Connection conn = dbSrv.getConnection();
+
         System.out.printf("Found session key: %s\n", sessionKey);
 
         // Get the user id based on the session key
-        int userId = AccountService.getUserIdFromSessionKey(sessionKey);
+        int userId = AccountService.getUserIdFromSessionKey(conn, sessionKey);
 
         // Check that the session key is valid (redirect them to login otherwise)
         if (userId == -1) {
@@ -187,22 +188,15 @@ public class HomePageController {
         }
 
         // Create the account object from the found userId
-        // load items from saved items in DB
         Account user = AccountService.getAccount(userId);
+
+        // Set the user and email attributes
         model.addAttribute("username", user.getUsername());
         model.addAttribute("email", user.getEmail());
 
-        System.out.printf("Logged in (username=%s, email=%s)\n", user.getUsername(), user.getEmail());
-
-        Listing[] listings = ListingService.getAllListings();
-
-        //TODO: ONLY SHOW SELLING CATEGORY
-        for (Listing listing : listings) {
-            System.out.printf("Showing listing (id=%d, title=%s)\n", listing.getId(), listing.getTitle());
-        }
-        //add to model for ThymeLeaf to read
+        // Add listings to model for ThymeLeaf to read
+        Listing[] listings = ListingService.getAllListings(conn);
         model.addAttribute("listings", listings);
-
         return "selling";
     }
 
@@ -217,10 +211,14 @@ public class HomePageController {
             return "redirect:/signin";
         }
 
+        // Establish a database connection
+        DatabaseService dbSrv = new DatabaseService();
+        Connection conn = dbSrv.getConnection();
+
         System.out.printf("Found session key: %s\n", sessionKey);
 
         // Get the user id based on the session key
-        int userId = AccountService.getUserIdFromSessionKey(sessionKey);
+        int userId = AccountService.getUserIdFromSessionKey(conn, sessionKey);
 
         // Check that the session key is valid (redirect them to login otherwise)
         if (userId == -1) {
@@ -228,22 +226,15 @@ public class HomePageController {
         }
 
         // Create the account object from the found userId
-        // load items from saved items in DB
         Account user = AccountService.getAccount(userId);
+
+        // Set the user and email attributes
         model.addAttribute("username", user.getUsername());
         model.addAttribute("email", user.getEmail());
 
-        System.out.printf("Logged in (username=%s, email=%s)\n", user.getUsername(), user.getEmail());
-
-        Listing[] listings = ListingService.getAllListings();
-
-        //TODO: ONLY SHOW SELLING CATEGORY
-        for (Listing listing : listings) {
-            System.out.printf("Showing listing (id=%d, title=%s)\n", listing.getId(), listing.getTitle());
-        }
-        //add to model for ThymeLeaf to read
+        // Add listings to model for ThymeLeaf to read
+        Listing[] listings = ListingService.getAllListings(conn);
         model.addAttribute("listings", listings);
-
         return "buying";
     }
 
@@ -258,10 +249,14 @@ public class HomePageController {
             return "redirect:/signin";
         }
 
+        // Establish a database connection
+        DatabaseService dbSrv = new DatabaseService();
+        Connection conn = dbSrv.getConnection();
+
         System.out.printf("Found session key: %s\n", sessionKey);
 
         // Get the user id based on the session key
-        int userId = AccountService.getUserIdFromSessionKey(sessionKey);
+        int userId = AccountService.getUserIdFromSessionKey(conn, sessionKey);
 
         // Check that the session key is valid (redirect them to login otherwise)
         if (userId == -1) {
@@ -269,22 +264,15 @@ public class HomePageController {
         }
 
         // Create the account object from the found userId
-        // load items from saved items in DB
         Account user = AccountService.getAccount(userId);
+
+        // Set the user and email attributes
         model.addAttribute("username", user.getUsername());
         model.addAttribute("email", user.getEmail());
 
-        System.out.printf("Logged in (username=%s, email=%s)\n", user.getUsername(), user.getEmail());
-
-        Listing[] listings = ListingService.getAllListings();
-
-        //TODO: ONLY SHOW SELLING CATEGORY
-        for (Listing listing : listings) {
-            System.out.printf("Showing listing (id=%d, title=%s)\n", listing.getId(), listing.getTitle());
-        }
-        //add to model for ThymeLeaf to read
+        // Add listings to model for ThymeLeaf to read
+        Listing[] listings = ListingService.getAllListings(conn);
         model.addAttribute("listings", listings);
-
         return "trades";
     }
 }
