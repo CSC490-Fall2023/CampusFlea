@@ -5,7 +5,6 @@
     <title>CampusFlea Home</title>
     <link th:href="@{/css/index.css}" rel="stylesheet">
     <script src="https://kit.fontawesome.com/9113ff3c75.js" crossorigin="anonymous"></script>
-    <link href="../src/main/resources/static/css/index.css" rel="stylesheet"> <!-- FOR DEV PURPOSES-->
 
 </head>
 <body>
@@ -103,7 +102,9 @@
             </div>
         </div>
         <!--    #ADD BTN#-->
-        <button class="add-button"><i class="fa-solid fa-plus"></i></button>
+        <a th:href="@{createlisting}">
+            <button class="add-button"><i class="fa-solid fa-plus"></i></button>
+        </a>
     </div>
 
 
