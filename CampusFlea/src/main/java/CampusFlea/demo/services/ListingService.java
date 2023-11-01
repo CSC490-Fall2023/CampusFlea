@@ -183,7 +183,7 @@ public class ListingService {
             try {
                 // Prepare the query
                 PreparedStatement preparedStatement = conn.prepareStatement(query);
-                preparedStatement.setInt(1, userId);
+                preparedStatement.setInt(1, Integer.parseInt(listingId));
 
                 // Execute the query
                 ResultSet rs = preparedStatement.executeQuery();
