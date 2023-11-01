@@ -29,8 +29,6 @@ public class HomePageController {
         DatabaseService dbSrv = new DatabaseService();
         Connection conn = dbSrv.getConnection();
 
-        System.out.printf("Found session key: %s\n", sessionKey);
-
         // Get the user id based on the session key
         int userId = AccountService.getUserIdFromSessionKey(conn, sessionKey);
 

@@ -23,8 +23,6 @@ public class SettingsController {
             return "redirect:/signin";
         }
 
-        System.out.printf("Found session key: %s\n", sessionKey);
-
         // Establish database connection
         DatabaseService dbSrv = new DatabaseService();
         Connection conn = dbSrv.getConnection();
@@ -39,9 +37,11 @@ public class SettingsController {
 
         // Create the account object from the found userId
         Account user = AccountService.getAccount(userId);
+        String avatar = AccountService.getProfilePicture(conn, userId);
 
         model.addAttribute("username", user.getUsername());
         model.addAttribute("email", user.getEmail());
+        model.addAttribute("avatar", avatar);
         return "usersettings";
     }
 }

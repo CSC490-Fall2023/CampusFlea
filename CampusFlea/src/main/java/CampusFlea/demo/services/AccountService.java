@@ -244,4 +244,8 @@ public class AccountService {
             return -1;
         }
     }
+
+    public static String getProfilePicture(Connection conn, int userId) {
+        return "/uploads/avatars/default.png";
+    }
 }
