@@ -45,14 +45,8 @@ public class SellingController {
         model.addAttribute("username", user.getUsername());
         model.addAttribute("email", user.getEmail());
 
-        System.out.printf("Logged in (username=%s, email=%s)\n", user.getUsername(), user.getEmail());
+        Listing[] listings = ListingService.getAllUserListings(conn, userId);
 
-        Listing[] listings = ListingService.getAllListings(conn);
-
-        //TODO: ONLY SHOW SELLING CATEGORY
-        for (Listing listing : listings) {
-            System.out.printf("Showing listing (id=%d, title=%s)\n", listing.getId(), listing.getTitle());
-        }
         //add to model for ThymeLeaf to read
         model.addAttribute("listings", listings);
 
