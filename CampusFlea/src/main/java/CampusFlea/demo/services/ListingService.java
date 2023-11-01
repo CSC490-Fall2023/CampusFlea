@@ -141,4 +141,24 @@ public class ListingService {
             System.out.println(e.getMessage());
         }
     }
+
+    public static void updateListing(Connection conn, int id, String title, String description, int price, int category) {
+        // Create the update query
+        String query = "UPDATE listings WHERE id = ? SET title = ?, description = ?, price = ?, category = ?";
+
+        // Prepare the query
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement(query);
+            preparedStatement.setInt(1, id);
+            preparedStatement.setString(2, title);
+            preparedStatement.setString(3, description);
+            preparedStatement.setInt(4, price);
+            preparedStatement.setInt(5, category);
+
+            // Execute the query
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }
