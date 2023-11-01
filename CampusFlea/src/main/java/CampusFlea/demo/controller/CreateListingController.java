@@ -6,11 +6,11 @@ import CampusFlea.demo.services.AccountService;
 import CampusFlea.demo.services.DatabaseService;
 import CampusFlea.demo.services.ListingService;
 import jakarta.servlet.http.HttpSession;
-import org.h2.engine.Database;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.sql.Connection;
 
@@ -27,12 +27,13 @@ public class CreateListingController {
             return "redirect:/signin";
         }
 
-        model.addAttribute("listing", new Listing());
         return "createlisting";
     }
 
     @PostMapping("/createlisting")
-    public String processCreateSignup(Listing listing, HttpSession session) {
+    public String processCreateListing(@RequestParam String title, @RequestParam int category, @RequestParam int price, @RequestParam String description, HttpSession session) {
+        System.out.println(title);
+
         // Get the user's session key
         String sessionKey = (String) session.getAttribute("session_key");
 
@@ -57,7 +58,11 @@ public class CreateListingController {
         }
 
         // Create the new listing
-        ListingService.createListing(conn, listing, userId);
-        return "createlisting";
+        ListingService.createListing(conn, title, description, price, category, userId);
+
+        // TODO: Add visual confirmation
+
+        // Redirect back to home
+        return "redirect:/home";
     }
 }

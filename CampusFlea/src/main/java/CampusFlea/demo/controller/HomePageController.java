@@ -46,16 +46,8 @@ public class HomePageController {
         model.addAttribute("username", user.getUsername());
         model.addAttribute("email", user.getEmail());
 
-        System.out.printf("Logged in (username=%s, email=%s)\n", user.getUsername(), user.getEmail());
-
+        // Add listings to model for ThymeLeaf to read
         Listing[] listings = ListingService.getAllListings(conn);
-
-        //print to console listings w/ id
-        for (Listing listing : listings) {
-            System.out.printf("Showing listing (id=%d, title=%s)\n", listing.getId(), listing.getTitle());
-        }
-
-        // Add to model for ThymeLeaf to read
         model.addAttribute("listings", listings);
         return "home";
     }
@@ -123,14 +115,8 @@ public class HomePageController {
         model.addAttribute("username", user.getUsername());
         model.addAttribute("email", user.getEmail());
 
-        System.out.printf("Logged in (username=%s, email=%s)\n", user.getUsername(), user.getEmail());
-
         Listing[] listings = ListingService.getAllUserListings(conn, userId);
 
-        //print to console listings w/ id
-        for (Listing listing : listings) {
-            System.out.printf("Showing listing (id=%d, title=%s)\n", listing.getId(), listing.getTitle());
-        }
         //add to model for ThymeLeaf to read
         model.addAttribute("listings", listings);
 

@@ -1,19 +1,15 @@
 package CampusFlea.demo.model;
 
 public class Listing {
-    private int id;
-    private String title;
-    private String description;
-    private int type;
-    private int status;
-    private int price;
-    private int want;
-    private int have;
-    private int category;
-
-    public Listing() {
-
-    }
+    private final int id;
+    private final String title;
+    private final String description;
+    private final int type;
+    private final int status;
+    private final int price;
+    private final int want;
+    private final int have;
+    private final int category;
 
     public Listing(int id, String title, String description, int type, int status, int price, int want, int have, int category) {
         this.id = id;
@@ -61,5 +57,9 @@ public class Listing {
 
     public int getCategory() {
         return category;
+    }
+
+    public String toString() {
+        return id + ", " + title + ", " + description;
     }
 }

@@ -1,11 +1,6 @@
 package CampusFlea.demo.model;
 
-
-import java.io.Serializable;
-import java.time.Instant;
-
-//@Table(name = "account")
-public class Account implements Serializable {
+public class Account {
 
     private int id;
 
@@ -37,7 +32,7 @@ public class Account implements Serializable {
         this.isAdmin = isAdmin;
     }
 
-    public Account(){
+    public Account() {
 
     }
 

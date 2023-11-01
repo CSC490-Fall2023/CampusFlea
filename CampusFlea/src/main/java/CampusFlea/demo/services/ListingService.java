@@ -11,8 +11,13 @@ public class ListingService {
             "Clothing",
             "Electronics",
             "Furniture",
-            "Services",
             "Vehicles"
+    };
+
+    public static final String[] STATUS = {
+            "ACTIVE",
+            "PENDING",
+            "SOLD"
     };
 
     public static Listing getListing(int listingId) {
@@ -117,19 +122,18 @@ public class ListingService {
         }
     }
 
-    public static void createListing(Connection conn, Listing listing, int uid) {
+    public static void createListing(Connection conn, String title, String description, int price, int category, int uid) {
         // Create the insertion query
-        String query = "INSERT INTO listings(uid, title, description, type, price, category) VALUES(?, ?, ?, ?, ?, ?);";
+        String query = "INSERT INTO listings(uid, title, description, price, category) VALUES(?, ?, ?, ?, ?);";
 
         // Prepare the query
         try {
             PreparedStatement preparedStatement = conn.prepareStatement(query);
             preparedStatement.setInt(1, uid);
-            preparedStatement.setString(2, listing.getTitle());
-            preparedStatement.setString(3, listing.getDescription());
-            preparedStatement.setInt(4, listing.getType());
-            preparedStatement.setInt(5, listing.getPrice());
-            preparedStatement.setInt(6, listing.getCategory());
+            preparedStatement.setString(2, title);
+            preparedStatement.setString(3, description);
+            preparedStatement.setInt(4, price);
+            preparedStatement.setInt(5, category);
 
             // Execute the query
             preparedStatement.executeUpdate();
