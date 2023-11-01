@@ -144,16 +144,17 @@ public class ListingService {
 
     public static void updateListing(Connection conn, int id, String title, String description, int price, int category) {
         // Create the update query
-        String query = "UPDATE listings WHERE id = ? SET title = ?, description = ?, price = ?, category = ?";
+        String query = "UPDATE listings SET title = ?, description = ?, price = ?, category = ? WHERE id = ?;";
 
         // Prepare the query
         try {
             PreparedStatement preparedStatement = conn.prepareStatement(query);
-            preparedStatement.setInt(1, id);
-            preparedStatement.setString(2, title);
-            preparedStatement.setString(3, description);
-            preparedStatement.setInt(4, price);
-            preparedStatement.setInt(5, category);
+            preparedStatement.setString(1, title);
+            preparedStatement.setString(2, description);
+            preparedStatement.setInt(3, price);
+            preparedStatement.setInt(4, category);
+            preparedStatement.setInt(5, id);
+
 
             // Execute the query
             preparedStatement.executeUpdate();

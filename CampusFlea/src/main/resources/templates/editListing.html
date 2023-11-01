@@ -29,6 +29,8 @@
     <label for="images">Images:</label>
     <input type="file" id="images" name="images[]" multiple accept="image/*" required>
 
+    <input type="hidden" id="listingId" name="listingId" th:value="${listingId}">
+
     <button type="submit">Save Changes</button>
     <a th:href="@{home}">
         <button type="button">Cancel</button>

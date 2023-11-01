@@ -3,7 +3,6 @@ package CampusFlea.demo.controller;
 import CampusFlea.demo.model.Listing;
 import CampusFlea.demo.services.DatabaseService;
 import CampusFlea.demo.services.ListingService;
-import org.h2.engine.Database;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,17 +20,18 @@ public class EditListingController {
 
         // Add the listing to the model
         model.addAttribute("listing", listing);
+        model.addAttribute("listingId", id);
         return "editlisting";
     }
 
     @PostMapping("/editlisting")
-    public String processEditListing(@RequestParam int id, @RequestParam String title, @RequestParam int category, @RequestParam int price, @RequestParam String description) {
+    public String processEditListing(@RequestParam int listingId, @RequestParam String title, @RequestParam int category, @RequestParam int price, @RequestParam String description) {
         // Create a new instance of database
         DatabaseService dbSrv = new DatabaseService();
         Connection conn = dbSrv.getConnection();
 
         // Update the listing
-        ListingService.updateListing(conn, id, title, description, price, category);
+        ListingService.updateListing(conn, listingId, title, description, price, category);
 
         // Redirect back to profile
         return "redirect:/profile";
