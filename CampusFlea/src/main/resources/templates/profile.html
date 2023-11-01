@@ -45,8 +45,9 @@
                                     <p class="price" th:text="${'$' + item.price}"></p>
                                 </div>
                             </a>
-                            <button class="edit-profile-button"><i class="fa-regular fa-pen-to-square"></i></button>
-
+                            <a th:href="@{editlisting(id=${item.id})}">
+                                <button class="edit-profile-button"><i class="fa-regular fa-pen-to-square"></i></button>
+                            </a>
                         </div>
                     </th:block>
                 </div>
