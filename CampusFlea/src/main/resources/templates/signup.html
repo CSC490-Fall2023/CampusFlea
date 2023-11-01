@@ -1,25 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Signup</title>
+    <link th:href="@{/css/signup.css}" rel="stylesheet">
+    <title>Login</title>
 </head>
 <body>
+
+<div class="logocontainer">
+    <img th:src="@{/images/Logos/logo.png}" alt="Logo" class="logo">
+</div>
 
 <div class="container">
     <form th:action="@{/signup}" method="post">
         <!-- Username -->
-        <label for="username">Username:</label><br>
-        <input type="text" id="username" name="username" required><br>
-
+        <div class="form-group">
+            <label for="user">Username:</label><br>
+            <input type="text" id="user" name="user" th:field="*{username}" class="text-box" required><br>
+        </div>
         <!-- Password -->
-        <label for="password">Password:</label><br>
-        <input id="password" name="password" type="password" required><br>
-
+        <div class="form-group">
+            <label for="pass">Password:</label><br>
+            <input type="password" id="pass" name="pass" th:field="*{password}" class="text-box" required><br>
+        </div>
         <!-- Email -->
-        <label for="email">Email:</label><br>
-        <input type="email" id="email" name="email" required><br>
-
+        <div class="form-group">
+            <label for="email">Email:</label><br>
+            <input type="email" id="email" name="email" th:field="*{email}" class="text-box" required><br>
+        </div>
         <!-- Signup Button -->
         <div class="btn-signin">
             <button type="submit">

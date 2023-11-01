@@ -11,7 +11,9 @@
 <header>
     <nav class="navbar">
         <div class="logo">
-            <img th:src="@{/images/Logos/logo.png}" alt="Logo">
+            <a th:href="@{home}">
+                <img th:src="@{/images/Logos/logo.png}"  alt="Logo">
+            </a>
             <!--      <img src="../static/images/Logos/logo.png"  alt="Logo">-->
         </div>
         <button class="save-button" onclick="history.back()">Back</button>
@@ -26,7 +28,7 @@
             </div>
             <div class="hero-title">
                 <h1 th:text="${username}"></h1>
-                <a href=""><i class="fa-regular fa-pen-to-square"></i></a>
+                <a th:href="@{settings}"><i class="fa-regular fa-pen-to-square"></i></a>
             </div>
         </div>
     </div>
