@@ -7,6 +7,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ListingService {
+    public static final String[] CATEGORIES = {
+            "Clothing",
+            "Electronics",
+            "Furniture",
+            "Services",
+            "Vehicles"
+    };
+
     public static Listing getListing(int listingId) {
         // Create the DB connection
         DatabaseService dbSrv = new DatabaseService();
