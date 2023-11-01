@@ -36,11 +36,7 @@ public class ListingService {
         }
     }
 
-    public static Listing[] getAllListings() {
-        // Create a new SQLite connection using the database service
-        DatabaseService dbSrv = new DatabaseService();
-        Connection conn = dbSrv.getConnection();
-
+    public static Listing[] getAllListings(Connection conn) {
         try {
             // Create the query
             String sql = "SELECT * FROM listings;";

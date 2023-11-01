@@ -228,13 +228,9 @@ public class AccountService {
         }
     }
 
-    public static int getUserIdFromSessionKey(String sessionKey) {
+    public static int getUserIdFromSessionKey(Connection conn, String sessionKey) {
         // Create the query
         String sql = "SELECT uid FROM login_sessions WHERE key = ?;";
-
-        // Create the connection
-        DatabaseService dbSrv = new DatabaseService();
-        Connection conn = dbSrv.getConnection();
 
         // Prepare the query
         try {

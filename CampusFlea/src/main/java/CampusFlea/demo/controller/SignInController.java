@@ -36,7 +36,17 @@ public class SignInController {
 
         // Get the user id and use it to create a new session key
         int userId = AccountService.getId(conn, account.getUsername());
+
+        System.out.printf("Found userId: %d\n", userId);
+
         String sessionKey = AccountService.createLoginSession(conn, userId);
+
+        if (sessionKey == null) {
+            System.out.println("sessionKey is null");
+            return "redirect:/signin";
+        }
+
+        System.out.printf("Found sessionKey: %s\n", sessionKey);
 
         // Save the session key
         session.setAttribute("session_key", sessionKey);
