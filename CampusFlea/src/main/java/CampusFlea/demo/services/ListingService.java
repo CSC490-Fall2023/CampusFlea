@@ -156,10 +156,10 @@ public class ListingService {
             ResultSet rs = preparedStatement.executeQuery();
 
             // Get the saved string
-            String savedIdsString = rs.getString(0);
+            String savedIdsString = rs.getString(1);
 
             // Convert the string to an array
-            String[] savedIds = savedIdsString.split(",");
+            String[] savedIds = savedIdsString != null ? savedIdsString.split(",") : new String[0];
 
             // Return the saved ids
             return savedIds;
