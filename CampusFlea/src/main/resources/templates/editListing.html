@@ -13,7 +13,7 @@
     <input type="text" id="title" name="title" th:value="${listing.title}" required>
 
     <label for="category">Category:</label>
-    <select id="category" name="category" required>
+    <select id="category" name="category" th:field="*{listing.category}" required>
         <option value="0">Clothing</option>
         <option value="1">Electronics</option>
         <option value="2">Furniture</option>
