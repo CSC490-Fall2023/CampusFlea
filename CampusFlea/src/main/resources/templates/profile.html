@@ -12,7 +12,7 @@
     <nav class="navbar">
         <div class="logo">
             <a th:href="@{home}">
-                <img th:src="@{/images/Logos/logo.png}"  alt="Logo">
+                <img th:src="@{/images/Logos/logo.png}" alt="Logo">
             </a>
             <!--      <img src="../static/images/Logos/logo.png"  alt="Logo">-->
         </div>
@@ -40,7 +40,7 @@
                 <div class="grid-item">
                     <th:block th:each="item : ${listings}">
                         <div class="neumorphic-card">
-                            <a th:href="@{listing}">
+                            <a th:href="@{listing(id=${item.id})}">
                                 <img th:src="@{/images/List Items/item.jpg}" alt="Product Image">
                                 <div class="item-text">
                                     <h2 th:text="${item.title}"></h2>
