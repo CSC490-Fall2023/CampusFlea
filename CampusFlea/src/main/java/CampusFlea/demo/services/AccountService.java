@@ -31,7 +31,7 @@ public class AccountService {
             String email = rs.getString("email");
             int createdOn = rs.getInt("created_time");
             int lastLogin = rs.getInt("last_login");
-            String bookmarks = rs.getString("bookmarks");
+            String bookmarks = rs.getString("saved");
             boolean isAdmin = rs.getBoolean("admin");
 
             // Return the account
@@ -67,7 +67,7 @@ public class AccountService {
                 String email = rs.getString("email");
                 int createdOn = rs.getInt("created_time");
                 int lastLogin = rs.getInt("last_login");
-                String bookmarks = rs.getString("bookmarks");
+                String bookmarks = rs.getString("saved");
                 boolean isAdmin = rs.getBoolean("admin");
 
                 // Return the account
