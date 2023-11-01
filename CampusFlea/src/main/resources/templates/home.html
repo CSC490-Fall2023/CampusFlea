@@ -8,7 +8,6 @@
     <link href="../src/main/resources/static/css/index.css" rel="stylesheet"> <!-- FOR DEV PURPOSES-->
     <link rel="icon" type="image/x-icon" th:src="@{/static/favicon.ico}">
 
-
 </head>
 <body>
 <div class="sidebar">
@@ -49,8 +48,9 @@
         </div>
     </div>
     <div class="sidebar-bottom">
-        <button class="signout-button">Sign Out</button>
-
+        <a th:href="@{signin}">
+            <button class="signout-button">Sign Out</button>
+        </a>
     </div>
 </div>
 <div class="content">
@@ -100,7 +100,9 @@
             </div>
         </div>
         <!--    #ADD BTN#-->
-        <button class="add-button"><i class="fa-solid fa-plus"></i></button>
+        <a th:href="@{createlisting}">
+            <button class="add-button"><i class="fa-solid fa-plus"></i></button>
+        </a>
     </div>
 
 

@@ -19,7 +19,7 @@
 
         <!-- Product Description -->
         <div class="product-description">
-            <span>Electronics</span> <!-- Replace with the product type -->
+            <span th:text="${category}"></span>
             <h1 th:text="${listing.title}"></h1>
             <p th:text="${listing.description}"></p>
         </div>

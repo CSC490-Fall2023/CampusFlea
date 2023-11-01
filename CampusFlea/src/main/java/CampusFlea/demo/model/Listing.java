@@ -58,4 +58,8 @@ public class Listing {
     public int getCategory() {
         return category;
     }
+
+    public String toString() {
+        return id + ", " + title + ", " + description;
+    }
 }

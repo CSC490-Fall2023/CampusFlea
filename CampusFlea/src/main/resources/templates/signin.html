@@ -10,15 +10,15 @@
     <img th:src="@{/images/Logos/logo.png}" alt="Logo" class="logo">
 </div>
 <div class="container">
-    <form th:action="@{/signin}" th:object="${user}" method="post">
+    <form th:action="@{/signin}" method="post">
         <div class="form-group">
-            <label for="user">Username:</label>
-            <input type="text" id="user" name="user" th:field="*{username}" class="text-box"><br>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" class="text-box"><br>
         </div>
 
         <div class="form-group">
-            <label for="pass">Password:</label>
-            <input type="password" id="pass" name="pass" th:field="*{password}" class="text-box"><br>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" class="text-box"><br>
         </div>
         <div class="button-container">
             <div class="btn-signin">

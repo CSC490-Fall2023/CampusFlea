@@ -4,21 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create New Listing</title>
-    <link rel="stylesheet" th:href="@{/static/css/createListing.css}">
+    <link rel="stylesheet" th:href="@{/css/createlisting.css}">
 </head>
 <body>
 <h1>New Listing</h1>
-<form th:action="@{/submit-listing}" method="POST" enctype="multipart/form-data">
+<form th:action="@{/createlisting}" method="post">
     <label for="title">Title:</label>
     <input type="text" id="title" name="title" required>
 
     <label for="category">Category:</label>
     <select id="category" name="category" required>
-        <option value="" disabled selected>Select a Category</option>
-        <option value="electronics">Electronics</option>
-        <option value="clothing">Clothing</option>
-        <option value="furniture">Furniture</option>
-        <option value="service">Services</option>
+        <option value="0">Clothing</option>
+        <option value="1">Electronics</option>
+        <option value="2">Furniture</option>
+        <option value="3">Vehicles</option>
     </select>
 
     <label for="price">Price:</label>
@@ -27,11 +26,13 @@
     <label for="description">Description:</label>
     <textarea id="description" name="description" required></textarea>
 
-    <label for="images">Images:</label>
-    <input type="file" id="images" name="images[]" multiple accept="image/*" required>
+    <!--<label for="images">Images:</label>
+    <input type="file" id="images" name="images[]" th:field="*{image}" multiple accept="image/*" required>-->
 
-    <input type="submit" value="Create Listing">
-    <input type="button" value="Cancel">
+    <button type="submit">Create Listing</button>
+    <a th:href="@{home}">
+        <button type="button">Cancel</button>
+    </a>
 </form>
 </body>
 </html>
