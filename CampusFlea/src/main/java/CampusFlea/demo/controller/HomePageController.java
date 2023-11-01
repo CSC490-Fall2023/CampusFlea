@@ -125,7 +125,7 @@ public class HomePageController {
 
         System.out.printf("Logged in (username=%s, email=%s)\n", user.getUsername(), user.getEmail());
 
-        Listing[] listings = ListingService.getAllListings(conn);
+        Listing[] listings = ListingService.getAllUserListings(conn, userId);
 
         //print to console listings w/ id
         for (Listing listing : listings) {

@@ -36,6 +36,44 @@ public class ListingService {
         }
     }
 
+    public static Listing[] getAllUserListings(Connection conn, int userId) {
+        try {
+            // Create the query
+            String query = "SELECT * FROM listings WHERE uid = ?;";
+
+            // Prepare the query
+            PreparedStatement preparedStatement = conn.prepareStatement(query);
+            preparedStatement.setInt(1, userId);
+
+            // Execute the query
+            ResultSet rs = preparedStatement.executeQuery();
+
+            // Create a list to hold all listings found
+            List<Listing> listings = new ArrayList<>();
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String title = rs.getString("title");
+                String description = rs.getString("description");
+                int type = rs.getInt("type");
+                int status = rs.getInt("status");
+                int price = rs.getInt("price");
+                int want = rs.getInt("want");
+                int have = rs.getInt("have");
+                int category = rs.getInt("category");
+
+                Listing listing = new Listing(id, title, description, type, status, price, want, have, category);
+                listings.add(listing);
+            }
+
+            // Return the listings as an array
+            return listings.toArray(new Listing[0]);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
     public static Listing[] getAllListings(Connection conn) {
         try {
             // Create the query
@@ -72,8 +110,6 @@ public class ListingService {
     }
 
     public static void createListing(Connection conn, Listing listing, int uid) {
-        System.out.printf("createListing: uid=%d, title=%s, desc=%s, type=%d, price=%d, cat=%d\n", uid, listing.getTitle(), listing.getDescription(), listing.getType(), listing.getPrice(), listing.getCategory());
-
         // Create the insertion query
         String query = "INSERT INTO listings(uid, title, description, type, price, category) VALUES(?, ?, ?, ?, ?, ?);";
 
