@@ -81,11 +81,7 @@ public class AccountService {
         return accounts.toArray(new Account[0]);
     }
 
-    public static boolean createAccount(String username, String password, String email) {
-        // Create a new SQLite connection using the database service
-        DatabaseService dbSrv = new DatabaseService();
-        Connection conn = dbSrv.getConnection();
-
+    public static boolean createAccount(Connection conn, String username, String password, String email) {
         // TODO - Gene: We must determine if the credentials are valid before creating the account
 
         try {
@@ -158,13 +154,9 @@ public class AccountService {
         }
     }
 
-    public static boolean isValidCredentials(String username, String password) {
+    public static boolean isValidCredentials(Connection conn, String username, String password) {
         // Get the encrypted password and salt
         String sql = "SELECT password, salt FROM accounts WHERE username = ?;";
-
-        // Create the connection
-        DatabaseService dbSrv = new DatabaseService();
-        Connection conn = dbSrv.getConnection();
 
         try {
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
@@ -183,9 +175,6 @@ public class AccountService {
             // Determine if is valid
             boolean isValid = userEncryptedPassword.equals(encryptedPassword);
 
-            // Close the connection
-            conn.close();
-
             return isValid;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -193,13 +182,9 @@ public class AccountService {
         }
     }
 
-    public static String createLoginSession(int userId) {
+    public static String createLoginSession(Connection conn, int userId) {
         // Create a new entry, or update the existing entry if present
         String sql = "INSERT OR REPLACE INTO login_sessions (uid, key) VALUES(?, ?);";
-
-        // Create the connection
-        DatabaseService dbSrv = new DatabaseService();
-        Connection conn = dbSrv.getConnection();
 
         // Create a random key
         String sessionKey = generateSalt();
@@ -213,9 +198,6 @@ public class AccountService {
             // Execute the query
             preparedStatement.executeUpdate();
 
-            // Close the connection
-            conn.close();
-
             // Return the session key for the user to use
             return sessionKey;
         } catch (SQLException e) {
@@ -224,13 +206,9 @@ public class AccountService {
         }
     }
 
-    public static int getId(String username) {
+    public static int getId(Connection conn, String username) {
         // Create the query string
         String sql = "SELECT id FROM accounts WHERE username = ?;";
-
-        // Create the connection
-        DatabaseService dbSrv = new DatabaseService();
-        Connection conn = dbSrv.getConnection();
 
         // Prepare the query
         try {
@@ -242,9 +220,6 @@ public class AccountService {
 
             // Get the id
             int id = rs.getInt("id");
-
-            // Close the connection
-            conn.close();
 
             // Return the id
             return id;
