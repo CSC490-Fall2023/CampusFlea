@@ -123,7 +123,7 @@ public class HomePageController {
         return "profile";
     }
 
-//    TODO: GENE - LOAD SAVED ITEMS
+    //    TODO: GENE - LOAD SAVED ITEMS
     @GetMapping("/saved")
     public String saved(Model model, HttpSession session) {
         // Get the user's session key
@@ -137,8 +137,12 @@ public class HomePageController {
 
         System.out.printf("Found session key: %s\n", sessionKey);
 
+        // Establish database connection
+        DatabaseService dbSrv = new DatabaseService();
+        Connection conn = dbSrv.getConnection();
+
         // Get the user id based on the session key
-        int userId = AccountService.getUserIdFromSessionKey(sessionKey);
+        int userId = AccountService.getUserIdFromSessionKey(conn, sessionKey);
 
         // Check that the session key is valid (redirect them to login otherwise)
         if (userId == -1) {
@@ -153,7 +157,7 @@ public class HomePageController {
 
         System.out.printf("Logged in (username=%s, email=%s)\n", user.getUsername(), user.getEmail());
 
-        Listing[] listings = ListingService.getAllListings();
+        Listing[] listings = ListingService.getAllListings(conn);
 
         //print to console listings w/ id
         for (Listing listing : listings) {
@@ -178,8 +182,12 @@ public class HomePageController {
 
         System.out.printf("Found session key: %s\n", sessionKey);
 
+        // Establish database connection
+        DatabaseService dbSrv = new DatabaseService();
+        Connection conn = dbSrv.getConnection();
+
         // Get the user id based on the session key
-        int userId = AccountService.getUserIdFromSessionKey(sessionKey);
+        int userId = AccountService.getUserIdFromSessionKey(conn, sessionKey);
 
         // Check that the session key is valid (redirect them to login otherwise)
         if (userId == -1) {
@@ -194,7 +202,7 @@ public class HomePageController {
 
         System.out.printf("Logged in (username=%s, email=%s)\n", user.getUsername(), user.getEmail());
 
-        Listing[] listings = ListingService.getAllListings();
+        Listing[] listings = ListingService.getAllListings(conn);
 
         //TODO: ONLY SHOW SELLING CATEGORY
         for (Listing listing : listings) {
@@ -219,8 +227,12 @@ public class HomePageController {
 
         System.out.printf("Found session key: %s\n", sessionKey);
 
+        // Establish database connection
+        DatabaseService dbSrv = new DatabaseService();
+        Connection conn = dbSrv.getConnection();
+
         // Get the user id based on the session key
-        int userId = AccountService.getUserIdFromSessionKey(sessionKey);
+        int userId = AccountService.getUserIdFromSessionKey(conn, sessionKey);
 
         // Check that the session key is valid (redirect them to login otherwise)
         if (userId == -1) {
@@ -235,7 +247,7 @@ public class HomePageController {
 
         System.out.printf("Logged in (username=%s, email=%s)\n", user.getUsername(), user.getEmail());
 
-        Listing[] listings = ListingService.getAllListings();
+        Listing[] listings = ListingService.getAllListings(conn);
 
         //TODO: ONLY SHOW SELLING CATEGORY
         for (Listing listing : listings) {
@@ -260,8 +272,12 @@ public class HomePageController {
 
         System.out.printf("Found session key: %s\n", sessionKey);
 
+        // Establish database connection
+        DatabaseService dbSrv = new DatabaseService();
+        Connection conn = dbSrv.getConnection();
+
         // Get the user id based on the session key
-        int userId = AccountService.getUserIdFromSessionKey(sessionKey);
+        int userId = AccountService.getUserIdFromSessionKey(conn, sessionKey);
 
         // Check that the session key is valid (redirect them to login otherwise)
         if (userId == -1) {
@@ -276,7 +292,7 @@ public class HomePageController {
 
         System.out.printf("Logged in (username=%s, email=%s)\n", user.getUsername(), user.getEmail());
 
-        Listing[] listings = ListingService.getAllListings();
+        Listing[] listings = ListingService.getAllListings(conn);
 
         //TODO: ONLY SHOW SELLING CATEGORY
         for (Listing listing : listings) {

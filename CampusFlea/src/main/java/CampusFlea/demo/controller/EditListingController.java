@@ -35,6 +35,6 @@ public class EditListingController {
 
 
         // Redirect back to profile
-        return "redirect:profile";
+        return "redirect:/profile";
     }
 }
