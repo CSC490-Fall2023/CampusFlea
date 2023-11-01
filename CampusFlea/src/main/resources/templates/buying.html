@@ -2,11 +2,12 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>CampusFlea Home</title>
+    <title>CampusFlea Buying</title>
     <link th:href="@{/css/index.css}" rel="stylesheet">
     <script src="https://kit.fontawesome.com/9113ff3c75.js" crossorigin="anonymous"></script>
     <link href="../src/main/resources/static/css/index.css" rel="stylesheet"> <!-- FOR DEV PURPOSES-->
     <link rel="icon" type="image/x-icon" th:src="@{/static/favicon.ico}">
+
 
 </head>
 <body>
@@ -33,14 +34,14 @@
     <div class="sidebar-mid">
         <div class="nav-links">
             <ul>
-                <li><a class="active nav-item" th:href="@{home}"><i class="fa-solid fa-store"></i>Browse All</a></li>
+                <li><a class="nav-item" th:href="@{home}"><i class="fa-solid fa-store"></i>Browse All</a></li>
                 <!--            TODO: Filter by selling category-->
-                <li><a th:href="@{selling}" class="nav-item"><i class="fa-solid fa-cart-shopping"></i>Selling</a></li>
+                <li><a th:href="@{selling}" class=" nav-item"><i class="fa-solid fa-cart-shopping"></i>Selling</a></li>
                 <!--            TODO: Filter by buying category-->
-                <li><a th:href="@{buying}" class="nav-item"><i class="fa-solid fa-comments-dollar"></i>Buying</a></li>
+                <li><a th:href="@{buying}" class="active nav-item"><i class="fa-solid fa-comments-dollar"></i>Buying</a></li>
                 <!--            TODO: Filter by trade category-->
                 <li><a th:href="@{trades}" class="nav-item"><i class="fa-regular fa-handshake"></i>Trades</a></li>
-                <li><a th:href="@{saved}" class=""><i class="fa-solid fa-bookmark"></i>Saved</a></li>
+                <li><a th:href="@{saved}"><i class="fa-solid fa-bookmark"></i>Saved</a></li>
                 <!--            TODO: Create Link to Messages Page-->
                 <li><a th:href="@{chat}"><i class="fa-solid fa-message"></i>Messages</a></li>
                 <li><a th:href="@{settings}"><i class="fa-solid fa-gear"></i>Settings</a></li>
@@ -48,9 +49,8 @@
         </div>
     </div>
     <div class="sidebar-bottom">
-        <a th:href="@{signin}">
-            <button class="signout-button">Sign Out</button>
-        </a>
+        <button class="signout-button">Sign Out</button>
+
     </div>
 </div>
 <div class="content">
@@ -100,10 +100,10 @@
             </div>
         </div>
         <!--    #ADD BTN#-->
-        <a th:href="@{createlisting}">
-            <button class="add-button"><i class="fa-solid fa-plus"></i></button>
-        </a>
+        <button class="add-button"><i class="fa-solid fa-plus"></i></button>
     </div>
+
+    <h1 style="padding-left: 30px;margin: 0;">Selling</h1>
 
 
     <!--    #GRID-CONTAINER# -->
