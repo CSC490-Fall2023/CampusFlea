@@ -12,7 +12,9 @@
 <header>
     <nav class="navbar">
         <div class="logo">
-            <img th:src="@{/images/Logos/logo.png}" alt="Logo">
+            <a th:href="@{home}">
+                <img th:src="@{/images/Logos/logo.png}"  alt="Logo">
+            </a>
             <!--      <img src="../static/images/Logos/logo.png"  alt="Logo">-->
         </div>
         <button class="save-button" onclick="history.back()">Back</button>
