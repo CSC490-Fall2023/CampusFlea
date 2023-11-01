@@ -70,4 +70,27 @@ public class ListingService {
             return null;
         }
     }
+
+    public static void createListing(Connection conn, Listing listing, int uid) {
+        System.out.printf("createListing: uid=%d, title=%s, desc=%s, type=%d, price=%d, cat=%d\n", uid, listing.getTitle(), listing.getDescription(), listing.getType(), listing.getPrice(), listing.getCategory());
+
+        // Create the insertion query
+        String query = "INSERT INTO listings(uid, title, description, type, price, category) VALUES(?, ?, ?, ?, ?, ?);";
+
+        // Prepare the query
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement(query);
+            preparedStatement.setInt(1, uid);
+            preparedStatement.setString(2, listing.getTitle());
+            preparedStatement.setString(3, listing.getDescription());
+            preparedStatement.setInt(4, listing.getType());
+            preparedStatement.setInt(5, listing.getPrice());
+            preparedStatement.setInt(6, listing.getCategory());
+
+            // Execute the query
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }
