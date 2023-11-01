@@ -13,9 +13,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import java.sql.Connection;
 
 @Controller
-public class HomePageController {
-    @GetMapping("/home")
-    public String home(Model model, HttpSession session) {
+public class SavedController {
+    //    TODO: GENE - LOAD SAVED ITEMS
+    @GetMapping("/saved")
+    public String saved(Model model, HttpSession session) {
         // Get the user's session key
         String sessionKey = (String) session.getAttribute("session_key");
 
@@ -25,11 +26,11 @@ public class HomePageController {
             return "redirect:/signin";
         }
 
-        // Establish a database connection
+        System.out.printf("Found session key: %s\n", sessionKey);
+
+        // Establish database connection
         DatabaseService dbSrv = new DatabaseService();
         Connection conn = dbSrv.getConnection();
-
-        System.out.printf("Found session key: %s\n", sessionKey);
 
         // Get the user id based on the session key
         int userId = AccountService.getUserIdFromSessionKey(conn, sessionKey);
@@ -40,15 +41,22 @@ public class HomePageController {
         }
 
         // Create the account object from the found userId
+        // load items from saved items in DB
         Account user = AccountService.getAccount(userId);
-
-        // Set the user and email attributes
         model.addAttribute("username", user.getUsername());
         model.addAttribute("email", user.getEmail());
 
-        // Add listings to model for ThymeLeaf to read
+        System.out.printf("Logged in (username=%s, email=%s)\n", user.getUsername(), user.getEmail());
+
         Listing[] listings = ListingService.getAllListings(conn);
+
+        //print to console listings w/ id
+        for (Listing listing : listings) {
+            System.out.printf("Showing listing (id=%d, title=%s)\n", listing.getId(), listing.getTitle());
+        }
+        //add to model for ThymeLeaf to read
         model.addAttribute("listings", listings);
-        return "home";
+
+        return "saved";
     }
 }

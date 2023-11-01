@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import java.sql.Connection;
 
 @Controller
-public class HomePageController {
-    @GetMapping("/home")
-    public String home(Model model, HttpSession session) {
+public class ProfileController {
+    @GetMapping("/profile")
+    public String profile(Model model, HttpSession session) {
         // Get the user's session key
         String sessionKey = (String) session.getAttribute("session_key");
 
@@ -25,11 +25,11 @@ public class HomePageController {
             return "redirect:/signin";
         }
 
-        // Establish a database connection
+        System.out.printf("Found session key: %s\n", sessionKey);
+
+        // Establish database connection
         DatabaseService dbSrv = new DatabaseService();
         Connection conn = dbSrv.getConnection();
-
-        System.out.printf("Found session key: %s\n", sessionKey);
 
         // Get the user id based on the session key
         int userId = AccountService.getUserIdFromSessionKey(conn, sessionKey);
@@ -41,14 +41,14 @@ public class HomePageController {
 
         // Create the account object from the found userId
         Account user = AccountService.getAccount(userId);
-
-        // Set the user and email attributes
         model.addAttribute("username", user.getUsername());
         model.addAttribute("email", user.getEmail());
 
-        // Add listings to model for ThymeLeaf to read
-        Listing[] listings = ListingService.getAllListings(conn);
+        Listing[] listings = ListingService.getAllUserListings(conn, userId);
+
+        //add to model for ThymeLeaf to read
         model.addAttribute("listings", listings);
-        return "home";
+
+        return "profile";
     }
 }
