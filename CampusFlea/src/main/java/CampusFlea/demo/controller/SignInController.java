@@ -1,6 +1,5 @@
 package CampusFlea.demo.controller;
 
-import CampusFlea.demo.model.Account;
 import CampusFlea.demo.services.AccountService;
 import CampusFlea.demo.services.DatabaseService;
 import jakarta.servlet.http.HttpSession;
