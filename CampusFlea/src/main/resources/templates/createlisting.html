@@ -30,8 +30,10 @@
     <!--<label for="images">Images:</label>
     <input type="file" id="images" name="images[]" th:field="*{image}" multiple accept="image/*" required>-->
 
-    <input type="submit" value="Create Listing">
-    <input type="button" value="Cancel">
+    <button type="submit" value="Create Listing">Create Listing</button>
+    <a th:href="@{home}">
+        <button type="button">Cancel</button>
+    </a>
 </form>
 </body>
 </html>
