@@ -32,11 +32,6 @@ public class Account {
         this.isAdmin = isAdmin;
     }
 
-    public Account() {
-
-    }
-
-
     public int getId() {
         return id;
     }
