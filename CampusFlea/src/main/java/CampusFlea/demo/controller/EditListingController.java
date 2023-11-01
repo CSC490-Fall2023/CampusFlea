@@ -33,7 +33,6 @@ public class EditListingController {
         // Update the listing
         ListingService.updateListing(conn, id, title, description, price, category);
 
-
         // Redirect back to profile
         return "redirect:/profile";
     }
