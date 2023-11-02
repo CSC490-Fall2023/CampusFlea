@@ -117,6 +117,6 @@ public class SettingsController {
         if (!password.isEmpty()) {
             // TODO: password
         }
-        return "usersettings";
+        return "redirect:/settings";
     }
 }
