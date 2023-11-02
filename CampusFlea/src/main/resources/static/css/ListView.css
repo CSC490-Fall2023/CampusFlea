@@ -16,6 +16,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+
 }
 
 .logo {
@@ -26,7 +27,7 @@ header {
 .logo img {
     position: relative;
     top: -10px;
-    width: 175px; /* Adjust the width as needed */
+    width: 175px;
     height: auto;
     margin-left: 20px;
 }
@@ -40,7 +41,21 @@ header {
     margin-right: 20px;
     cursor: pointer;
 }
+.profile-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
 
+.profile-name {
+    margin-left: 10px;
+}
+
+.profile-picture {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
 .container {
     max-width: 1200px;
     margin: 0 auto;
