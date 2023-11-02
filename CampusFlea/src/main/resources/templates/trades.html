@@ -40,7 +40,8 @@
                 <!--            TODO: Filter by buying category-->
                 <li><a th:href="@{buying}" class="nav-item"><i class="fa-solid fa-comments-dollar"></i>Buying</a></li>
                 <!--            TODO: Filter by trade category-->
-                <li><a th:href="@{trades}" class="active nav-item"><i class="fa-regular fa-handshake"></i>Trades</a></li>
+                <li><a th:href="@{trades}" class="active nav-item"><i class="fa-regular fa-handshake"></i>Trades</a>
+                </li>
                 <li><a th:href="@{saved}"><i class="fa-solid fa-bookmark"></i>Saved</a></li>
                 <!--            TODO: Create Link to Messages Page-->
                 <li><a th:href="@{chat}"><i class="fa-solid fa-message"></i>Messages</a></li>
@@ -113,7 +114,7 @@
             <th:block th:each="item : ${listings}">
                 <div class="neumorphic-card">
                     <a th:href="@{listing(id=${item.id})}">
-                        <img th:src="@{/images/List Items/item.jpg}" alt="Product Image">
+                        <img th:src="${listing.image}" alt="Product Image">
                         <div class="item-text">
                             <h2 th:text="${item.title}"></h2>
                             <p th:text="${'$' + item.price}"></p>

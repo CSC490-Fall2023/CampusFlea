@@ -49,10 +49,12 @@ public class TradesController {
 
         Listing[] listings = ListingService.getAllListings(conn);
 
-        //TODO: ONLY SHOW SELLING CATEGORY
-        for (Listing listing : listings) {
-            System.out.printf("Showing listing (id=%d, title=%s)\n", listing.getId(), listing.getTitle());
+        for (int i = 0; i < listings.length; i++) {
+            int listingId = listings[i].getId();
+            String image = ListingService.getListingImages(listingId)[0];
+            listings[i].setImage(image);
         }
+        
         //add to model for ThymeLeaf to read
         model.addAttribute("listings", listings);
 
