@@ -2,6 +2,7 @@ package CampusFlea.demo.services;
 
 import CampusFlea.demo.model.Account;
 
+import java.io.File;
 import java.security.MessageDigest;
 import java.sql.*;
 import java.time.Instant;
@@ -267,7 +268,17 @@ public class AccountService {
         }
     }
 
-    public static String getProfilePicture(Connection conn, int userId) {
+    public static String getProfilePicture(int userId) {
+        // Check if the user profile picture exists
+        String imageDir = "CampusFlea/target/classes/static/uploads/avatars/" + userId;
+        File avatarDir = new File(imageDir);
+
+        if (avatarDir.exists()) {
+            File[] files = avatarDir.listFiles();
+            if (files != null && files.length > 0) {
+                return "/uploads/avatars/" + userId + "/" + files[0].getName();
+            }
+        }
         return "/uploads/avatars/default.png";
     }
 }

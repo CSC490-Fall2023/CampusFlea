@@ -47,7 +47,7 @@ public class ProfileController {
         model.addAttribute("email", user.getEmail());
 
         Listing[] listings = ListingService.getAllUserListings(conn, userId);
-        String avatar = AccountService.getProfilePicture(conn, userId);
+        String avatar = AccountService.getProfilePicture(userId);
 
         // Set the appearance image of each listing
         for (int i = 0; i < listings.length; i++) {

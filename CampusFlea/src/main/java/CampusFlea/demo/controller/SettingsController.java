@@ -44,7 +44,7 @@ public class SettingsController {
 
         // Create the account object from the found userId
         Account user = AccountService.getAccount(userId);
-        String avatar = AccountService.getProfilePicture(conn, userId);
+        String avatar = AccountService.getProfilePicture(userId);
 
         model.addAttribute("username", user.getUsername());
         model.addAttribute("email", user.getEmail());

@@ -51,6 +51,10 @@ public class HomePageController {
         model.addAttribute("username", user.getUsername());
         model.addAttribute("email", user.getEmail());
 
+        // Add the avatar link for loading
+        String avatar = AccountService.getProfilePicture(userId);
+        model.addAttribute("avatar", avatar);
+
         // Add listings to model for ThymeLeaf to read
         Listing[] listings = ListingService.getAllListings(conn);
 
