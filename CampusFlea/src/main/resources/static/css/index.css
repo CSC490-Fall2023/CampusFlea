@@ -59,6 +59,10 @@ body, ul, li {
     color:white;
 }
 
+.text-container span a{
+    color:white;
+}
+
 .filter-button button{
     border: none;
         color: gray;
