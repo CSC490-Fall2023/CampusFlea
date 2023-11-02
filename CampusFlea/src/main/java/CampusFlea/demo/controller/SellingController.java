@@ -47,6 +47,12 @@ public class SellingController {
 
         Listing[] listings = ListingService.getAllUserListings(conn, userId);
 
+        for (int i = 0; i < listings.length; i++) {
+            int listingId = listings[i].getId();
+            String image = ListingService.getListingImages(listingId)[0];
+            listings[i].setImage(image);
+        }
+
         //add to model for ThymeLeaf to read
         model.addAttribute("listings", listings);
 

@@ -36,7 +36,8 @@
             <ul>
                 <li><a class="nav-item" th:href="@{home}"><i class="fa-solid fa-store"></i>Browse All</a></li>
                 <!--            TODO: Filter by selling category-->
-                <li><a th:href="@{selling}" class="active nav-item"><i class="fa-solid fa-cart-shopping"></i>Selling</a></li>
+                <li><a th:href="@{selling}" class="active nav-item"><i class="fa-solid fa-cart-shopping"></i>Selling</a>
+                </li>
                 <!--            TODO: Filter by buying category-->
                 <li><a th:href="@{buying}" class="nav-item"><i class="fa-solid fa-comments-dollar"></i>Buying</a></li>
                 <!--            TODO: Filter by trade category-->
@@ -113,7 +114,7 @@
             <th:block th:each="item : ${listings}">
                 <div class="neumorphic-card">
                     <a th:href="@{listing(id=${item.id})}">
-                        <img th:src="@{/images/List Items/item.jpg}" alt="Product Image">
+                        <img th:src="${item.image}" alt="Product Image">
                         <div class="item-text">
                             <h2 th:text="${item.title}"></h2>
                             <p th:text="${'$' + item.price}"></p>
