@@ -235,8 +235,11 @@ body, ul, li {
 
 .neumorphic-card img {
     max-width: 100%;
-    height: auto;
+    height: 200px;
     border-radius: 10px;
+    overflow: hidden;
+    object-fit: contain;
+
 }
 
 h2 {
