@@ -13,7 +13,6 @@
             <a th:href="@{home}">
                 <img th:src="@{/images/Logos/logo.png}" alt="Logo">
             </a>
-            <!--      <img src="../static/images/Logos/logo.png"  alt="Logo">-->
         </div>
         <button class="back-button" onclick="history.back()">Back</button>
     </nav>
@@ -42,8 +41,8 @@
             <div class="likeShare-config">
 
                 <div class="user-choose">
-                    <button onclick="like()">Like</button>
                     <button onclick="save()">Save</button>
+                    <button onclick="flag()">Flag</button>
                 </div>
             </div>
         </div>
@@ -55,8 +54,8 @@
         </div>
     </div>
     <script>
-        function like() {
-            console.log("Item Liked!");
+        function flag() {
+            console.log("Item Flagged!");
         }
 
         function save() {
