@@ -16,6 +16,10 @@ public class ListingController {
         int listingId = Integer.parseInt(id);
         Listing listing = ListingService.getListing(listingId);
 
+        // Add image to listing
+        String image = ListingService.getListingImages(listingId)[0];
+        listing.setImage(image);
+
         // Attach the listing object
         model.addAttribute("listing", listing);
         model.addAttribute("category", ListingService.CATEGORIES[listing.getCategory()]);

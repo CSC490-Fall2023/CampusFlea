@@ -56,12 +56,7 @@ public class HomePageController {
         for (int i = 0; i < listings.length; i++) {
             int listingId = listings[i].getId();
             String[] images = ListingService.getListingImages(listingId);
-
-            if (images != null) {
-                listings[i].setImage(images[0]);
-            } else {
-                listings[i].setImage(ListingService.DEFAULT_IMAGE);
-            }
+            listings[i].setImage(images[0]);
         }
 
         model.addAttribute("listings", listings);

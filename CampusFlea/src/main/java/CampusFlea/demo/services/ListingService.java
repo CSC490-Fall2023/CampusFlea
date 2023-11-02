@@ -221,7 +221,7 @@ public class ListingService {
         File[] images = directory.listFiles();
 
         if (images == null) {
-            return null;
+            return new String[]{DEFAULT_IMAGE};
         }
 
         String[] imageNames = new String[images.length];
