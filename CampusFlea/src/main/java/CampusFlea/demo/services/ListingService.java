@@ -22,6 +22,8 @@ public class ListingService {
             "SOLD"
     };
 
+    public static String DEFAULT_IMAGE = "images/List Items/item.jpg";
+
     public static Listing getListing(int listingId) {
         // Create the DB connection
         DatabaseService dbSrv = new DatabaseService();
@@ -225,7 +227,7 @@ public class ListingService {
         String[] imageNames = new String[images.length];
 
         for (int i = 0; i < imageNames.length; i++) {
-            imageNames[i] = images[i].getName();
+            imageNames[i] = "uploads/listings/" + listingId + "/" + images[i].getName();
         }
         return imageNames;
     }

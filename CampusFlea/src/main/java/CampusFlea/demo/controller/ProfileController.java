@@ -52,11 +52,11 @@ public class ProfileController {
             int listingId = listings[i].getId();
             String[] images = ListingService.getListingImages(listingId);
 
-            String imagePath = "images/List Items/item.jpg";
             if (images != null) {
-                imagePath = "uploads/listings/" + listingId + "/" + images[0];
+                listings[i].setImage(images[0]);
+            } else {
+                listings[i].setImage(ListingService.DEFAULT_IMAGE);
             }
-            listings[i].setImage(imagePath);
         }
 
         //add to model for ThymeLeaf to read
