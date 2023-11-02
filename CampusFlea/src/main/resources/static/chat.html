@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -27,7 +27,7 @@
 
 <body>
 
-<div class="abs cover contaniner" id="app">
+<div class="abs cover container" id="app">
     <div class="abs cover pnl">
         <div class="top pnl-head" style="padding: 20px ; color: white;">
             <div id="userName">
@@ -36,7 +36,7 @@
                 <span style='float: right;color: red' v-else>offline</span>
             </div>
             <div id="chatMes" v-show="chatMes" style="text-align: center;color: #6fbdf3;font-family: Calibri">
-                Chat with <font face=" Calibri">{{toName}}</font> 
+                Chat with <font face=" Calibre">{{toName}}</font>
             </div>
         </div>
         <!--chat frame-->
@@ -145,7 +145,7 @@
         },
         methods: {
             async init() {
-                await axios.get("user/getUsername").then(res => {
+                await axios.get("getUsername").then(res => {
                     this.username = res.data;
                 });
 
@@ -173,6 +173,7 @@
                 //show chat with user
                 this.chatMes = true;
             },
+            //submit button
             submit() {
                 this.sendMessage.toName = this.toName;
                 this.historyMessage.push(JSON.parse(JSON.stringify(this.sendMessage)));
@@ -191,7 +192,7 @@
                 this.isOnline = false;
             },
             onMessage(evt) {
-                //recieve data from system
+                //receive data from system
                 var dataStr = evt.data;
                 //transfer to JSON
                 var res = JSON.parse(dataStr);
@@ -200,7 +201,7 @@
               //      .then(response => response.json())
               //      .then(data => {
               //          data.forEach(message => {
-               //             displayMessage(message); 
+               //             displayMessage(message);
                 //        });
                //     });
              //   displayMessage(message){

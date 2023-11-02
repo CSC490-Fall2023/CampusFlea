@@ -1,32 +1,27 @@
 package CampusFlea.demo.controller;
 
-import CampusFlea.demo.websocket.ChatMessage;
-import CampusFlea.demo.websocket.ChatMessageRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import CampusFlea.demo.model.Account;
+import CampusFlea.demo.services.AccountService;
+import jakarta.servlet.http.HttpSession;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.ui.Model;
 
-import java.nio.file.AccessDeniedException;
-import java.util.List;
-
-@RestController
-@RequestMapping("/chat")
+@Controller
 public class ChatController {
-    @Autowired
-    private ChatMessageRepository chatMessageRepository;
-    @GetMapping("/{sender}/history")
-    public List<ChatMessage> getChatHistory(@PathVariable String sender, @AuthenticationPrincipal UserDetails currentUser) throws AccessDeniedException {
-       //check username and sender is same or not ,to search chat history
-         if (sender.equals(currentUser.getUsername())) {
-            return chatMessageRepository.findBySender(sender);
-    } else {
-           throw new AccessDeniedException("Access denied");
+    @GetMapping("/getUsername")
+    public String Chat(Model model, HttpSession session) {
+        // get username
+        String sessionKey = (String) session.getAttribute("session_key");
+        // Check if session key is set
+        if (sessionKey == null) {
+            System.out.println("Did not find session key");
+            return "redirect:/signin";
         }
+        System.out.printf("Found session key: %s\n", sessionKey);
+        int userId = AccountService.getUserIdFromSessionKey(sessionKey);
+        Account user = AccountService.getAccount(userId);
+        String username = user.getUsername();
+        return username;
     }
-    }
-
-
+}

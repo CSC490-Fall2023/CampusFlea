@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Signup</title>
+</head>
+<body>
+
+<div class="container">
+    <form th:action="@{/signup}" th:object="${user}" method="post">
+        <!-- Username -->
+        <label for="user">Username:</label><br>
+        <input type="text" id="user" name="user" th:field="*{username}" required><br>
+
+        <!-- Password -->
+        <label for="pass">Password:</label><br>
+        <input type="password" id="pass" name="pass" th:field="*{password}" required><br>
+
+        <!-- Email -->
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email" th:field="*{email}" required><br>
+
+        <!-- Signup Button -->
+        <div class="btn-signin">
+            <button type="submit">
+                Signup
+            </button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

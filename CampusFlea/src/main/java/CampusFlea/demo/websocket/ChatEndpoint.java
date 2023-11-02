@@ -30,7 +30,7 @@ public class ChatEndpoint {
     public void onOpen(Session session, EndpointConfig config) {
         //storage the session
         this.httpSession = (HttpSession) config.getUserProperties().get(HttpSession.class.getName());
-        String user = (String) this.httpSession.getAttribute("user");
+        String user = (String) this.httpSession.getAttribute("username");
         onlineUsers.put(user,session);
         //broadcast the message like someone online or offline
         String message = MessageUtils.getMessage(true,null,getFriends());

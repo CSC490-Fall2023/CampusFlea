@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Profile</title>
+  <link rel="stylesheet" href="../static/css/profile.css">
+  <link rel="stylesheet" th:href="@{/css/profile.css}">
+  <script src="https://kit.fontawesome.com/9113ff3c75.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <header>
+    <nav class="navbar">
+      <div class="logo">
+        <img th:src="@{/images/Logos/logo.png}"  alt="Logo">
+        <!--      <img src="../static/images/Logos/logo.png"  alt="Logo">-->
+      </div>
+      <button class="save-button" onclick="history.back()">Back</button>
+    </nav>
+  </header>
+<main>
+  <div class="container-mid">
+  <div class="section-middle">
+    <div class="profile-picture">
+<!--      TODO: GENE: LOAD PFP DYNAMICALLY-->
+      <img th:src="@{/images/List Items/item.jpg}"  alt="Profile Picture" id="profile-image">
+    </div>
+    <div class="hero-title">
+      <h1 th:text="${username}"></h1>
+      <a href=""><i class="fa-regular fa-pen-to-square"></i></a>
+    </div>
+  </div>
+  </div>
+  <section class="profile">
+    <h2>My Posts</h2>
+    <div class="post-grid">  <div class="grid-container">
+      <!-- Repeat this container as needed -->
+      <div class="grid-item">
+        <th:block th:each="item : ${listings}">
+          <div class="neumorphic-card">
+            <a th:href="@{listing}">
+              <img th:src="@{/images/List Items/item.jpg}" alt="Product Image">
+              <div class="item-text">
+                <h2 th:text="${item.title}"></h2>
+                <p class="price">$99.99</p>
+              </div>
+            </a>
+              <button class="edit-profile-button"><i class="fa-regular fa-pen-to-square"></i></button>
+
+          </div>
+        </th:block>
+      </div>
+    </div>
+    </div>
+  </section>
+</main>
+</body>
+</html>

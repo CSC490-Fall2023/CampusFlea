@@ -5,28 +5,40 @@ import java.io.Serializable;
 import java.time.Instant;
 
 //@Table(name = "account")
-public class account implements Serializable {
+public class Account implements Serializable {
 
     private int id;
 
     private String username;
 
-    private String password; //<- security issue
+    private String password;
+
+    private String salt;
 
     private String email;
 
-    private Instant createdOn;
+    private int createdOn;
 
-    private Instant lastLogin;
+    private int lastLogin;
 
-    private String bookmarks; //<- don't know about this datatype
+    private String bookmarks;
 
     private boolean isAdmin;
 
-    public account(int id, String username, String email){
+    public Account(int id, String username, String password, String salt, String email, int createdOn, int lastLogin, String bookmarks, boolean isAdmin) {
         this.id = id;
         this.username = username;
+        this.password = password;
+        this.salt = salt;
         this.email = email;
+        this.createdOn = createdOn;
+        this.lastLogin = lastLogin;
+        this.bookmarks = bookmarks;
+        this.isAdmin = isAdmin;
+    }
+
+    public Account(){
+
     }
 
 
@@ -46,7 +58,6 @@ public class account implements Serializable {
         this.username = username;
     }
 
-    // TODO: setters should be private for security
     public String getPassword() {
         return password;
     }
@@ -63,19 +74,19 @@ public class account implements Serializable {
         this.email = email;
     }
 
-    public Instant getCreatedOn() {
+    public int getCreatedOn() {
         return createdOn;
     }
 
-    public void setCreatedOn(Instant createdOn) {
+    public void setCreatedOn(int createdOn) {
         this.createdOn = createdOn;
     }
 
-    public Instant getLastLogin() {
+    public int getLastLogin() {
         return lastLogin;
     }
 
-    public void setLastLogin(Instant lastLogin) {
+    public void setLastLogin(int lastLogin) {
         this.lastLogin = lastLogin;
     }
 
@@ -87,11 +98,11 @@ public class account implements Serializable {
         this.bookmarks = bookmarks;
     }
 
-    public boolean isAdmin() {
+    public boolean getIsAdmin() {
         return isAdmin;
     }
 
-    public void setAdmin(boolean admin) {
-        isAdmin = admin;
+    public void setIsAdmin(boolean isAdmin) {
+        this.isAdmin = isAdmin;
     }
 }
