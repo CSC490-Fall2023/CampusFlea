@@ -9,12 +9,13 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.sql.Connection;
 
 @Controller
 public class SavedController {
-    //    TODO: GENE - LOAD SAVED ITEMS
     @GetMapping("/saved")
     public String saved(Model model, HttpSession session) {
         // Get the user's session key
@@ -58,5 +59,35 @@ public class SavedController {
         model.addAttribute("listings", listings);
 
         return "saved";
+    }
+
+    @RequestMapping(value = "/saved", params = "save")
+    public String saveListing(@RequestParam String listingId, HttpSession session) {
+        // Get the user's session key
+        String sessionKey = (String) session.getAttribute("session_key");
+
+        // Check if session key is set
+        if (sessionKey == null) {
+            System.out.println("Did not find session key");
+            return "redirect:/signin";
+        }
+
+        // Establish a database connection
+        DatabaseService dbSrv = new DatabaseService();
+        Connection conn = dbSrv.getConnection();
+
+        // Get the user id based on the session key
+        int userId = AccountService.getUserIdFromSessionKey(conn, sessionKey);
+
+        // Check that the session key is valid (redirect them to login otherwise)
+        if (userId == -1) {
+            return "redirect:/signin";
+        }
+
+        // Save the listing
+        ListingService.toggleSave(conn, userId, listingId);
+
+        // Reload
+        return "redirect:/saved";
     }
 }

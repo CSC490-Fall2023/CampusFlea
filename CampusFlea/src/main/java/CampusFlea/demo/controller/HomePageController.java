@@ -66,8 +66,32 @@ public class HomePageController {
     }
 
     @RequestMapping(value = "/", params = "save")
-    public String saveListing(@RequestParam String id) {
-        System.out.printf("Id: %s\n", id);
-        return "home";
+    public String saveListing(@RequestParam String listingId, HttpSession session) {
+        // Get the user's session key
+        String sessionKey = (String) session.getAttribute("session_key");
+
+        // Check if session key is set
+        if (sessionKey == null) {
+            System.out.println("Did not find session key");
+            return "redirect:/signin";
+        }
+
+        // Establish a database connection
+        DatabaseService dbSrv = new DatabaseService();
+        Connection conn = dbSrv.getConnection();
+
+        // Get the user id based on the session key
+        int userId = AccountService.getUserIdFromSessionKey(conn, sessionKey);
+
+        // Check that the session key is valid (redirect them to login otherwise)
+        if (userId == -1) {
+            return "redirect:/signin";
+        }
+
+        // Save the listing
+        ListingService.toggleSave(conn, userId, listingId);
+
+        // Reload
+        return "redirect:/";
     }
 }

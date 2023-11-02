@@ -168,7 +168,7 @@ public class ListingService {
             return savedIds;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            return null;
+            return new String[0];
         }
     }
 
@@ -181,6 +181,11 @@ public class ListingService {
 
         // Loop through each id and get listing information
         for (String listingId : savedListingIds) {
+            // Skip non-existent listing ids
+            if (listingId.isEmpty()) {
+                continue;
+            }
+
             String query = "SELECT * FROM listings WHERE id = ?;";
 
             try {
@@ -232,15 +237,69 @@ public class ListingService {
         return imageNames;
     }
 
-    public static void saveListing(Connection conn, int userId, int listingId) {
+    public static void toggleSave(Connection conn, int userId, String listingId) {
+        // Check if item is saved
+        boolean isSaved = listingIsSaved(conn, userId, listingId);
+
+        if (isSaved) {
+            // Remove from save
+            unsaveListing(conn, userId, listingId);
+        } else {
+            // Add to save
+            saveListing(conn, userId, listingId);
+        }
+    }
+
+    private static boolean listingIsSaved(Connection conn, int userId, String listingId) {
+        String[] savedListings = getSavedListingIds(conn, userId);
+
+        for (String listing : savedListings) {
+            if (listing.equals(listingId)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static void unsaveListing(Connection conn, int userId, String listingId) {
         // Get the user's existing saved listings
         String[] savedListings = getSavedListingIds(conn, userId);
 
         // Convert to a list in order to add new saved listing id
-        List<String> savedListingsList = Arrays.asList(savedListings);
+        List<String> savedListingsList = new ArrayList<>(Arrays.asList(savedListings));
 
         // Add listing id to existing list
-        savedListingsList.add(String.valueOf(listingId));
+        savedListingsList.remove(listingId);
+
+        // Convert the list to csv
+        String savedListingsCSV = String.join(",", savedListingsList);
+
+        // Save new string to the database
+        // Create the update query
+        String query = "UPDATE accounts SET saved = ? WHERE id = ?;";
+
+        // Prepare the query
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement(query);
+            preparedStatement.setString(1, savedListingsCSV);
+            preparedStatement.setInt(2, userId);
+
+            // Execute the query
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private static void saveListing(Connection conn, int userId, String listingId) {
+        // Get the user's existing saved listings
+        String[] savedListings = getSavedListingIds(conn, userId);
+
+        // Convert to a list in order to add new saved listing id
+        List<String> savedListingsList = new ArrayList<>(Arrays.asList(savedListings));
+
+        // Add listing id to existing list
+        savedListingsList.add(listingId);
 
         // Convert the list to csv
         String savedListingsCSV = String.join(",", savedListingsList);

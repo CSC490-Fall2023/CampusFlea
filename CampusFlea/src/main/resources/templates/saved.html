@@ -122,13 +122,14 @@
                             <p th:text="${'$' + item.price}"></p>
                         </div>
                     </a>
-                    <!--                    TODO: SAVE BUTTON FUNCTION-->
                     <!--                    TODO: FILL IN ICON ON CLICK-->
-                    <a href="#">
-                        <button class="edit-profile-button"><i class="fa-regular fa-bookmark"></i></button>
-                    </a>
+                    <form method="post">
+                        <input type="hidden" name="listingId" th:value="${item.id}">
+                        <button type="submit" class="edit-profile-button" name="save"><i
+                                class="fa-regular fa-bookmark"></i>
+                        </button>
+                    </form>
                 </div>
-
             </th:block>
         </div>
     </div>
