@@ -76,7 +76,7 @@ public class CreateListingController {
         byte[] bytes = images.getBytes();
 
         // Make sure the directory exists
-        String imageDir = "CampusFlea/src/main/resources/static/uploads/listings/" + listingId;
+        String imageDir = "CampusFlea/target/classes/static/uploads/listings/" + listingId;
         File directory = new File(imageDir);
         if (!directory.exists()) {
             directory.mkdir();

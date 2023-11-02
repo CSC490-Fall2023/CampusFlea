@@ -242,7 +242,7 @@ public class ListingService {
     }
 
     public static String[] getListingImages(int listingId) {
-        String imageDir = "CampusFlea/src/main/resources/static/uploads/listings/" + listingId;
+        String imageDir = "CampusFlea/target/classes/static/uploads/listings/" + listingId;
         File directory = new File(imageDir);
         File[] images = directory.listFiles();
 
