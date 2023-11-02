@@ -4,7 +4,41 @@ html, body {
     margin: 0;
     font-family: 'Roboto', sans-serif;
 }
+header {
+    background-color: #15171B;
+    color: #fff;
 
+}
+
+.navbar {
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    position: relative;
+    padding-bottom: -5px;
+}
+
+.logo img {
+    position: relative;
+    top: -10px;
+    width: 175px; /* Adjust the width as needed */
+    height: auto;
+    margin-left: 20px;
+}
+
+.back-button {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    margin-right: 20px;
+    cursor: pointer;
+}
 
 .container {
     max-width: 1200px;
