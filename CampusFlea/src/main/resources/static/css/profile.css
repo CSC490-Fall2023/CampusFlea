@@ -179,7 +179,7 @@ position: relative;
         border-radius: 5px;
         cursor: pointer;
         font-size: 16px;
-        margin-right: 15px;
+        margin-left: 15px;
 }
 
 /* Hover effect */
@@ -194,10 +194,38 @@ position: relative;
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Add a subtle box-shadow on focus */
 }
 
+.delete-button {
+        background-color: white;
+        /* color: white; */
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        margin-right: 15px;
+}
+
+/* Hover effect */
+.delete-button:hover {
+    background-color: red; /* Darker blue on hover */
+    color: white;
+}
+
+/* Focus effect (for accessibility) */
+.delete-button:focus {
+    outline: none; /* Remove the default focus outline */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Add a subtle box-shadow on focus */
+}
+
 .hero-title{
     display:flex;
     justify-content: space-between;
     margin-left: 10px;
     margin-right: 10px;
+}
+
+.edit-buttons{
+    display:flex;
+    justify-content: space-between;
 }
 
