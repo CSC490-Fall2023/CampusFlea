@@ -109,6 +109,7 @@ h1 {
     width: 100%;
         object-fit: cover;
         object-position: top; /* Align the image to the top */
+        max-height: 65%;
         border-radius: 10px 10px 0 0; /* Rounded corners only at the top */
 }
 
