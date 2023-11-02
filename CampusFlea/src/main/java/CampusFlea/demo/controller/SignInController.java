@@ -50,6 +50,6 @@ public class SignInController {
         // Save the session key
         session.setAttribute("session_key", sessionKey);
 
-        return "redirect:/home";
+        return "redirect:/";
     }
 }

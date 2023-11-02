@@ -14,7 +14,7 @@ import java.sql.Connection;
 
 @Controller
 public class HomePageController {
-    @GetMapping("/home")
+    @GetMapping("/")
     public String home(Model model, HttpSession session) {
         // Get the user's session key
         String sessionKey = (String) session.getAttribute("session_key");

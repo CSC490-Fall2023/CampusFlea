@@ -39,7 +39,7 @@ public class SignUpController {
             // Save the session key
             session.setAttribute("session_key", sessionKey);
 
-            return "redirect:/home";
+            return "redirect:/";
         }
 
         // If created unsuccessfully, redirect the user back to the signup

@@ -63,6 +63,6 @@ public class CreateListingController {
         // TODO: Add visual confirmation
 
         // Redirect back to home
-        return "redirect:/home";
+        return "redirect:/";
     }
 }
