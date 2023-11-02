@@ -8,13 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.sql.Connection;
 
 @Controller
@@ -26,32 +20,18 @@ public class EditListingController {
 
         // Add the listing to the model
         model.addAttribute("listing", listing);
-        model.addAttribute("id", id);
+        model.addAttribute("listingId", id);
         return "editlisting";
     }
 
     @PostMapping("/editlisting")
-    public String processEditListing(@RequestParam int id, @RequestParam String title, @RequestParam int category, @RequestParam int price, @RequestParam String description, @RequestParam MultipartFile images) throws IOException {
+    public String processEditListing(@RequestParam int listingId, @RequestParam String title, @RequestParam int category, @RequestParam int price, @RequestParam String description) {
         // Create a new instance of database
         DatabaseService dbSrv = new DatabaseService();
         Connection conn = dbSrv.getConnection();
 
-        // Download the files
-        String fileName = images.getOriginalFilename();
-        byte[] bytes = images.getBytes();
-
-        // Make sure the directory exists
-        String imageDir = "CampusFlea/src/main/resources/static/uploads/listings/" + id;
-        File directory = new File(imageDir);
-        if (!directory.exists()) {
-            directory.mkdir();
-        }
-        // save the image to disk
-        Path path = Paths.get(imageDir, fileName);
-        Files.write(path, bytes);
-
         // Update the listing
-        ListingService.updateListing(conn, id, title, description, price, category);
+        ListingService.updateListing(conn, listingId, title, description, price, category);
 
         // Redirect back to profile
         return "redirect:/profile";

@@ -45,23 +45,9 @@ public class ProfileController {
         model.addAttribute("email", user.getEmail());
 
         Listing[] listings = ListingService.getAllUserListings(conn, userId);
-        String avatar = AccountService.getProfilePicture(conn, userId);
-
-        // Set the appearance image of each listing
-        for (int i = 0; i < listings.length; i++) {
-            int listingId = listings[i].getId();
-            String[] images = ListingService.getListingImages(listingId);
-
-            String imagePath = "images/List Items/item.jpg";
-            if (images != null) {
-                imagePath = "uploads/listings/" + listingId + "/" + images[0];
-            }
-            listings[i].setImage(imagePath);
-        }
 
         //add to model for ThymeLeaf to read
         model.addAttribute("listings", listings);
-        model.addAttribute("avatar", avatar);
 
         return "profile";
     }

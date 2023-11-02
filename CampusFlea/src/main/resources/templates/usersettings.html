@@ -22,8 +22,8 @@
     <div class="profile-section">
         <div class="profile-picture">
             <img th:src="${avatar}" alt="Profile Picture" id="profile-image">
-            <label for="avatar-upload" class="edit-profile-button">Edit</label>
-            <input type="file" id="avatar-upload" name="avatar-upload" accept="image/*" style="display: none;">
+            <label for="profile-upload" class="edit-profile-button">Edit</label>
+            <input type="file" id="profile-upload" accept="image/*" style="display: none;">
         </div>
         <h1>User Profile</h1>
         <h3>Student</h3>
@@ -46,9 +46,4 @@
     </div>
 </div>
 </body>
-<script>
-    document.getElementById("avatar-upload").addEventListener("onclick", function() {
-        alert("Changed!");
-    });
-</script>
 </html>

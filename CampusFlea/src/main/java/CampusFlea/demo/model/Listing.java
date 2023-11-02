@@ -11,8 +11,6 @@ public class Listing {
     private final int have;
     private final int category;
 
-    private String image;
-
     public Listing(int id, String title, String description, int type, int status, int price, int want, int have, int category) {
         this.id = id;
         this.title = title;
@@ -59,14 +57,6 @@ public class Listing {
 
     public int getCategory() {
         return category;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public String getImage() {
-        return image;
     }
 
     public String toString() {
