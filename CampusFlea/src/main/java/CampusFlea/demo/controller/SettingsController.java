@@ -55,7 +55,7 @@ public class SettingsController {
     }
 
     @PostMapping("/settings")
-    public String updateSettings(@RequestParam String username, @RequestParam String email, @RequestParam String password) throws IOException {
+    public String updateSettings(@RequestParam String username, @RequestParam String email, @RequestParam String password, HttpSession session) throws IOException {
         // Get the user's session key
         String sessionKey = (String) session.getAttribute("session_key");
 
