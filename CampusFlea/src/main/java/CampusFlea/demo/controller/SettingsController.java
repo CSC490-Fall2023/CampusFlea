@@ -7,7 +7,14 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Connection;
 
 @Controller
@@ -43,5 +50,18 @@ public class SettingsController {
         model.addAttribute("email", user.getEmail());
         model.addAttribute("avatar", avatar);
         return "usersettings";
+    }
+
+    @PostMapping("/settings")
+    public static void uploadAvatar(@RequestParam MultipartFile file) throws IOException {
+        System.out.println(file);
+
+        //MultipartFile file = request.getFile("image");
+        String fileName = file.getOriginalFilename();
+        byte[] bytes = file.getBytes();
+
+        // save the image to disk
+        Path path = Paths.get("uploads", fileName);
+        Files.write(path, bytes);
     }
 }

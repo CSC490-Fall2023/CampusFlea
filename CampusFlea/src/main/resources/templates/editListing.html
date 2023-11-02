@@ -27,9 +27,9 @@
     <textarea id="description" name="description" th:text="${listing.description}" required></textarea>
 
     <label for="images">Images:</label>
-    <input type="file" id="images" name="images[]" multiple accept="image/*" required>
+    <input type="file" id="images" name="images" multiple accept="image/*" required>
 
-    <input type="hidden" id="listingId" name="listingId" th:value="${listingId}">
+    <input type="hidden" id="id" name="id" th:value="${id}">
 
     <button type="submit">Save Changes</button>
     <a th:href="@{home}">
