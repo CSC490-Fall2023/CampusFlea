@@ -340,4 +340,20 @@ public class ListingService {
             System.out.println(e.getMessage());
         }
     }
+
+    public static void deleteListing(Connection conn, int listingId) {
+        // Create the delete query
+        String query = "DELETE FROM listings WHERE id = ?;";
+
+        // Prepare the query
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement(query);
+            preparedStatement.setInt(1, listingId);
+
+            // Execute the query
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }

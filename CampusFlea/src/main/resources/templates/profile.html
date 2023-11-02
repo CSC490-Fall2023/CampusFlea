@@ -51,10 +51,11 @@
                                     <button class="edit-profile-button"><i class="fa-regular fa-pen-to-square"></i>
                                     </button>
                                 </a>
-                                <!--                            TODO: DELETE FUNCTION-->
-                                <a href="#">
-                                    <button class="delete-button"><i class="fa-solid fa-trash"></i></button>
-                                </a>
+                                <form method="post">
+                                    <input type="hidden" name="listingId" th:value="${item.id}">
+                                    <button type="submit" class="delete-button" name="delete"><i
+                                            class="fa-solid fa-trash"></i></button>
+                                </form>
                             </div>
                         </div>
                     </th:block>
