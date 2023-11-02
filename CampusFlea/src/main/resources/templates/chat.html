@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CampusFlea Chat</title>
+    <script src="https://kit.fontawesome.com/9113ff3c75.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../static/css/chat.css">
+    <link th:href="@{/css/chat.css}" rel="stylesheet">
+</head>
+<body>
+<div class="app">
+    <div class="sidebar left-sidebar">
+        <div class="sidebar-top">
+            <span class="bg-color2"></span>
+            <div class="logo">
+                <img th:src="@{/images/Logos/logo.png}" alt="Logo">
+            </div>
+            <div class="container">
+                <div class="user-profile">
+                <span>
+                    <img th:src="@{/images/List Items/item.jpg}" alt="Profile Picture" class="dots">
+                </span>
+                    <div class="text-container">
+                        <a th:href="@{profile}" class="username">
+                            <span th:text="${username}"></span>
+                        </a>
+                        <p id="email"><span th:text="${email}"></span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="sidebar-mid">
+            <div class="nav-links">
+                <ul>
+                    <li><a class="nav-item" th:href="@{home}"><i class="fa-solid fa-store"></i>Browse All</a></li>
+                    <!--            TODO: Filter by selling category-->
+                    <li><a th:href="@{selling}" class="nav-item"><i class="fa-solid fa-cart-shopping"></i>Selling</a></li>
+                    <!--            TODO: Filter by buying category-->
+                    <li><a th:href="@{buying}" class="nav-item"><i class="fa-solid fa-comments-dollar"></i>Buying</a></li>
+                    <!--            TODO: Filter by trade category-->
+                    <li><a th:href="@{trades}" class="nav-item"><i class="fa-regular fa-handshake"></i>Trades</a></li>
+                    <li><a th:href="@{saved}" class=""><i class="fa-solid fa-bookmark"></i>Saved</a></li>
+                    <!--            TODO: Create Link to Messages Page-->
+                    <li><a th:href="@{chat}" class="active"><i class="fa-solid fa-message"></i>Messages</a></li>
+                    <li><a th:href="@{settings}"><i class="fa-solid fa-gear"></i>Settings</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="sidebar-bottom">
+            <a th:href="@{signin}">
+                <button class="signout-button">Sign Out</button>
+            </a>
+        </div>
+        </div>
+    <div class="sidebar right-sidebar">
+        <!-- Recent Chats -->
+        <ul class="chat-list">
+<!--            TODO: LOAD USER CHAT HISTORY DYNAMICALLY-->
+            <div class="chat-info-box">
+            <li>
+                <img class="profile-pic" th:src="@{uploads/avatars/default.png}" alt="User 2">
+                <div class="chat-info">
+                    <h4>User 1</h4>
+                    <p>Last message sent</p>
+                </div>
+            </div>
+            </li>
+            <!-- Add more chat entries as needed -->
+        </ul>
+    </div>
+    <div class="main-content">
+        <div class="chat-box">
+            <div class="chat-messages">
+                <!-- Chat messages will be displayed here -->
+                <div class="message received">
+                    <div class="message-content">
+                        <p>Hello there!</p>
+                    </div>
+                </div>
+                <div class="message sent">
+                    <div class="message-content">
+                        <p>Hi! How can I help you?</p>
+                    </div>
+                </div>
+                <!-- Add more chat messages as needed -->
+            </div>
+            <div class="chat-input">
+                <input type="text" placeholder="Type your message...">
+                <button id="send-button">Send</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
