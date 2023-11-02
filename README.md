@@ -28,6 +28,5 @@ enhancing their overall college experience and contributing positively to campus
 ## The Team
 - [Evan Corsar](https://github.com/EvanCorsar) - Front-end Developer
 - [Dahao Husang](https://github.com/sishenhaixianbao) - Back-end Developer
-- [Justin Kim](https://github.com/Justinkim0228) - Back-end Developer
 - [Joshua Neely](https://github.com/JoshNeely) - Front-end Developer
 - [Gene Pressinger](https://github.com/GeneUNCG) - Back-end Developer and DBA
