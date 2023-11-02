@@ -11,7 +11,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Connection;
 
 @Controller
@@ -31,7 +37,7 @@ public class CreateListingController {
     }
 
     @PostMapping("/createlisting")
-    public String processCreateListing(@RequestParam String title, @RequestParam int category, @RequestParam int price, @RequestParam String description, HttpSession session) {
+    public String processCreateListing(@RequestParam String title, @RequestParam int category, @RequestParam int price, @RequestParam String description, @RequestParam MultipartFile images, HttpSession session) throws IOException {
         System.out.println(title);
 
         // Get the user's session key
@@ -58,7 +64,26 @@ public class CreateListingController {
         }
 
         // Create the new listing
-        ListingService.createListing(conn, title, description, price, category, userId);
+        int listingId = ListingService.createListing(conn, title, description, price, category, userId);
+
+        if (listingId == -1) {
+            System.out.println("Invalid listingId.");
+            return "redirect:/";
+        }
+
+        // Download the files
+        String fileName = images.getOriginalFilename();
+        byte[] bytes = images.getBytes();
+
+        // Make sure the directory exists
+        String imageDir = "CampusFlea/src/main/resources/static/uploads/listings/" + listingId;
+        File directory = new File(imageDir);
+        if (!directory.exists()) {
+            directory.mkdir();
+        }
+        // save the image to disk
+        Path path = Paths.get(imageDir, fileName);
+        Files.write(path, bytes);
 
         // TODO: Add visual confirmation
 

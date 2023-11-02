@@ -129,7 +129,7 @@ public class ListingService {
         }
     }
 
-    public static void createListing(Connection conn, String title, String description, int price, int category, int uid) {
+    public static int createListing(Connection conn, String title, String description, int price, int category, int uid) {
         // Create the insertion query
         String query = "INSERT INTO listings(uid, title, description, price, category) VALUES(?, ?, ?, ?, ?);";
 
@@ -144,8 +144,25 @@ public class ListingService {
 
             // Execute the query
             preparedStatement.executeUpdate();
+
+            // Get the new listing ID
+            query = "SELECT id FROM listings WHERE uid = ? AND title = ? AND description = ? AND price = ? AND category = ?;";
+
+            // Prepare the statement
+            preparedStatement = conn.prepareStatement(query);
+            preparedStatement.setInt(1, uid);
+            preparedStatement.setString(2, title);
+            preparedStatement.setString(3, description);
+            preparedStatement.setInt(4, price);
+            preparedStatement.setInt(5, category);
+
+            // Execute the query
+            ResultSet rs = preparedStatement.executeQuery();
+            int id = rs.getInt("id");
+            return id;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+            return -1;
         }
     }
 
