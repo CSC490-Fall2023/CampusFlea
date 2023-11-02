@@ -228,6 +228,28 @@ public class AccountService {
         }
     }
 
+    public static String getUsername(Connection conn, int userId) {
+        // Create the query string
+        String sql = "SELECT username FROM accounts WHERE id = ?;";
+
+        // Prepare the query
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setInt(1, userId);
+
+            // Execute the query
+            ResultSet rs = preparedStatement.executeQuery();
+
+            // Get the username
+            String username = rs.getString("username");
+
+            // Return the username
+            return username;
+        } catch (SQLException e) {
+            return null;
+        }
+    }
+
     public static int getUserIdFromSessionKey(Connection conn, String sessionKey) {
         // Create the query
         String sql = "SELECT uid FROM login_sessions WHERE key = ?;";

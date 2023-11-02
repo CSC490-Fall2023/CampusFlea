@@ -2,6 +2,7 @@ package CampusFlea.demo.model;
 
 public class Listing {
     private final int id;
+    private final int uid;
     private final String title;
     private final String description;
     private final int type;
@@ -13,8 +14,9 @@ public class Listing {
 
     private String image;
 
-    public Listing(int id, String title, String description, int type, int status, int price, int want, int have, int category) {
+    public Listing(int id, int uid, String title, String description, int type, int status, int price, int want, int have, int category) {
         this.id = id;
+        this.uid = uid;
         this.title = title;
         this.description = description;
         this.type = type;
@@ -27,6 +29,10 @@ public class Listing {
 
     public int getId() {
         return id;
+    }
+
+    public int getUid() {
+        return uid;
     }
 
     public String getTitle() {

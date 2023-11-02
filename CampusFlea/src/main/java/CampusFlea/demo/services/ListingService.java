@@ -36,6 +36,7 @@ public class ListingService {
             preparedStatement.setInt(1, listingId);
             ResultSet rs = preparedStatement.executeQuery();
 
+            int uid = rs.getInt("uid");
             String title = rs.getString("title");
             String description = rs.getString("description");
             int type = rs.getInt("type");
@@ -46,7 +47,7 @@ public class ListingService {
             int category = rs.getInt("category");
 
             // Return the listing
-            return new Listing(listingId, title, description, type, status, price, want, have, category);
+            return new Listing(listingId, uid, title, description, type, status, price, want, have, category);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             return null;
@@ -70,6 +71,7 @@ public class ListingService {
 
             while (rs.next()) {
                 int id = rs.getInt("id");
+                int uid = rs.getInt("uid");
                 String title = rs.getString("title");
                 String description = rs.getString("description");
                 int type = rs.getInt("type");
@@ -79,7 +81,7 @@ public class ListingService {
                 int have = rs.getInt("have");
                 int category = rs.getInt("category");
 
-                Listing listing = new Listing(id, title, description, type, status, price, want, have, category);
+                Listing listing = new Listing(id, uid, title, description, type, status, price, want, have, category);
                 listings.add(listing);
             }
 
@@ -105,6 +107,7 @@ public class ListingService {
 
             while (rs.next()) {
                 int id = rs.getInt("id");
+                int uid = rs.getInt("uid");
                 String title = rs.getString("title");
                 String description = rs.getString("description");
                 int type = rs.getInt("type");
@@ -114,7 +117,7 @@ public class ListingService {
                 int have = rs.getInt("have");
                 int category = rs.getInt("category");
 
-                Listing listing = new Listing(id, title, description, type, status, price, want, have, category);
+                Listing listing = new Listing(id, uid, title, description, type, status, price, want, have, category);
                 listings.add(listing);
             }
 
@@ -198,6 +201,7 @@ public class ListingService {
 
                 while (rs.next()) {
                     int id = rs.getInt("id");
+                    int uid = rs.getInt("uid");
                     String title = rs.getString("title");
                     String description = rs.getString("description");
                     int type = rs.getInt("type");
@@ -208,7 +212,7 @@ public class ListingService {
                     int category = rs.getInt("category");
 
                     // Compose the listing and add it to the listings list
-                    Listing listing = new Listing(id, title, description, type, status, price, want, have, category);
+                    Listing listing = new Listing(id, uid, title, description, type, status, price, want, have, category);
                     listings.add(listing);
                 }
             } catch (SQLException e) {

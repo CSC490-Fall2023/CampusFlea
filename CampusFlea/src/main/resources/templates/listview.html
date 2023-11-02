@@ -15,8 +15,8 @@
             </a>
         </div>
         <div class="profile-info">
-            <img class="profile-picture" th:src="@{/images/profile.jpg}" alt="Profile Picture">
-            <div class="profile-name">User Name</div>
+            <img class="profile-picture" th:src="${avatar}" alt="Profile Picture">
+            <div class="profile-name" th:text="${username}"></div>
         </div>
         <button class="back-button" onclick="history.back()">Back</button>
     </nav>
