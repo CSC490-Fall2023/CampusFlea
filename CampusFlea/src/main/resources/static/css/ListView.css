@@ -5,6 +5,41 @@ html, body {
     font-family: 'Roboto', sans-serif;
 }
 
+header {
+    background-color: #15171B;
+    color: #fff;
+
+}
+
+.navbar {
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    position: relative;
+    padding-bottom: -5px;
+}
+
+.logo img {
+    position: relative;
+    top: -10px;
+    width: 175px; /* Adjust the width as needed */
+    height: auto;
+    margin-left: 20px;
+}
+
+.back-button {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    margin-right: 20px;
+    cursor: pointer;
+}
 
 .container {
     max-width: 1200px;
@@ -22,6 +57,7 @@ html, body {
     width: 40%;
     margin-top: 60px;
 }
+
 /* Left Column */
 .left-column img {
     width: 65%;
@@ -32,17 +68,19 @@ html, body {
     transition: all 0.3s ease;
     margin-top: 80px;
     margin-left: 60px;
-    border-style: solid ;
+    border-style: solid;
     border-width: thin;
 }
 
 .left-column img.active {
     opacity: 1;
 }
+
 .product-description {
     border-bottom: 1px solid #E1E8EE;
     margin-bottom: 20px;
 }
+
 .product-description span {
     font-size: 12px;
     color: #358ED7;
@@ -50,18 +88,21 @@ html, body {
     text-transform: uppercase;
     text-decoration: none;
 }
+
 .product-description h1 {
     font-weight: 300;
     font-size: 52px;
     color: #43484D;
     letter-spacing: -2px;
 }
+
 .product-description p {
     font-size: 16px;
     font-weight: 300;
     color: #86939E;
     line-height: 24px;
 }
+
 /* User Choice Configuration */
 .user-choose {
     margin-bottom: 20px;
@@ -111,6 +152,7 @@ html, body {
     opacity: 0.5;
     margin-right: 5px;
 }
+
 /* Product Price */
 .product-price {
     display: flex;
@@ -134,6 +176,7 @@ html, body {
     padding: 12px 30px;
     transition: all .5s;
 }
+
 .contactSeller-btn:hover {
     background-color: #64af3d;
 }

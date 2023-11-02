@@ -1,53 +1,54 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>User Settings</title>
-  <link href="../src/main/resources/static/css/userSetting.css" rel="stylesheet" >
-  <link th:href="@{/css/userSetting.css}" rel="stylesheet" >
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Settings</title>
+    <link th:href="@{/css/userSetting.css}" rel="stylesheet">
 </head>
 <body>
 <header>
-  <nav class="navbar">
-    <div class="logo">
-        <a th:href="@{home}">
-      <img th:src="@{/images/Logos/logo.png}"  alt="Logo">
-        </a>
-<!--      <img src="../static/images/Logos/logo.png"  alt="Logo">-->
-    </div>
-    <button class="save-button" onclick="history.back()">Back</button>
-  </nav>
+    <nav class="navbar">
+        <div class="logo">
+            <a th:href="@{home}">
+                <img th:src="@{/images/Logos/logo.png}" alt="Logo">
+            </a>
+            <!--      <img src="../static/images/Logos/logo.png"  alt="Logo">-->
+        </div>
+        <button class="save-button" onclick="history.back()">Back</button>
+    </nav>
 </header>
 <div class="container">
-  <div class="profile-section">
-    <div class="profile-picture">
-      <img th:src="@{/images/List Items/item.jpg}"  alt="Profile Picture" id="profile-image">
-<!--      <img src="../static/images/List Items/item.jpg"  alt="Profile Picture" id="profile-image">-->
-      <label for="profile-upload" class="edit-profile-button">Edit</label>
-      <input type="file" id="profile-upload" accept="image/*" style="display: none;">
+    <div class="profile-section">
+        <div class="profile-picture">
+            <img th:src="${avatar}" alt="Profile Picture" id="profile-image">
+            <label for="avatar-upload" class="edit-profile-button">Edit</label>
+            <input type="file" id="avatar-upload" name="avatar-upload" accept="image/*" style="display: none;">
+        </div>
+        <h1>User Profile</h1>
+        <h3>Student</h3>
     </div>
-    <h1>User Profile</h1>
-    <h3>Student</h3>
-  </div>
-  <div class="user-details">
-    <h2>Account</h2>
-    <hr>
-    <form>
-<!--      TODO: Load Information from DB-->
-      <label for="username">Username:</label>
-      <input type="text" id="username" name="username" th:attr="placeholder=${username}">
+    <div class="user-details">
+        <h2>Account</h2>
+        <hr>
+        <form>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" th:attr="placeholder=${username}">
 
-      <label for="email">Email:</label>
-      <input type="email" id="email" name="email" th:attr="placeholder=${email}">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" th:attr="placeholder=${email}">
 
-      <label for="password">Password:</label>
-      <input type="password" id="password" name="password" placeholder="Change your password">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" placeholder="Change your password">
 
-      <button type="submit">Save Changes</button>
-    </form>
-  </div>
+            <button type="submit">Save Changes</button>
+        </form>
+    </div>
 </div>
-<script src="script.js"></script>
 </body>
+<script>
+    document.getElementById("avatar-upload").addEventListener("onclick", function() {
+        alert("Changed!");
+    });
+</script>
 </html>

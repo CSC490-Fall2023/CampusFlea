@@ -2,6 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link th:href="@{/css/signup.css}" rel="stylesheet">
     <title>Login</title>
 </head>
@@ -15,18 +16,18 @@
     <form th:action="@{/signup}" method="post">
         <!-- Username -->
         <div class="form-group">
-            <label for="user">Username:</label><br>
-            <input type="text" id="user" name="user" th:field="*{username}" class="text-box" required><br>
+            <label for="username">Username:</label><br>
+            <input type="text" id="username" name="username" class="text-box" required><br>
         </div>
         <!-- Password -->
         <div class="form-group">
-            <label for="pass">Password:</label><br>
-            <input type="password" id="pass" name="pass" th:field="*{password}" class="text-box" required><br>
+            <label for="password">Password:</label><br>
+            <input type="password" id="password" name="password" class="text-box" required><br>
         </div>
         <!-- Email -->
         <div class="form-group">
             <label for="email">Email:</label><br>
-            <input type="email" id="email" name="email" th:field="*{email}" class="text-box" required><br>
+            <input type="email" id="email" name="email" class="text-box" required><br>
         </div>
         <!-- Signup Button -->
         <div class="btn-signin">
@@ -34,6 +35,7 @@
                 Signup
             </button>
         </div>
+        <a th:href="@{signin}">Already have an account? Sign in!</a>
     </form>
 </div>
 </body>

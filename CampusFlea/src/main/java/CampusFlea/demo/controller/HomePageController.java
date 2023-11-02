@@ -29,8 +29,6 @@ public class HomePageController {
         DatabaseService dbSrv = new DatabaseService();
         Connection conn = dbSrv.getConnection();
 
-        System.out.printf("Found session key: %s\n", sessionKey);
-
         // Get the user id based on the session key
         int userId = AccountService.getUserIdFromSessionKey(conn, sessionKey);
 
@@ -41,6 +39,11 @@ public class HomePageController {
 
         // Create the account object from the found userId
         Account user = AccountService.getAccount(userId);
+
+        if (user == null) {
+            System.out.printf("Error: User is null (userId=%d)\n", userId);
+            return "redirect:/signin";
+        }
 
         // Set the user and email attributes
         model.addAttribute("username", user.getUsername());

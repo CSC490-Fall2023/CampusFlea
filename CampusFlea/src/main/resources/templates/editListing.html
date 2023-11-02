@@ -13,12 +13,11 @@
     <input type="text" id="title" name="title" th:value="${listing.title}" required>
 
     <label for="category">Category:</label>
-    <select id="category" name="category" required>
-        <option value="" disabled selected>Select a Category</option>
-        <option value="electronics">Electronics</option>
-        <option value="clothing">Clothing</option>
-        <option value="furniture">Furniture</option>
-        <option value="service">Services</option>
+    <select id="category" name="category" th:field="*{listing.category}" required>
+        <option value="0">Clothing</option>
+        <option value="1">Electronics</option>
+        <option value="2">Furniture</option>
+        <option value="3">Vehicles</option>
     </select>
 
     <label for="price">Price:</label>
@@ -28,10 +27,14 @@
     <textarea id="description" name="description" th:text="${listing.description}" required></textarea>
 
     <label for="images">Images:</label>
-    <input type="file" id="images" name="images[]" multiple accept="image/*" required>
+    <input type="file" id="images" name="images" multiple accept="image/*" required>
 
-    <input type="submit" value="Save Changes">
-    <input type="button" value="Cancel">
+    <input type="hidden" id="id" name="id" th:value="${id}">
+
+    <button type="submit">Save Changes</button>
+    <a th:href="@{home}">
+        <button type="button">Cancel</button>
+    </a>
 </form>
 </body>
 </html>

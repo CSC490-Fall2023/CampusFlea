@@ -7,6 +7,16 @@
     <link th:href="@{/css/admincp.css}" rel="stylesheet">
 </head>
 <body>
+<header>
+    <nav class="navbar">
+        <div class="logo">
+            <a th:href="@{home}">
+                <img th:src="@{/images/Logos/logo.png}" alt="Logo">
+            </a>
+        </div>
+        <button class="back-button" onclick="history.back()">Back</button>
+    </nav>
+</header>
 <div class="header-box">
     <h1>Users</h1>
     <div class="search-bar">

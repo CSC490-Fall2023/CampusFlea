@@ -8,7 +8,7 @@
 </head>
 <body>
 <h1>New Listing</h1>
-<form th:action="@{/createlisting}" method="post">
+<form th:action="@{/createlisting}" method="post" enctype="multipart/form-data">
     <label for="title">Title:</label>
     <input type="text" id="title" name="title" required>
 
@@ -26,8 +26,8 @@
     <label for="description">Description:</label>
     <textarea id="description" name="description" required></textarea>
 
-    <!--<label for="images">Images:</label>
-    <input type="file" id="images" name="images[]" th:field="*{image}" multiple accept="image/*" required>-->
+    <label for="images">Images:</label>
+    <input type="file" id="images" name="images[]" multiple accept="image/*" required>
 
     <button type="submit">Create Listing</button>
     <a th:href="@{home}">

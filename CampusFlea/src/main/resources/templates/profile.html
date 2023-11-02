@@ -12,7 +12,7 @@
     <nav class="navbar">
         <div class="logo">
             <a th:href="@{home}">
-                <img th:src="@{/images/Logos/logo.png}"  alt="Logo">
+                <img th:src="@{/images/Logos/logo.png}" alt="Logo">
             </a>
             <!--      <img src="../static/images/Logos/logo.png"  alt="Logo">-->
         </div>
@@ -23,8 +23,7 @@
     <div class="container-mid">
         <div class="section-middle">
             <div class="profile-picture">
-                <!--      TODO: GENE: LOAD PFP DYNAMICALLY-->
-                <img th:src="@{/images/List Items/item.jpg}" alt="Profile Picture" id="profile-image">
+                <img th:src="${avatar}" alt="Profile Picture" id="profile-image">
             </div>
             <div class="hero-title">
                 <h1 th:text="${username}"></h1>
@@ -40,8 +39,8 @@
                 <div class="grid-item">
                     <th:block th:each="item : ${listings}">
                         <div class="neumorphic-card">
-                            <a th:href="@{listing}">
-                                <img th:src="@{/images/List Items/item.jpg}" alt="Product Image">
+                            <a th:href="@{listing(id=${item.id})}">
+                                <img th:src="${item.image}" alt="Product Image">
                                 <div class="item-text">
                                     <h2 th:text="${item.title}"></h2>
                                     <p class="price" th:text="${'$' + item.price}"></p>
