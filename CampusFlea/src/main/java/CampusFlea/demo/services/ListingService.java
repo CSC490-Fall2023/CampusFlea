@@ -2,6 +2,7 @@ package CampusFlea.demo.services;
 
 import CampusFlea.demo.model.Listing;
 
+import java.io.File;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -212,6 +213,23 @@ public class ListingService {
         return listings.toArray(new Listing[0]);
     }
 
+    public static String[] getListingImages(int listingId) {
+        String imageDir = "CampusFlea/src/main/resources/static/uploads/listings/" + listingId;
+        File directory = new File(imageDir);
+        File[] images = directory.listFiles();
+
+        if (images == null) {
+            return null;
+        }
+
+        String[] imageNames = new String[images.length];
+
+        for (int i = 0; i < imageNames.length; i++) {
+            imageNames[i] = images[i].getName();
+        }
+        return imageNames;
+    }
+
     public static void saveListing(Connection conn, int userId, int listingId) {
         // Get the user's existing saved listings
         String[] savedListings = getSavedListingIds(conn, userId);
@@ -254,7 +272,6 @@ public class ListingService {
             preparedStatement.setInt(3, price);
             preparedStatement.setInt(4, category);
             preparedStatement.setInt(5, id);
-
 
             // Execute the query
             preparedStatement.executeUpdate();
