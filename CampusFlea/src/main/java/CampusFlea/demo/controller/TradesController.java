@@ -45,7 +45,9 @@ public class TradesController {
         model.addAttribute("username", user.getUsername());
         model.addAttribute("email", user.getEmail());
 
-        System.out.printf("Logged in (username=%s, email=%s)\n", user.getUsername(), user.getEmail());
+        // Add the avatar link for loading
+        String avatar = AccountService.getProfilePicture(userId);
+        model.addAttribute("avatar", avatar);
 
         Listing[] listings = ListingService.getAllListings(conn);
 

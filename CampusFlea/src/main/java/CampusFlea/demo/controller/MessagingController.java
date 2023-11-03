@@ -25,8 +25,6 @@ public class MessagingController {
             return "redirect:/signin";
         }
 
-        System.out.printf("Found session key: %s\n", sessionKey);
-
         // Establish database connection
         DatabaseService dbSrv = new DatabaseService();
         Connection conn = dbSrv.getConnection();
@@ -45,7 +43,9 @@ public class MessagingController {
         model.addAttribute("username", user.getUsername());
         model.addAttribute("email", user.getEmail());
 
-        System.out.printf("Logged in (username=%s, email=%s)\n", user.getUsername(), user.getEmail());
+        // Add the avatar link for loading
+        String avatar = AccountService.getProfilePicture(userId);
+        model.addAttribute("avatar", avatar);
 
         Listing[] listings = ListingService.getAllListings(conn);
 

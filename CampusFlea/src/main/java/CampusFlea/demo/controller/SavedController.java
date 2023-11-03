@@ -47,6 +47,10 @@ public class SavedController {
         model.addAttribute("username", user.getUsername());
         model.addAttribute("email", user.getEmail());
 
+        // Add the avatar link for loading
+        String avatar = AccountService.getProfilePicture(userId);
+        model.addAttribute("avatar", avatar);
+
         Listing[] listings = ListingService.getSavedListings(conn, userId);
 
         for (int i = 0; i < listings.length; i++) {
