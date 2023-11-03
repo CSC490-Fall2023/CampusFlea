@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -55,7 +56,7 @@ public class SettingsController {
     }
 
     @PostMapping("/settings")
-    public String updateSettings(@RequestParam String username, @RequestParam String email, @RequestParam String password, HttpSession session) throws IOException {
+    public String updateSettings(@RequestParam String username, @RequestParam String email, @RequestParam String password, @RequestParam MultipartFile avatar, HttpSession session) throws IOException {
         // Get the user's session key
         String sessionKey = (String) session.getAttribute("session_key");
 
@@ -116,6 +117,30 @@ public class SettingsController {
         // Change the password if needed
         if (!password.isEmpty()) {
             // TODO: password
+        }
+
+        // Update the avatar if needed
+        if (!avatar.isEmpty()) {
+            // Download the files
+            String fileName = avatar.getOriginalFilename();
+            byte[] bytes = avatar.getBytes();
+
+            // Make sure the directory exists
+            String imageDir = "CampusFlea/target/classes/static/uploads/avatars/" + userId;
+            File directory = new File(imageDir);
+            if (!directory.exists()) {
+                directory.mkdir();
+            } else {
+                for (File file : directory.listFiles()) {
+                    if (file.isFile()) {
+                        file.delete();
+                    }
+                }
+            }
+
+            // save the image to disk
+            Path path = Paths.get(imageDir, fileName);
+            Files.write(path, bytes);
         }
         return "redirect:/settings";
     }

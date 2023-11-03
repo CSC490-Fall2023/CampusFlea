@@ -19,11 +19,12 @@
     </nav>
 </header>
 <div class="container">
+    <form method="post" enctype="multipart/form-data">
     <div class="profile-section">
         <div class="profile-picture">
             <img th:src="${avatar}" alt="Profile Picture" id="profile-image">
-            <label for="avatar-upload" class="edit-profile-button">Edit</label>
-            <input type="file" id="avatar-upload" name="avatar-upload" onchange=changeImage(this) accept="image/*" style="display: none;">
+            <label for="avatar" class="edit-profile-button">Edit</label>
+            <input type="file" id="avatar" name="avatar" onchange=changeImage(this) accept="image/*" style="display: none;">
         </div>
         <h1>User Profile</h1>
         <h3>Student</h3>
@@ -31,7 +32,6 @@
     <div class="user-details">
         <h2>Account</h2>
         <hr>
-        <form method="post">
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" th:attr="placeholder=${username}">
 
@@ -42,8 +42,8 @@
             <input type="password" id="password" name="password" placeholder="Change your password">
 
             <button type="submit">Save Changes</button>
-        </form>
     </div>
+    </form>
 </div>
 </body>
 <script>
