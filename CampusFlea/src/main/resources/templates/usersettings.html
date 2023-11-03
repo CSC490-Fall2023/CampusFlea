@@ -23,7 +23,7 @@
         <div class="profile-picture">
             <img th:src="${avatar}" alt="Profile Picture" id="profile-image">
             <label for="avatar-upload" class="edit-profile-button">Edit</label>
-            <input type="file" id="avatar-upload" name="avatar-upload" accept="image/*" style="display: none;">
+            <input type="file" id="avatar-upload" name="avatar-upload" onchange=changeImage(this) accept="image/*" style="display: none;">
         </div>
         <h1>User Profile</h1>
         <h3>Student</h3>
@@ -47,8 +47,11 @@
 </div>
 </body>
 <script>
-    document.getElementById("avatar-upload").addEventListener("onclick", function() {
-        alert("Changed!");
-    });
+    function changeImage(btn) {
+        const profileImage = document.getElementById("profile-image");
+        const file = btn.files[0];
+
+        profileImage.src = window.URL.createObjectURL(file);
+    }
 </script>
 </html>
