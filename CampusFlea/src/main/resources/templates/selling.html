@@ -43,7 +43,6 @@
                 <!--            TODO: Filter by trade category-->
                 <li><a th:href="@{trades}" class="nav-item"><i class="fa-regular fa-handshake"></i>Trades</a></li>
                 <li><a th:href="@{saved}"><i class="fa-solid fa-bookmark"></i>Saved</a></li>
-                <!--            TODO: Create Link to Messages Page-->
                 <li><a th:href="@{chat}"><i class="fa-solid fa-message"></i>Messages</a></li>
                 <li><a th:href="@{settings}"><i class="fa-solid fa-gear"></i>Settings</a></li>
             </ul>
@@ -101,7 +100,9 @@
             </div>
         </div>
         <!--    #ADD BTN#-->
-        <button class="add-button"><i class="fa-solid fa-plus"></i></button>
+        <a th:href="@{createlisting}">
+            <button class="add-button"><i class="fa-solid fa-plus"></i></button>
+        </a>
     </div>
 
     <h1 style="padding-left: 30px;margin: 0;">Selling</h1>
