@@ -46,8 +46,10 @@
             <div class="likeShare-config">
 
                 <div class="user-choose">
-                    <button onclick="save()">Save</button>
-                    <button onclick="flag()">Flag</button>
+                    <form method="post">
+                        <button type="submit" name="save">Save</button>
+                        <button type="submit" name="flag">Flag</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -58,15 +60,6 @@
             <a href="#" class="contactSeller-btn">Contact Seller</a>
         </div>
     </div>
-    <script>
-        function flag() {
-            console.log("Item Flagged!");
-        }
-
-        function save() {
-            console.log("Item Saved!");
-        }
-    </script>
 </main>
 </body>
 </html>
