@@ -317,10 +317,31 @@ public class AccountService {
     }
 
     public static void updatePassword(int userId, String password) {
-        // TODO: Implement this
+        // Establish database connection
+        DatabaseService dbSrv = new DatabaseService();
+        Connection conn = dbSrv.getConnection();
+
+        // Hash the password
+        String salt = getSalt(userId);
+        String hashedPassword = encryptPassword(password, salt);
+
+        // Create the query
+        String query = "UPDATE accounts SET password = ? WHERE id = ?;";
+
+        // Prepare the query
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement(query);
+            preparedStatement.setString(1, hashedPassword);
+            preparedStatement.setInt(2, userId);
+
+            // Execute the query
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
-    public static void updateAvatar(int userId, MultipartFile avatar) throws IOException  {
+    public static void updateAvatar(int userId, MultipartFile avatar) throws IOException {
         // Download the files
         String fileName = avatar.getOriginalFilename();
         byte[] bytes = avatar.getBytes();
@@ -341,5 +362,31 @@ public class AccountService {
         // save the image to disk
         Path path = Paths.get(imageDir, fileName);
         Files.write(path, bytes);
+    }
+
+    public static String getSalt(int userId) {
+        // Establish database connection
+        DatabaseService dbSrv = new DatabaseService();
+        Connection conn = dbSrv.getConnection();
+
+        // Create the query string
+        String sql = "SELECT salt FROM accounts WHERE id = ?;";
+
+        // Prepare the query
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setInt(1, userId);
+
+            // Execute the query
+            ResultSet rs = preparedStatement.executeQuery();
+
+            // Get the salt
+            String salt = rs.getString("username");
+
+            // Return the salt
+            return salt;
+        } catch (SQLException e) {
+            return null;
+        }
     }
 }
