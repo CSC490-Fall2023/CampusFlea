@@ -2,7 +2,6 @@ package CampusFlea.demo.controller;
 
 import CampusFlea.demo.model.Account;
 import CampusFlea.demo.services.AccountService;
-import CampusFlea.demo.services.DatabaseService;
 import CampusFlea.demo.services.SessionService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
@@ -12,14 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 
 @Controller
 public class SettingsController {
@@ -49,71 +41,24 @@ public class SettingsController {
             return "redirect:/signin";
         }
 
-        // Establish database connection
-        DatabaseService dbSrv = new DatabaseService();
-        Connection conn = dbSrv.getConnection();
-
         // Change the username if needed
         if (!username.isEmpty()) {
-            String query = "UPDATE accounts SET username = ? WHERE id = ?;";
-
-            // Prepare the query
-            try {
-                PreparedStatement preparedStatement = conn.prepareStatement(query);
-                preparedStatement.setString(1, username);
-                preparedStatement.setInt(2, userId);
-
-                // Execute the query
-                preparedStatement.executeUpdate();
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
-            }
+            AccountService.updateUsername(userId, username);
         }
 
         // Change the email if needed
         if (!email.isEmpty()) {
-            String query = "UPDATE accounts SET email = ? WHERE id = ?;";
-
-            // Prepare the query
-            try {
-                PreparedStatement preparedStatement = conn.prepareStatement(query);
-                preparedStatement.setString(1, email);
-                preparedStatement.setInt(2, userId);
-
-                // Execute the query
-                preparedStatement.executeUpdate();
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
-            }
+            AccountService.updateEmail(userId, email);
         }
 
         // Change the password if needed
         if (!password.isEmpty()) {
-            // TODO: password
+            AccountService.updatePassword(userId, password);
         }
 
         // Update the avatar if needed
         if (!avatar.isEmpty()) {
-            // Download the files
-            String fileName = avatar.getOriginalFilename();
-            byte[] bytes = avatar.getBytes();
-
-            // Make sure the directory exists
-            String imageDir = "CampusFlea/target/classes/static/uploads/avatars/" + userId;
-            File directory = new File(imageDir);
-            if (!directory.exists()) {
-                directory.mkdir();
-            } else {
-                for (File file : directory.listFiles()) {
-                    if (file.isFile()) {
-                        file.delete();
-                    }
-                }
-            }
-
-            // save the image to disk
-            Path path = Paths.get(imageDir, fileName);
-            Files.write(path, bytes);
+            AccountService.updateAvatar(userId, avatar);
         }
         return "redirect:/settings";
     }

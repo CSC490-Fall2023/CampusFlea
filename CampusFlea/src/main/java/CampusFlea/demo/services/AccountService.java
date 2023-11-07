@@ -1,8 +1,13 @@
 package CampusFlea.demo.services;
 
 import CampusFlea.demo.model.Account;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.sql.*;
 import java.time.Instant;
@@ -267,5 +272,74 @@ public class AccountService {
             }
         }
         return "/uploads/avatars/default.png";
+    }
+
+    public static void updateUsername(int userId, String username) {
+        // Establish database connection
+        DatabaseService dbSrv = new DatabaseService();
+        Connection conn = dbSrv.getConnection();
+
+        // Create query
+        String query = "UPDATE accounts SET username = ? WHERE id = ?;";
+
+        // Prepare the query
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement(query);
+            preparedStatement.setString(1, username);
+            preparedStatement.setInt(2, userId);
+
+            // Execute the query
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void updateEmail(int userId, String email) {
+        // Establish database connection
+        DatabaseService dbSrv = new DatabaseService();
+        Connection conn = dbSrv.getConnection();
+
+        // Create query
+        String query = "UPDATE accounts SET email = ? WHERE id = ?;";
+
+        // Prepare the query
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement(query);
+            preparedStatement.setString(1, email);
+            preparedStatement.setInt(2, userId);
+
+            // Execute the query
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void updatePassword(int userId, String password) {
+        // TODO: Implement this
+    }
+
+    public static void updateAvatar(int userId, MultipartFile avatar) throws IOException  {
+        // Download the files
+        String fileName = avatar.getOriginalFilename();
+        byte[] bytes = avatar.getBytes();
+
+        // Make sure the directory exists
+        String imageDir = "CampusFlea/target/classes/static/uploads/avatars/" + userId;
+        File directory = new File(imageDir);
+        if (!directory.exists()) {
+            directory.mkdir();
+        } else {
+            for (File file : directory.listFiles()) {
+                if (file.isFile()) {
+                    file.delete();
+                }
+            }
+        }
+
+        // save the image to disk
+        Path path = Paths.get(imageDir, fileName);
+        Files.write(path, bytes);
     }
 }
