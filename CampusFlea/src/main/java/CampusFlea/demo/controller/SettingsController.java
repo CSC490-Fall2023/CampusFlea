@@ -3,6 +3,7 @@ package CampusFlea.demo.controller;
 import CampusFlea.demo.model.Account;
 import CampusFlea.demo.services.AccountService;
 import CampusFlea.demo.services.DatabaseService;
+import CampusFlea.demo.services.SessionService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,23 +25,8 @@ import java.sql.SQLException;
 public class SettingsController {
     @GetMapping("/settings")
     public String userSetting(Model model, HttpSession session) {
-        // Get the user's session key
-        String sessionKey = (String) session.getAttribute("session_key");
-
-        // Check if session key is set
-        if (sessionKey == null) {
-            System.out.println("Did not find session key");
-            return "redirect:/signin";
-        }
-
-        // Establish database connection
-        DatabaseService dbSrv = new DatabaseService();
-        Connection conn = dbSrv.getConnection();
-
-        // Get the user id based on the session key
-        int userId = AccountService.getUserIdFromSessionKey(conn, sessionKey);
-
         // Check that the session key is valid (redirect them to login otherwise)
+        int userId = SessionService.getUserIdFromSession(session);
         if (userId == -1) {
             return "redirect:/signin";
         }
@@ -57,28 +43,15 @@ public class SettingsController {
 
     @PostMapping("/settings")
     public String updateSettings(@RequestParam String username, @RequestParam String email, @RequestParam String password, @RequestParam MultipartFile avatar, HttpSession session) throws IOException {
-        // Get the user's session key
-        String sessionKey = (String) session.getAttribute("session_key");
-
-        // Check if session key is set
-        if (sessionKey == null) {
-            System.out.println("Did not find session key");
+        // Check that the session key is valid (redirect them to login otherwise)
+        int userId = SessionService.getUserIdFromSession(session);
+        if (userId == -1) {
             return "redirect:/signin";
         }
 
         // Establish database connection
         DatabaseService dbSrv = new DatabaseService();
         Connection conn = dbSrv.getConnection();
-
-        // Get the user id based on the session key
-        int userId = AccountService.getUserIdFromSessionKey(conn, sessionKey);
-
-        // Check that the session key is valid (redirect them to login otherwise)
-        if (userId == -1) {
-            return "redirect:/signin";
-        }
-
-        System.out.printf("Username: %s, email: %s, password: %s", username, email, password);
 
         // Change the username if needed
         if (!username.isEmpty()) {

@@ -54,7 +54,11 @@ public class ListingService {
         }
     }
 
-    public static Listing[] getAllUserListings(Connection conn, int userId) {
+    public static Listing[] getAllUserListings(int userId) {
+        // Establish database connection
+        DatabaseService dbsrv = new DatabaseService();
+        Connection conn = dbsrv.getConnection();
+
         try {
             // Create the query
             String query = "SELECT * FROM listings WHERE uid = ?;";
@@ -93,7 +97,11 @@ public class ListingService {
         }
     }
 
-    public static Listing[] getAllListings(Connection conn) {
+    public static Listing[] getAllListings() {
+        // Establish database connection
+        DatabaseService dbSrv = new DatabaseService();
+        Connection conn = dbSrv.getConnection();
+
         try {
             // Create the query
             String sql = "SELECT * FROM listings;";
@@ -129,7 +137,11 @@ public class ListingService {
         }
     }
 
-    public static int createListing(Connection conn, String title, String description, int price, int category, int uid) {
+    public static int createListing(String title, String description, int price, int category, int uid) {
+        // Establish database connection
+        DatabaseService dbSrv = new DatabaseService();
+        Connection conn = dbSrv.getConnection();
+
         // Create the insertion query
         String query = "INSERT INTO listings(uid, title, description, price, category) VALUES(?, ?, ?, ?, ?);";
 
@@ -166,7 +178,11 @@ public class ListingService {
         }
     }
 
-    private static String[] getSavedListingIds(Connection conn, int userId) {
+    private static String[] getSavedListingIds(int userId) {
+        // Establish database connection
+        DatabaseService dbSrv = new DatabaseService();
+        Connection conn = dbSrv.getConnection();
+
         try {
             // Create the query
             String query = "SELECT saved FROM accounts WHERE id = ?;";
@@ -192,9 +208,13 @@ public class ListingService {
         }
     }
 
-    public static Listing[] getSavedListings(Connection conn, int userId) {
+    public static Listing[] getSavedListings(int userId) {
+        // Establish database connection
+        DatabaseService dbSrv = new DatabaseService();
+        Connection conn = dbSrv.getConnection();
+
         // Get the current saved listing ids
-        String[] savedListingIds = getSavedListingIds(conn, userId);
+        String[] savedListingIds = getSavedListingIds(userId);
 
         // Create a list to hold all listings found
         List<Listing> listings = new ArrayList<>();
@@ -258,21 +278,25 @@ public class ListingService {
         return imageNames;
     }
 
-    public static void toggleSave(Connection conn, int userId, String listingId) {
+    public static void toggleSave(int userId, String listingId) {
         // Check if item is saved
-        boolean isSaved = listingIsSaved(conn, userId, listingId);
+        boolean isSaved = listingIsSaved(userId, listingId);
 
         if (isSaved) {
             // Remove from save
-            unsaveListing(conn, userId, listingId);
+            unsaveListing(userId, listingId);
         } else {
             // Add to save
-            saveListing(conn, userId, listingId);
+            saveListing(userId, listingId);
         }
     }
 
-    private static boolean listingIsSaved(Connection conn, int userId, String listingId) {
-        String[] savedListings = getSavedListingIds(conn, userId);
+    private static boolean listingIsSaved(int userId, String listingId) {
+        // Establish database connection
+        DatabaseService dbSrv = new DatabaseService();
+        Connection conn = dbSrv.getConnection();
+
+        String[] savedListings = getSavedListingIds(userId);
 
         for (String listing : savedListings) {
             if (listing.equals(listingId)) {
@@ -282,9 +306,13 @@ public class ListingService {
         return false;
     }
 
-    private static void unsaveListing(Connection conn, int userId, String listingId) {
+    private static void unsaveListing(int userId, String listingId) {
+        // Establish database connection
+        DatabaseService dbSrv = new DatabaseService();
+        Connection conn = dbSrv.getConnection();
+
         // Get the user's existing saved listings
-        String[] savedListings = getSavedListingIds(conn, userId);
+        String[] savedListings = getSavedListingIds(userId);
 
         // Convert to a list in order to add new saved listing id
         List<String> savedListingsList = new ArrayList<>(Arrays.asList(savedListings));
@@ -312,9 +340,13 @@ public class ListingService {
         }
     }
 
-    private static void saveListing(Connection conn, int userId, String listingId) {
+    private static void saveListing(int userId, String listingId) {
+        // Establish database connection
+        DatabaseService dbSrv = new DatabaseService();
+        Connection conn = dbSrv.getConnection();
+
         // Get the user's existing saved listings
-        String[] savedListings = getSavedListingIds(conn, userId);
+        String[] savedListings = getSavedListingIds(userId);
 
         // Convert to a list in order to add new saved listing id
         List<String> savedListingsList = new ArrayList<>(Arrays.asList(savedListings));
@@ -342,7 +374,11 @@ public class ListingService {
         }
     }
 
-    public static void updateListing(Connection conn, int id, String title, String description, int price, int category) {
+    public static void updateListing(int id, String title, String description, int price, int category) {
+        // Establish database connection
+        DatabaseService dbSrv = new DatabaseService();
+        Connection conn = dbSrv.getConnection();
+
         // Create the update query
         String query = "UPDATE listings SET title = ?, description = ?, price = ?, category = ? WHERE id = ?;";
 
@@ -362,7 +398,11 @@ public class ListingService {
         }
     }
 
-    public static void deleteListing(Connection conn, int listingId) {
+    public static void deleteListing(int listingId) {
+        // Establish database connection
+        DatabaseService dbSrv = new DatabaseService();
+        Connection conn = dbSrv.getConnection();
+
         // Create the delete query
         String query = "DELETE FROM listings WHERE id = ?;";
 

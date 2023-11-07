@@ -3,6 +3,8 @@ package CampusFlea.demo.controller;
 import CampusFlea.demo.model.Listing;
 import CampusFlea.demo.services.DatabaseService;
 import CampusFlea.demo.services.ListingService;
+import CampusFlea.demo.services.SessionService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +22,13 @@ import java.sql.Connection;
 @Controller
 public class EditListingController {
     @GetMapping("/editlisting")
-    public String editListing(Model model, @RequestParam int id) {
+    public String editListing(Model model, @RequestParam int id, HttpSession session) {
+        // Check that the session key is valid (redirect them to login otherwise)
+        int userId = SessionService.getUserIdFromSession(session);
+        if (userId == -1) {
+            return "redirect:/signin";
+        }
+
         // Get the listing
         Listing listing = ListingService.getListing(id);
 
@@ -51,7 +59,7 @@ public class EditListingController {
         Files.write(path, bytes);
 
         // Update the listing
-        ListingService.updateListing(conn, id, title, description, price, category);
+        ListingService.updateListing(id, title, description, price, category);
 
         // Redirect back to profile
         return "redirect:/profile";

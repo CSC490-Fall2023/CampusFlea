@@ -127,7 +127,39 @@ public class AccountService {
         return salt;
     }
 
-    private static String encryptPassword(String password, String salt) {
+    public static boolean isValidCredentials(String username, String password) {
+        // Establish database connection
+        DatabaseService dbSrv = new DatabaseService();
+        Connection conn = dbSrv.getConnection();
+
+        // Get the encrypted password and salt
+        String sql = "SELECT password, salt FROM accounts WHERE username = ?;";
+
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setString(1, username);
+
+            // Execute the query
+            ResultSet rs = preparedStatement.executeQuery();
+
+            // Get the password and salt from query results
+            String encryptedPassword = rs.getString("password");
+            String salt = rs.getString("salt");
+
+            // Encrypt the user's entered password
+            String userEncryptedPassword = AccountService.encryptPassword(password, salt);
+
+            // Determine if is valid
+            boolean isValid = userEncryptedPassword.equals(encryptedPassword);
+
+            return isValid;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+
+    public static String encryptPassword(String password, String salt) {
         // Hash the password
         String passwordMD5 = getMD5(password);
 
@@ -152,34 +184,6 @@ public class AccountService {
             return sb.toString();
         } catch (Exception e) {
             return null;
-        }
-    }
-
-    public static boolean isValidCredentials(Connection conn, String username, String password) {
-        // Get the encrypted password and salt
-        String sql = "SELECT password, salt FROM accounts WHERE username = ?;";
-
-        try {
-            PreparedStatement preparedStatement = conn.prepareStatement(sql);
-            preparedStatement.setString(1, username);
-
-            // Execute the query
-            ResultSet rs = preparedStatement.executeQuery();
-
-            // Get the password and salt from query results
-            String encryptedPassword = rs.getString("password");
-            String salt = rs.getString("salt");
-
-            // Encrypt the user's entered password
-            String userEncryptedPassword = encryptPassword(password, salt);
-
-            // Determine if is valid
-            boolean isValid = userEncryptedPassword.equals(encryptedPassword);
-
-            return isValid;
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-            return false;
         }
     }
 
@@ -248,23 +252,6 @@ public class AccountService {
             return username;
         } catch (SQLException e) {
             return null;
-        }
-    }
-
-    public static int getUserIdFromSessionKey(Connection conn, String sessionKey) {
-        // Create the query
-        String sql = "SELECT uid FROM login_sessions WHERE key = ?;";
-
-        // Prepare the query
-        try {
-            PreparedStatement preparedStatement = conn.prepareStatement(sql);
-            preparedStatement.setString(1, sessionKey);
-
-            // Execute the query
-            ResultSet rs = preparedStatement.executeQuery();
-            return rs.getInt("uid");
-        } catch (SQLException e) {
-            return -1;
         }
     }
 

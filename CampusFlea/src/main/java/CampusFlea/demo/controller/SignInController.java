@@ -20,14 +20,12 @@ public class SignInController {
 
     @PostMapping("/signin")
     public String processSignIn(@RequestParam String username, @RequestParam String password, HttpSession session) {
-        System.out.printf("Username=%s, password=%s\n", username, password);
-
         // Establish a database connection
         DatabaseService dbSrv = new DatabaseService();
         Connection conn = dbSrv.getConnection();
 
         // Check if credentials are valid
-        boolean isValidCredentials = AccountService.isValidCredentials(conn, username, password);
+        boolean isValidCredentials = AccountService.isValidCredentials(username, password);
         if (!isValidCredentials) {
             System.out.println("Username/password not valid!");
             return "redirect:/signin";
@@ -44,8 +42,6 @@ public class SignInController {
             System.out.println("sessionKey is null");
             return "redirect:/signin";
         }
-
-        System.out.printf("Found sessionKey: %s\n", sessionKey);
 
         // Save the session key
         session.setAttribute("session_key", sessionKey);
