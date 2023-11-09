@@ -41,11 +41,17 @@ public class HomePageController {
         // Add listings to model for ThymeLeaf to read
         Listing[] listings = ListingService.getAllListings();
 
-        // Add image to listings
+        // Go through each listing
         for (int i = 0; i < listings.length; i++) {
             int listingId = listings[i].getId();
+
+            // Add image to listings
             String[] images = ListingService.getListingImages(listingId);
             listings[i].setImage(images[0]);
+
+            // Set save btn to listings
+            boolean saved = ListingService.listingIsSaved(userId, listingId);
+            listings[i].setSaved(saved);
         }
 
         model.addAttribute("listings", listings);

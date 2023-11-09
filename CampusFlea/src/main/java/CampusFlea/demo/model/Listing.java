@@ -13,6 +13,7 @@ public class Listing {
     private final String category;
 
     private String image;
+    private boolean saved;
 
     public Listing(int id, int uid, String title, String description, int type, int status, int price, int want, int have, String category) {
         this.id = id;
@@ -74,6 +75,10 @@ public class Listing {
     public String getImage() {
         return image;
     }
+
+    public void setSaved(boolean saved) { this.saved = saved; }
+
+    public boolean getSaved() { return saved; };
 
     public String toString() {
         return id + ", " + title + ", " + description;

@@ -179,6 +179,22 @@ public class ListingService {
         }
     }
 
+    public static boolean listingIsSaved(int userId, int listingId) {
+        String[] listingIds = getSavedListingIds(userId);
+        for (String thisListingId : listingIds) {
+            // Ignore empty ids
+            if (thisListingId.isEmpty()) {
+                continue;
+            }
+
+            int value = Integer.parseInt(thisListingId);
+            if (listingId == value) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private static String[] getSavedListingIds(int userId) {
         // Establish database connection
         DatabaseService dbSrv = new DatabaseService();
