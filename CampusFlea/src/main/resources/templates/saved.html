@@ -127,9 +127,12 @@
                     <!--                    TODO: FILL IN ICON ON CLICK-->
                     <form method="post">
                         <input type="hidden" name="listingId" th:value="${item.id}">
+                        <div class="bottom-grid-container">
                         <button type="submit" class="edit-profile-button" name="save"><i
                                 class="fa-regular fa-bookmark"></i>
                         </button>
+                        <span class="tag">Electronics</span>
+                        </div>
                     </form>
                 </div>
             </th:block>
