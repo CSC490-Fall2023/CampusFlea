@@ -62,7 +62,6 @@ public class ListingController {
 
         // Attach the listing object
         model.addAttribute("listing", listing);
-        model.addAttribute("category", ListingService.CATEGORIES[listing.getCategory()]);
         model.addAttribute("username", username);
         model.addAttribute("avatar", avatar);
     }

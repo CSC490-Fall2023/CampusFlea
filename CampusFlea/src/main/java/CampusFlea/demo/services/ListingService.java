@@ -9,10 +9,11 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ListingService {
-    public static final String[] CATEGORIES = {
+    private static final String[] CATEGORIES = {
             "Clothing",
             "Electronics",
             "Furniture",
+            "Jewelry",
             "Vehicles"
     };
 
@@ -44,7 +45,7 @@ public class ListingService {
             int price = rs.getInt("price");
             int want = rs.getInt("want");
             int have = rs.getInt("have");
-            int category = rs.getInt("category");
+            String category = CATEGORIES[rs.getInt("category")];
 
             // Return the listing
             return new Listing(listingId, uid, title, description, type, status, price, want, have, category);
@@ -83,7 +84,7 @@ public class ListingService {
                 int price = rs.getInt("price");
                 int want = rs.getInt("want");
                 int have = rs.getInt("have");
-                int category = rs.getInt("category");
+                String category = CATEGORIES[rs.getInt("category")];
 
                 Listing listing = new Listing(id, uid, title, description, type, status, price, want, have, category);
                 listings.add(listing);
@@ -123,7 +124,7 @@ public class ListingService {
                 int price = rs.getInt("price");
                 int want = rs.getInt("want");
                 int have = rs.getInt("have");
-                int category = rs.getInt("category");
+                String category = CATEGORIES[rs.getInt("category")];
 
                 Listing listing = new Listing(id, uid, title, description, type, status, price, want, have, category);
                 listings.add(listing);
@@ -246,7 +247,7 @@ public class ListingService {
                     int price = rs.getInt("price");
                     int want = rs.getInt("want");
                     int have = rs.getInt("have");
-                    int category = rs.getInt("category");
+                    String category = CATEGORIES[rs.getInt("category")];
 
                     // Compose the listing and add it to the listings list
                     Listing listing = new Listing(id, uid, title, description, type, status, price, want, have, category);

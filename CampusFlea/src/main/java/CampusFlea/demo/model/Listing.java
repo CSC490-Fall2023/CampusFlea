@@ -10,11 +10,11 @@ public class Listing {
     private final int price;
     private final int want;
     private final int have;
-    private final int category;
+    private final String category;
 
     private String image;
 
-    public Listing(int id, int uid, String title, String description, int type, int status, int price, int want, int have, int category) {
+    public Listing(int id, int uid, String title, String description, int type, int status, int price, int want, int have, String category) {
         this.id = id;
         this.uid = uid;
         this.title = title;
@@ -63,7 +63,7 @@ public class Listing {
         return have;
     }
 
-    public int getCategory() {
+    public String getCategory() {
         return category;
     }
 
