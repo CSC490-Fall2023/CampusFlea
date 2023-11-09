@@ -59,6 +59,10 @@ body, ul, li {
     color:white;
 }
 
+.text-container a{
+    color:white;
+}
+
 .text-container span a{
     color:white;
 }
@@ -249,11 +253,48 @@ h2 {
     text-decoration: none;
 }
 
+.tag{
+    display: inline-block;
+        height: 24px;
+        line-height: 24px;
+        position: relative;
+        padding: 0 10px 0 12px;
+        /* background: #777; */
+        border-radius: 3px;
+        /* box-shadow: 0 1px 2px rgba(0,0,0,0.2); */
+        color: #fff;
+        /* font-size: 12px; */
+        /* text-decoration: none; */
+        /* text-shadow: 0 1px 2px rgba(0,0,0,0.2); */
+        float: left;
+        font-size: 14px;
+        color: #358ED7;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        text-decoration: none;
+
+}
+
+.item-text p{
+    color: #007BFF;
+        font-size: 1.2rem;
+        text-decoration: none;
+        margin: 0;
+}
+
+.bottom-grid-container{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+    align-items: center;
+}
+
 .item-text{
     display: flex;
   flex-direction: row;
       justify-content: space-between;
       align-items: center;
+      color:black;
 }
 
 
