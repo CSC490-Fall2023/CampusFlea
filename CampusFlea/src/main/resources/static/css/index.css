@@ -64,6 +64,10 @@ body, ul, li {
     color:white;
 }
 
+.text-container a{
+    color:white;
+}
+
 .text-container span a{
     color:white;
 }
@@ -242,6 +246,48 @@ body, ul, li {
 
 }
 
+.tag{
+   display: inline-block;
+       height: 24px;
+       line-height: 24px;
+       position: relative;
+       padding: 0 10px 0 12px;
+       border-radius: 3px;
+       color: #fff;
+       float: left;
+       font-size: 14px;
+       color: #358ED7;
+       letter-spacing: 1px;
+       text-transform: uppercase;
+       text-decoration: none;
+
+}
+.item-text p{
+    color: #007BFF;
+    font-size: 1.2rem;
+    text-decoration: none;
+    margin: 0;
+}
+
+.bottom-grid-container{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+    align-items: center;
+}
+
+.shown{
+  text-color: green;
+  color: green;
+  display: inline-block;
+}
+
+.hidden {
+  color:transparent;
+}
+
+
+
 h2 {
     margin-top: 10px;
     font-size: 1.2rem;
@@ -260,6 +306,7 @@ h2 {
   flex-direction: row;
       justify-content: space-between;
       align-items: center;
+      color:black;
 }
 
 
