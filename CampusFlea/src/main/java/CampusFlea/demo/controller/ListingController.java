@@ -62,6 +62,7 @@ public class ListingController {
 
         // Attach the listing object
         model.addAttribute("listing", listing);
+        model.addAttribute("posterId", posterId);
         model.addAttribute("username", username);
         model.addAttribute("avatar", avatar);
     }
