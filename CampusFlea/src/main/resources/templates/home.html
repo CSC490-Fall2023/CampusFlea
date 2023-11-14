@@ -6,7 +6,7 @@
     <title>CampusFlea Home</title>
     <link th:href="@{/css/index.css}" rel="stylesheet">
     <script src="https://kit.fontawesome.com/9113ff3c75.js" crossorigin="anonymous"></script>
-    <!--    TODO: FIX FAVICON-->
+    <script th:src="@{/js/filterScript.js}"></script>
     <link rel="icon" type="image/x-icon" th:src="@{/static/favicon.ico}">
 
 </head>
@@ -71,14 +71,15 @@
                     <div class="filter-section-top">
                         <h3>Category</h3>
                         <hr>
+<!--                        CHECKBOX START-->
                         <label>
-                            <input type="checkbox" name="category" value="electronics" onclick=""> Electronics
+                            <input type="checkbox" name="category" value="electronics" class="filter-checkbox" data-filter="filter-Electronics"> Electronics
                         </label>
                         <label>
-                            <input type="checkbox" name="category" value="clothing"> Clothing
+                            <input type="checkbox" name="category" value="clothing" class="filter-checkbox"data-filter="filter-Clothing"> Clothing
                         </label>
                         <label>
-                            <input type="checkbox" name="category" value="furniture"> Furniture
+                            <input type="checkbox" name="category" value="furniture" class="filter-checkbox" data-filter="filter-Furniture"> Furniture
                         </label>
                     </div>
                     <div class="filter-section-slide">
@@ -108,7 +109,7 @@
         <!-- Repeat this container as needed -->
         <div class="grid-item">
             <th:block th:each="item : ${listings}">
-                <div class="neumorphic-card">
+                <div th:class="|neumorphic-card filter-${item.category}|">
                     <a th:href="@{listing(id=${item.id})}">
                         <img th:src="${item.image}" alt="Product Image">
                         <div class="item-text">
