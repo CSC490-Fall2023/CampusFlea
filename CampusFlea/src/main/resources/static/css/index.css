@@ -522,11 +522,17 @@ input[type="range"]::-moz-range-thumb{
     /* margin-right: 15px; */
     display: block;
     float: right;
+    }
 
 /* Hover effect */
 .edit-profile-button:hover {
     background-color: gray; /* Darker blue on hover */
     color: white;
 }
+
+.filter-hidden{
+    display: none;
+}
+
 
 
