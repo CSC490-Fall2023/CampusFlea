@@ -35,14 +35,10 @@
         <div class="nav-links">
             <ul>
                 <li><a class="active nav-item" th:href="@{/}"><i class="fa-solid fa-store"></i>Browse All</a></li>
-                <!--            TODO: Filter by selling category-->
                 <li><a th:href="@{selling}" class="nav-item"><i class="fa-solid fa-cart-shopping"></i>Selling</a></li>
-                <!--            TODO: Filter by buying category-->
                 <li><a th:href="@{buying}" class="nav-item"><i class="fa-solid fa-comments-dollar"></i>Buying</a></li>
-                <!--            TODO: Filter by trade category-->
                 <li><a th:href="@{trades}" class="nav-item"><i class="fa-regular fa-handshake"></i>Trades</a></li>
                 <li><a th:href="@{saved}" class=""><i class="fa-solid fa-bookmark"></i>Saved</a></li>
-                <!--            TODO: Create Link to Messages Page-->
                 <li><a th:href="@{chat}"><i class="fa-solid fa-message"></i>Messages</a></li>
                 <li><a th:href="@{settings}"><i class="fa-solid fa-gear"></i>Settings</a></li>
             </ul>
@@ -76,7 +72,7 @@
                         <h3>Category</h3>
                         <hr>
                         <label>
-                            <input type="checkbox" name="category" value="electronics"> Electronics
+                            <input type="checkbox" name="category" value="electronics" onclick=""> Electronics
                         </label>
                         <label>
                             <input type="checkbox" name="category" value="clothing"> Clothing
@@ -128,7 +124,7 @@
                                 <i class="fa-stack fa-bookmark" th:classappend="${item.saved} ? fa-solid : fa-regular"></i>
                              </span>
                         </button>
-                        <span class="tag" th:text="${item.category}"></span>
+                        <span class="tag" th:id="${item.category}" th:text="${item.category}"></span>
                         </div>
                     </form>
                 </div>
