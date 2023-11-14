@@ -85,9 +85,12 @@
                 </th:block>
                 <!-- Add more chat messages as needed -->
             </div>
-            <div class="chat-input">
+            <div class="chat-input" th:if="${chat != null}">
                 <input type="text" placeholder="Type your message...">
                 <button id="send-button">Send</button>
+            </div>
+            <div th:if="${chat == null}">
+                <p>You do not have any conversations.</p>
             </div>
         </div>
     </div>
