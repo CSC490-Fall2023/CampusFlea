@@ -31,17 +31,19 @@ public class ChatService {
             // Execute the query
             ResultSet rs = preparedStatement.executeQuery();
 
-            // Get row data
-            int id = rs.getInt("id");
-            int listingId = rs.getInt("listingId");
-            int buyerId = rs.getInt("buyerId");
+            while (rs.next()) {
+                // Get row data
+                int id = rs.getInt("id");
+                int listingId = rs.getInt("listingId");
+                int buyerId = rs.getInt("buyerId");
 
-            // Get all chat messages for the associated chatId
-            ChatMessage[] chatMessages = getChatMessages(id);
+                // Get all chat messages for the associated chatId
+                ChatMessage[] chatMessages = getChatMessages(id);
 
-            // Create a new Chat
-            Chat chat = new Chat(id, listingId, buyerId, chatMessages);
-            chats.add(chat);
+                // Create a new Chat
+                Chat chat = new Chat(id, listingId, buyerId, chatMessages);
+                chats.add(chat);
+            }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             return null;
