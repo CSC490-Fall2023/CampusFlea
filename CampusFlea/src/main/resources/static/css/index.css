@@ -526,7 +526,6 @@ input[type="range"]::-moz-range-thumb{
 
 /* Hover effect */
 .edit-profile-button:hover {
-    background-color: gray; /* Darker blue on hover */
     color: white;
 }
 
