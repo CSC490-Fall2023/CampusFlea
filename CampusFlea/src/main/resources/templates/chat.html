@@ -75,8 +75,12 @@
     <div class="main-content">
         <div class="chat-box">
             <div class="chat-messages">
+                <div th:if="${chat != null && chat.getMessages().length == 0}">
+                    <p>You have no messages yet with this user.</p>
+                </div>
+
                 <!-- Chat messages will be displayed here -->
-                <th:block th:each="thisMessage : ${chat?.getMessages()}">
+                <th:block th:each="thisMessage : ${chat?.getMessages()}" th:if="${chat != null && chat.getMessages().length > 0}">
                 <div class="message received">
                     <div class="message-content">
                         <p th:text="${thisMessage.message}"></p>
@@ -86,8 +90,11 @@
                 <!-- Add more chat messages as needed -->
             </div>
             <div class="chat-input" th:if="${chat != null}">
-                <input type="text" placeholder="Type your message...">
-                <button id="send-button">Send</button>
+                <form method="post">
+                    <input type="hidden" name="id" th:value="${listing.id}">
+                    <input type="text" name="message" placeholder="Type your message...">
+                    <button type="submit" id="send-button">Send</button>
+                </form>
             </div>
             <div th:if="${chat == null}">
                 <p>You do not have any conversations.</p>

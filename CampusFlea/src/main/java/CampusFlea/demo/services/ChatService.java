@@ -120,7 +120,43 @@ public class ChatService {
         }
     }
 
-    public static void saveChatMessage(int toId, int fromId, int listingId, String message) {
-        // TODO: Implement this
+    public static int getChatId(int listingId, int buyerId) {
+        String query = "SELECT COUNT(*) FROM chats WHERE listingId = ? AND buyerId = ?";
+        return -1;
+    }
+
+    public static void saveChatMessage(int chatId, int senderId, int listingId, String message) {
+        // Establish database connection
+        DatabaseService dbSrv = new DatabaseService();
+        Connection conn = dbSrv.getConnection();
+
+        try {
+
+
+
+            // Create the query
+            query = "INSERT INTO messages (chatId, senderId, timestamp, message) VALUES (?, ?, ?, ?);";
+
+            // Prepare the query
+            PreparedStatement preparedStatement = conn.prepareStatement(query);
+            preparedStatement.setInt(1, chatId);
+            preparedStatement.setInt(2, senderId);
+            preparedStatement.setInt(3, listingId);
+            preparedStatement.setString(4, message);
+
+            // Execute the query
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static boolean chatExists(Chat[] chats, Chat chat) {
+        for (Chat thisChat : chats) {
+            if (thisChat.getBuyerId() == chat.getBuyerId() && thisChat.getListingId() == chat.getListingId()) {
+                return true;
+            }
+        }
+        return false;
     }
 }

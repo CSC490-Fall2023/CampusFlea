@@ -28,12 +28,12 @@ public class ChatController {
         model.addAttribute("listing", null);
         model.addAttribute("chat", null);
 
-        load(model, userId);
+        load(model, userId, null);
         return "chat";
     }
 
     @RequestMapping(value = "/chat", params = "id")
-    public String messageListing(Model model, @RequestParam String id, HttpSession session) {
+    public String comeFromListing(Model model, @RequestParam String id, HttpSession session) {
         // Check that the session key is valid (redirect them to login otherwise)
         int userId = SessionService.getUserIdFromSession(session);
         if (userId == -1) {
@@ -49,13 +49,50 @@ public class ChatController {
 
         // Add the Chat to the model
         Chat chat = ChatService.getListingChat(listingId, userId);
+
+        // If chat is null, this is a new chat (we must make a new instance)
+        if (chat == null) {
+            chat = new Chat(-1, listingId, userId, null);
+        }
+
         model.addAttribute("chat", chat);
 
-        load(model, userId);
+        load(model, userId, chat);
         return "chat";
     }
 
-    private void load(Model model, int userId) {
+    @RequestMapping(value = "/chat", params = {"id", "message"})
+    public String sendMessage(Model model, @RequestParam String id, @RequestParam String message, HttpSession session) {
+        // Check that the session key is valid (redirect them to login otherwise)
+        int userId = SessionService.getUserIdFromSession(session);
+        if (userId == -1) {
+            return "redirect:/signin";
+        }
+
+        // Get the listing using the listingId
+        int listingId = Integer.parseInt(id);
+        Listing listing = ListingService.getListing(listingId);
+
+        System.out.printf("id=%s\n", id);
+        System.out.printf("message=%s\n", message);
+
+        // Save the chat
+        int chatId = ChatService.getChatId(listingId, userId);
+        ChatService.saveChatMessage(chatId, listing.getUid(), listingId, message);
+
+        // Add the listing to the model
+        model.addAttribute("listing", listing);
+
+        // Add the Chat to the model
+        Chat chat = ChatService.getListingChat(listingId, userId);
+        model.addAttribute("chat", chat);
+
+        // Save chat in database
+        load(model, userId, null);
+        return "chat";
+    }
+
+    private void load(Model model, int userId, Chat chat) {
         // Create the account object from the found userId
         // load items from saved items in DB
         Account user = AccountService.getAccount(userId);
@@ -67,6 +104,22 @@ public class ChatController {
 
         // Get all chats relating to user
         Chat[] chats = ChatService.getAllAffiliatedChats(userId);
+
+        // Check if we are loading a chat
+        if (chat != null) {
+            boolean chatExists = ChatService.chatExists(chats, chat);
+
+            // If doesn't exist, add it
+            if (!chatExists) {
+                // Create a new array any copy over
+                Chat[] newChats = new Chat[chats.length + 1];
+                for (int i = 0; i < chats.length; i++) {
+                    newChats[i] = chats[i];
+                }
+                newChats[newChats.length - 1] = chat;
+                chats = newChats;
+            }
+        }
         model.addAttribute("chats", chats);
     }
 }
