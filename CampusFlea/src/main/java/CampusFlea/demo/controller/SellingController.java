@@ -20,11 +20,9 @@ public class SellingController {
             return "redirect:/signin";
         }
 
-        // Create the account object from the found userId
-        // load items from saved items in DB
+        // Load username as attribute
         Account user = AccountService.getAccount(userId);
         model.addAttribute("username", user.getUsername());
-        model.addAttribute("email", user.getEmail());
 
         // Add the avatar link for loading
         String avatar = AccountService.getProfilePicture(userId);

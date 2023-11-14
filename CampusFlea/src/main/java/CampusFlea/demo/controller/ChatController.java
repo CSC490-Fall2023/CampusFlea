@@ -11,7 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class MessagingController {
+public class ChatController {
     @GetMapping("/chat")
     public String buying(Model model, HttpSession session) {
         // Check that the session key is valid (redirect them to login otherwise)
@@ -24,7 +24,6 @@ public class MessagingController {
         // load items from saved items in DB
         Account user = AccountService.getAccount(userId);
         model.addAttribute("username", user.getUsername());
-        model.addAttribute("email", user.getEmail());
 
         // Add the avatar link for loading
         String avatar = AccountService.getProfilePicture(userId);

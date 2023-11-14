@@ -30,9 +30,8 @@ public class HomePageController {
             return "redirect:/signin";
         }
 
-        // Set the user and email attributes
+        // Set the user attribute
         model.addAttribute("username", user.getUsername());
-        model.addAttribute("email", user.getEmail());
 
         // Add the avatar link for loading
         String avatar = AccountService.getProfilePicture(userId);
