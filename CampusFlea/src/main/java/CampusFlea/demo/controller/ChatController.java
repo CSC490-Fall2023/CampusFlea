@@ -1,9 +1,9 @@
 package CampusFlea.demo.controller;
 
 import CampusFlea.demo.model.Account;
-import CampusFlea.demo.model.Listing;
+import CampusFlea.demo.model.UserMessage;
 import CampusFlea.demo.services.AccountService;
-import CampusFlea.demo.services.ListingService;
+import CampusFlea.demo.services.ChatService;
 import CampusFlea.demo.services.SessionService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
@@ -29,14 +29,9 @@ public class ChatController {
         String avatar = AccountService.getProfilePicture(userId);
         model.addAttribute("avatar", avatar);
 
-        Listing[] listings = ListingService.getAllListings();
-
-        //TODO: ONLY SHOW SELLING CATEGORY
-        for (Listing listing : listings) {
-            System.out.printf("Showing listing (id=%d, title=%s)\n", listing.getId(), listing.getTitle());
-        }
-        //add to model for ThymeLeaf to read
-        model.addAttribute("listings", listings);
+        // Get all messages relating to user
+        UserMessage[] messages = ChatService.getAllMessages(userId);
+        model.addAttribute("messages", messages);
 
         return "chat";
     }
