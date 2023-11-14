@@ -30,10 +30,13 @@ public class SellingController {
 
         Listing[] listings = ListingService.getAllUserListings(userId);
 
+        // Go through each listing
         for (int i = 0; i < listings.length; i++) {
             int listingId = listings[i].getId();
-            String image = ListingService.getListingImages(listingId)[0];
-            listings[i].setImage(image);
+
+            // Add image to listings
+            String[] images = ListingService.getListingImages(listingId);
+            listings[i].setImage(images[0]);
         }
 
         //add to model for ThymeLeaf to read

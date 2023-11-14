@@ -120,12 +120,10 @@
                             <p th:text="${'$' + item.price}"></p>
                         </div>
                     </a>
-                    <!--                    TODO: SAVE BUTTON FUNCTION-->
-                    <!--                    TODO: FILL IN ICON ON CLICK-->
                     <div class="bottom-grid-container">
                         <button type="submit" class="edit-profile-button" name="save">
                             <span class="fa-stack saved">
-                                <i class="fa-stack fa-bookmark" th:classappend="${item.saved} ? fa-solid : fa-regular"></i>
+                               <!-- We do not show save button here because these are the user's own listings -->
                              </span>
                         </button>
                         <span class="tag" th:text="${item.category}"></span>
