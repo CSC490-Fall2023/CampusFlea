@@ -1,5 +1,7 @@
 package CampusFlea.demo.model;
 
+import CampusFlea.demo.services.ListingService;
+
 public class Chat {
     private final int id;
     private final int listingId;
@@ -27,5 +29,10 @@ public class Chat {
 
     public ChatMessage[] getMessages() {
         return messages;
+    }
+
+    public String getTitle() {
+        Listing listing = ListingService.getListing(listingId);
+        return listing.getTitle();
     }
 }

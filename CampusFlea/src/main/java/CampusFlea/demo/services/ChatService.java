@@ -20,8 +20,7 @@ public class ChatService {
         Connection conn = dbSrv.getConnection();
 
         // Create the query
-        String query = "SELECT DISTINCT chatId FROM messages WHERE senderId = ?;";
-
+        String query = "SELECT * FROM chats WHERE buyerId = ?;";
         // TODO: Also get received messages
 
         try {
@@ -32,15 +31,16 @@ public class ChatService {
             // Execute the query
             ResultSet rs = preparedStatement.executeQuery();
 
-            int chatId = rs.getInt("chatId");
+            // Get row data
+            int id = rs.getInt("id");
             int listingId = rs.getInt("listingId");
             int buyerId = rs.getInt("buyerId");
 
             // Get all chat messages for the associated chatId
-            ChatMessage[] chatMessages = getChatMessages(chatId);
+            ChatMessage[] chatMessages = getChatMessages(id);
 
             // Create a new Chat
-            Chat chat = new Chat(chatId, listingId, buyerId, chatMessages);
+            Chat chat = new Chat(id, listingId, buyerId, chatMessages);
             chats.add(chat);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -85,6 +85,37 @@ public class ChatService {
 
         // Return the user messages as an array
         return userMessages.toArray(new ChatMessage[0]);
+    }
+
+    public static Chat getListingChat(int listingId, int userId) {
+        // Establish database connection
+        DatabaseService dbSrv = new DatabaseService();
+        Connection conn = dbSrv.getConnection();
+
+        // Create the query
+        String query = "SELECT id, buyerId FROM chats WHERE listingId = ? AND buyerId = ?;";
+
+        try {
+            // Prepare the query
+            PreparedStatement preparedStatement = conn.prepareStatement(query);
+            preparedStatement.setInt(1, userId);
+            preparedStatement.setInt(2, listingId);
+
+            // Execute the query
+            ResultSet rs = preparedStatement.executeQuery();
+
+            int id = rs.getInt("id");
+            int buyerId = rs.getInt("buyerId");
+
+            ChatMessage[] chatMessages = getChatMessages(id);
+
+            // Create Chat object
+            Chat chat = new Chat(id, listingId, buyerId, chatMessages);
+            return chat;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
     }
 
     public static void saveChatMessage(int toId, int fromId, int listingId, String message) {
