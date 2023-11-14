@@ -2,16 +2,16 @@ package CampusFlea.demo.model;
 
 public class ChatMessage {
     private final int id;
-    private final int timeSent;
-    private final int toId;
-    private final int fromId;
+    private final int chatId;
+    private final int senderId;
+    private final int timestamp;
     private final String message;
 
-    public ChatMessage(int id, int timeSent, int toId, int fromId, String message) {
+    public ChatMessage(int id, int chatId, int senderId, int timestamp, String message) {
         this.id = id;
-        this.timeSent = timeSent;
-        this.toId = toId;
-        this.fromId = fromId;
+        this.chatId = chatId;
+        this.senderId = senderId;
+        this.timestamp = timestamp;
         this.message = message;
     }
 
@@ -19,16 +19,16 @@ public class ChatMessage {
         return id;
     }
 
-    public int getTimeSent() {
-        return timeSent;
+    public int getChatId() {
+        return chatId;
     }
 
-    public int getToId() {
-        return toId;
+    public int getSenderId() {
+        return senderId;
     }
 
-    public int getFromId() {
-        return fromId;
+    public int getTimestamp() {
+        return timestamp;
     }
 
     public String getMessage() {
