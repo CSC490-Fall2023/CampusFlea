@@ -2,7 +2,6 @@ package CampusFlea.demo.model;
 
 public class Chat {
     private final int id;
-
     private final int listingId;
     private final ChatMessage[] messages;
 
