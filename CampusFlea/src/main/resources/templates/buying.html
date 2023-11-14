@@ -121,14 +121,17 @@
                             <p th:text="${'$' + item.price}"></p>
                         </div>
                     </a>
-                    <div class="bottom-grid-container">
-                        <button type="submit" class="edit-profile-button" name="save">
+                    <form method="post">
+                        <input type="hidden" name="listingId" th:value="${item.id}">
+                        <div class="bottom-grid-container">
+                            <button type="submit" class="edit-profile-button" name="save">
                             <span class="fa-stack saved">
                                 <i class="fa-stack fa-bookmark" th:classappend="${item.saved} ? fa-solid : fa-regular"></i>
                              </span>
-                        </button>
-                        <span class="tag" th:text="${item.category}"></span>
-                    </div>
+                            </button>
+                            <span class="tag" th:text="${item.category}"></span>
+                        </div>
+                    </form>
                 </div>
             </th:block>
         </div>

@@ -9,6 +9,8 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class TradesController {
@@ -31,15 +33,37 @@ public class TradesController {
 
         Listing[] listings = ListingService.getAllListings();
 
+        // Go through each listing
         for (int i = 0; i < listings.length; i++) {
             int listingId = listings[i].getId();
-            String image = ListingService.getListingImages(listingId)[0];
-            listings[i].setImage(image);
+
+            // Add image to listings
+            String[] images = ListingService.getListingImages(listingId);
+            listings[i].setImage(images[0]);
+
+            // Set save btn to listings
+            boolean saved = ListingService.listingIsSaved(userId, listingId);
+            listings[i].setSaved(saved);
         }
         
         //add to model for ThymeLeaf to read
         model.addAttribute("listings", listings);
 
         return "trades";
+    }
+
+    @RequestMapping(value = "/trades", params = "save")
+    public String saveListing(@RequestParam String listingId, HttpSession session) {
+        // Check that the session key is valid (redirect them to login otherwise)
+        int userId = SessionService.getUserIdFromSession(session);
+        if (userId == -1) {
+            return "redirect:/signin";
+        }
+
+        // Save the listing
+        ListingService.toggleSave(userId, listingId);
+
+        // Reload
+        return "redirect:/trades";
     }
 }
