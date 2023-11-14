@@ -2,7 +2,6 @@ package CampusFlea.demo.controller;
 
 import CampusFlea.demo.model.Account;
 import CampusFlea.demo.model.Chat;
-import CampusFlea.demo.model.ChatMessage;
 import CampusFlea.demo.model.Listing;
 import CampusFlea.demo.services.AccountService;
 import CampusFlea.demo.services.ChatService;
@@ -18,12 +17,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class ChatController {
     @GetMapping("/chat")
-    public String buying(Model model, HttpSession session) {
+    public String chat(Model model, HttpSession session) {
         // Check that the session key is valid (redirect them to login otherwise)
         int userId = SessionService.getUserIdFromSession(session);
         if (userId == -1) {
             return "redirect:/signin";
         }
+
+        // Load null information to model
+        model.addAttribute("listing", null);
+        model.addAttribute("chat", null);
 
         load(model, userId);
         return "chat";

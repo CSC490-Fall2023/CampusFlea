@@ -76,7 +76,7 @@
         <div class="chat-box">
             <div class="chat-messages">
                 <!-- Chat messages will be displayed here -->
-                <th:block th:each="thisMessage : ${chat.getMessages()}">
+                <th:block th:each="thisMessage : ${chat?.getMessages()}">
                 <div class="message received">
                     <div class="message-content">
                         <p th:text="${thisMessage.message}"></p>
