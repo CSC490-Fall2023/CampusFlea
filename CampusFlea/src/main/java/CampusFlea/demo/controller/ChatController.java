@@ -1,7 +1,7 @@
 package CampusFlea.demo.controller;
 
 import CampusFlea.demo.model.Account;
-import CampusFlea.demo.model.UserMessage;
+import CampusFlea.demo.model.ChatMessage;
 import CampusFlea.demo.services.AccountService;
 import CampusFlea.demo.services.ChatService;
 import CampusFlea.demo.services.SessionService;
@@ -30,7 +30,7 @@ public class ChatController {
         model.addAttribute("avatar", avatar);
 
         // Get all messages relating to user
-        UserMessage[] messages = ChatService.getAllMessages(userId);
+        ChatMessage[] messages = ChatService.getAllMessages(userId);
         model.addAttribute("messages", messages);
 
         return "chat";
