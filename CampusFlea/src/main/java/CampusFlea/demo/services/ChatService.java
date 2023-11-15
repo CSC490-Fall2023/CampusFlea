@@ -120,9 +120,59 @@ public class ChatService {
         }
     }
 
+    private static void createChat(int listingId, int buyerId) {
+        // Establish database connection
+        DatabaseService dbSrv = new DatabaseService();
+        Connection conn = dbSrv.getConnection();
+
+        // Create the query
+        String query = "INSERT INTO chats (listingId, buyerId) VALUES (?, ?);";
+
+        try {
+            // Prepare the query
+            PreparedStatement preparedStatement = conn.prepareStatement(query);
+            preparedStatement.setInt(1, listingId);
+            preparedStatement.setInt(2, buyerId);
+
+            // Execute the query
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     public static int getChatId(int listingId, int buyerId) {
-        String query = "SELECT COUNT(*) FROM chats WHERE listingId = ? AND buyerId = ?";
-        return -1;
+        // Establish database connection
+        DatabaseService dbSrv = new DatabaseService();
+        Connection conn = dbSrv.getConnection();
+
+        String query = "SELECT id FROM chats WHERE listingId = ? AND buyerId = ?";
+
+        try {
+            // Prepare the query
+            PreparedStatement preparedStatement = conn.prepareStatement(query);
+            preparedStatement.setInt(1, listingId);
+            preparedStatement.setInt(2, buyerId);
+
+            // Execute the query
+            ResultSet rs = preparedStatement.executeQuery();
+
+            // return if exists
+            if (rs.next()) {
+                int id = rs.getInt("id");
+                return id;
+            }
+
+            // Create the chat
+            createChat(listingId, buyerId);
+
+            /// Call again now that we created the chat
+            int chatId = getChatId(listingId, buyerId);
+            return chatId;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return -1;
+        }
     }
 
     public static void saveChatMessage(int chatId, int senderId, int listingId, String message) {
@@ -131,16 +181,17 @@ public class ChatService {
         Connection conn = dbSrv.getConnection();
 
         try {
-
-
             // Create the query
             String query = "INSERT INTO messages (chatId, senderId, timestamp, message) VALUES (?, ?, ?, ?);";
+
+            // Get the current timestamp
+            int timestamp = (int) (System.currentTimeMillis() / 1000L);
 
             // Prepare the query
             PreparedStatement preparedStatement = conn.prepareStatement(query);
             preparedStatement.setInt(1, chatId);
             preparedStatement.setInt(2, senderId);
-            preparedStatement.setInt(3, listingId);
+            preparedStatement.setInt(3, timestamp);
             preparedStatement.setString(4, message);
 
             // Execute the query

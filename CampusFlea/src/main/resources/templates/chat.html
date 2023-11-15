@@ -91,7 +91,7 @@
             </div>
             <div class="chat-input" th:if="${chat != null}">
                 <form method="post">
-                    <input type="hidden" name="id" th:value="${listing.id}">
+                    <!--<input type="hidden" name="id" th:value="${listing.id}">-->
                     <input type="text" name="message" placeholder="Type your message...">
                     <button type="submit" id="send-button">Send</button>
                 </form>
