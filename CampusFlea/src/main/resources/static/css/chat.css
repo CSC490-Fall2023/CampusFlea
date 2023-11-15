@@ -780,10 +780,6 @@ video {
     float: left;
 }
 
-.map-path:before {
-    content: "分类："
-}
-
 .map-path-item:before {
     content: "/";
     display: inline-block;
