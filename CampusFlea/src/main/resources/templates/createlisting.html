@@ -14,10 +14,9 @@
 
     <label for="category">Category:</label>
     <select id="category" name="category" required>
-        <option value="0">Clothing</option>
-        <option value="1">Electronics</option>
-        <option value="2">Furniture</option>
-        <option value="3">Vehicles</option>
+        <th:block th:each="category : ${categories}">
+            <option th:value="${counter.getAndIncrement()}" th:text="${category}"></option>
+        </th:block>
     </select>
 
     <label for="price">Price:</label>
