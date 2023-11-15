@@ -43,6 +43,11 @@ body, ul, li {
     margin-bottom: 20px;
 }
 
+.username{
+    color: white;
+    text-decoration: none;
+}
+
 .text-container {
     margin-left: 5px;
     display: flex;
@@ -52,15 +57,25 @@ body, ul, li {
     color: white;
     text-decoration: none;
     flex-direction: column;
+    align-items: flex-start;
 }
 
 .text-container p{
     color:white;
 }
 
+.text-container a{
+    color:white;
+}
+
+.text-container span a{
+    color:white;
+}
+
 .filter-button button{
     border: none;
-    color: gray;
+        color: gray;
+        background-color: white;
 }
 
 
@@ -78,8 +93,6 @@ body, ul, li {
 }
 
 .container span{
-    display: flex;
-    vertically-align: middle;
 }
 
 .container .dots {
@@ -88,7 +101,7 @@ body, ul, li {
     height: 50px;
     border-radius: 50%;
     background: white;
-
+    object-fit: cover;
 }
 
 .sidebar-top {
@@ -169,7 +182,7 @@ body, ul, li {
 }
 
 .nav-links li a:hover{
-      background-color:green;
+      background-color: #51BC58;
 }
 
 .nav-links .active{
@@ -211,7 +224,10 @@ body, ul, li {
     background-color: #fff;
     text-decoration: none;
     border-radius: 10px;
-    box-shadow: 1px 1px 5px #b8b8b8, -1px -1px 5px #ffffff;
+    border-style: solid;
+    border-color: #f4f4f4;
+    border-width: 1.75px;
+    box-shadow: 3px 6px 5px 0px #f6f5f5, -1px -1px 0px 0px #ffffff;
     padding: 20px;
     text-align: center;
     transition: transform 0.2s ease-in-out;
@@ -223,9 +239,54 @@ body, ul, li {
 
 .neumorphic-card img {
     max-width: 100%;
-    height: auto;
+    height: 200px;
     border-radius: 10px;
+    overflow: hidden;
+    object-fit: contain;
+
 }
+
+.tag{
+   display: inline-block;
+       height: 24px;
+       line-height: 24px;
+       position: relative;
+       padding: 0 10px 0 12px;
+       border-radius: 3px;
+       color: #fff;
+       float: left;
+       font-size: 14px;
+       color: #358ED7;
+       letter-spacing: 1px;
+       text-transform: uppercase;
+       text-decoration: none;
+
+}
+.item-text p{
+    color: #007BFF;
+    font-size: 1.2rem;
+    text-decoration: none;
+    margin: 0;
+}
+
+.bottom-grid-container{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+    align-items: center;
+}
+
+.shown{
+  text-color: green;
+  color: green;
+  display: inline-block;
+}
+
+.hidden {
+  color:transparent;
+}
+
+
 
 h2 {
     margin-top: 10px;
@@ -245,6 +306,7 @@ h2 {
   flex-direction: row;
       justify-content: space-between;
       align-items: center;
+      color:black;
 }
 
 
@@ -305,7 +367,7 @@ h2 {
 .content {
     margin-left: 250px; /* Match the width of the sidebar */
     padding: 20px;
-    background-color: #f0f0f0;
+    background-color: white;
 }
 /* FILTER BUTTON*/
 
@@ -448,5 +510,28 @@ input[type="range"]::-moz-range-thumb{
   -moz-appearance: none;
   box-shadow: 0 0 6px rgba(0,0,0,0.05);
 }
+
+.edit-profile-button {
+    background-color: white;
+    /* color: white; */
+    padding: 10px 0px 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    /* margin-right: 15px; */
+    display: block;
+    float: right;
+    }
+
+/* Hover effect */
+.edit-profile-button:hover {
+    color: black;
+}
+
+.filter-hidden{
+    display: none;
+}
+
 
 

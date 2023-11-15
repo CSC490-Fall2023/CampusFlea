@@ -2,6 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link th:href="@{/css/signin.css}" rel="stylesheet">
     <title>Login</title>
 </head>
@@ -10,15 +11,15 @@
     <img th:src="@{/images/Logos/logo.png}" alt="Logo" class="logo">
 </div>
 <div class="container">
-    <form th:action="@{/signin}" th:object="${user}" method="post">
+    <form th:action="@{/signin}" method="post">
         <div class="form-group">
-            <label for="user">Username:</label>
-            <input type="text" id="user" name="user" th:field="*{username}" required class="text-box"><br>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" class="text-box"><br>
         </div>
 
         <div class="form-group">
-            <label for="pass">Password:</label>
-            <input type="password" id="pass" name="pass" th:field="*{password}" required class="text-box"><br>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" class="text-box"><br>
         </div>
         <div class="button-container">
             <div class="btn-signin">
@@ -27,11 +28,8 @@
                 </button>
             </div>
             <div class="btn-register">
-                <a th:ref="signup.html">
-                    <button type="submit">
-                        Register
-                    </button>
-                </a>
+                <p> Don't have an account?<a
+                        th:href="@{signup}">Register Here</a></p>
             </div>
         </div>
     </form>

@@ -65,15 +65,7 @@ label {
     cursor: pointer;
     transition: background-color 0.3s;
 }
-
-.btn-register button {
-    background-color: #3498db;
-}
-
 .btn-signin button:hover {
     background-color: #45a049;
 }
 
-.btn-register button:hover {
-    background-color: #2980b9;
-}

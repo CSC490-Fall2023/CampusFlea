@@ -1,5 +1,5 @@
 package CampusFlea.demo.websocket;
-
+/*
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -8,8 +8,7 @@ import java.util.List;
 
 @Service
 public class ChatService {
-    @Autowired
-    private ChatMessageRepository chatMessageRepository;
+
     public List<ChatMessage> getMessageBySender(String sender){
         return  chatMessageRepository.findBySender(sender);
     }
@@ -20,7 +19,9 @@ public class ChatService {
         ChatMessage chatMessage=new ChatMessage();
         chatMessage.setSender(sender);
         chatMessage.setReceiver(receiver);
+        chatMessage.setMessage(message);
         chatMessage.setTime(new Date(System.currentTimeMillis()));
         chatMessageRepository.save(chatMessage);
     }
 }
+*/
