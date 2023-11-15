@@ -30,15 +30,5 @@
                     item.style.display = 'none';
                   }
                 });
-//          if (selectedFilters.length === 0 || selectedFilters.every(function (filter)                     {
-//                        return itemFilters.includes(filter);
-//                    }
-//                )
-//            ) {
-//            item.style.display = 'grid';
-//          } else {
-//            item.style.display = 'none';
-//          }
-//        });
       }
     });
