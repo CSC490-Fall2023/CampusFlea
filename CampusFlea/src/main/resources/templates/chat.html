@@ -60,9 +60,10 @@
             <li>
                 <img class="profile-pic" th:src="@{uploads/avatars/default.png}" alt="User 2">
                 <div class="chat-info">
-                    <!-- Listing Title -->
-                    <h4 th:text="${chat.getTitle}"></h4>
-
+                    <!-- Listing Title and Link -->
+                    <a th:href="@{chat(id=${chat.listingId})}">
+                        <h4 th:text="${chat.getTitle}"></h4>
+                    </a>
                     <!-- Last Sent Time -->
                     <p>(TBD)</p>
                 </div>
@@ -96,8 +97,11 @@
                     <button type="submit" id="send-button">Send</button>
                 </form>
             </div>
-            <div th:if="${chat == null}">
+            <div th:if="${chats == null}">
                 <p>You do not have any conversations.</p>
+            </div>
+            <div th:if="${chats != null && chat == null}">
+                <p>Click on a conversation to load.</p>
             </div>
         </div>
     </div>

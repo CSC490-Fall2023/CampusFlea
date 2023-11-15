@@ -40,9 +40,14 @@ public class SessionService {
 
             // Execute the query
             ResultSet rs = preparedStatement.executeQuery();
-            return rs.getInt("uid");
+
+            if (rs.next()) {
+                int uid = rs.getInt("uid");
+                return uid;
+            }
         } catch (SQLException e) {
-            return -1;
+            System.out.println(e.getMessage());
         }
+        return -1;
     }
 }

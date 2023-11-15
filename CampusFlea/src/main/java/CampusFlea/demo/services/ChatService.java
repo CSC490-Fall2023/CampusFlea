@@ -72,14 +72,17 @@ public class ChatService {
             // Execute the query
             ResultSet rs = preparedStatement.executeQuery();
 
-            int id = rs.getInt("id");
-            int senderId = rs.getInt("senderId");
-            int timestamp = rs.getInt("timestamp");
-            String message = rs.getString("message");
+            // Loop through each row of messages
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                int senderId = rs.getInt("senderId");
+                int timestamp = rs.getInt("timestamp");
+                String message = rs.getString("message");
 
-            // Create the new message object
-            ChatMessage thisMessage = new ChatMessage(id, chatId, senderId, timestamp, message);
-            userMessages.add(thisMessage);
+                // Create the new message object
+                ChatMessage thisMessage = new ChatMessage(id, chatId, senderId, timestamp, message);
+                userMessages.add(thisMessage);
+            }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             return null;
@@ -100,20 +103,22 @@ public class ChatService {
         try {
             // Prepare the query
             PreparedStatement preparedStatement = conn.prepareStatement(query);
-            preparedStatement.setInt(1, userId);
-            preparedStatement.setInt(2, listingId);
+            preparedStatement.setInt(1, listingId);
+            preparedStatement.setInt(2, userId);
 
             // Execute the query
             ResultSet rs = preparedStatement.executeQuery();
+            if (rs.next()) {
+                int id = rs.getInt("id");
+                int buyerId = rs.getInt("buyerId");
 
-            int id = rs.getInt("id");
-            int buyerId = rs.getInt("buyerId");
+                ChatMessage[] chatMessages = getChatMessages(id);
 
-            ChatMessage[] chatMessages = getChatMessages(id);
-
-            // Create Chat object
-            Chat chat = new Chat(id, listingId, buyerId, chatMessages);
-            return chat;
+                // Create Chat object
+                Chat chat = new Chat(id, listingId, buyerId, chatMessages);
+                return chat;
+            }
+            return null;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             return null;
