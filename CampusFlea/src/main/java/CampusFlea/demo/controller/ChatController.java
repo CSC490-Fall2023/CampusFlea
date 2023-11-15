@@ -76,6 +76,8 @@ public class ChatController {
         System.out.printf("id=%s\n", id);
         System.out.printf("message=%s\n", message);
 
+        // TODO: Check for duplicate messages
+
         // Save the chat
         int chatId = ChatService.getChatId(listingId, userId);
         ChatService.saveChatMessage(chatId, listing.getUid(), listingId, message);
@@ -93,6 +95,9 @@ public class ChatController {
     }
 
     private void load(Model model, int userId, Chat chat) {
+        // Add the userId to model
+        model.addAttribute("userId", userId);
+
         // Create the account object from the found userId
         // load items from saved items in DB
         Account user = AccountService.getAccount(userId);

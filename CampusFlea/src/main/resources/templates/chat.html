@@ -82,7 +82,7 @@
 
                 <!-- Chat messages will be displayed here -->
                 <th:block th:each="thisMessage : ${chat?.getMessages()}" th:if="${chat != null && chat.getMessages().length > 0}">
-                <div class="message received">
+                <div class="message" th:classappend="${thisMessage.senderId == userId} ? received : sent">
                     <div class="message-content">
                         <p th:text="${thisMessage.message}"></p>
                     </div>
@@ -92,7 +92,6 @@
             </div>
             <div class="chat-input" th:if="${chat != null}">
                 <form method="post">
-                    <!--<input type="hidden" name="id" th:value="${listing.id}">-->
                     <input type="text" name="message" placeholder="Type your message...">
                     <button type="submit" id="send-button">Send</button>
                 </form>
