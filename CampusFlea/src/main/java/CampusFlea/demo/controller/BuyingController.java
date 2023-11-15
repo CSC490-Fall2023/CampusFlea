@@ -26,6 +26,7 @@ public class BuyingController {
         // load items from saved items in DB
         Account user = AccountService.getAccount(userId);
         model.addAttribute("username", user.getUsername());
+        model.addAttribute("isAdmin", user.getIsAdmin());
 
         // Add the avatar link for loading
         String avatar = AccountService.getProfilePicture(userId);

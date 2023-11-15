@@ -39,7 +39,7 @@
                 <li><a th:href="@{saved}" class=""><i class="fa-solid fa-bookmark"></i>Saved</a></li>
                 <li><a th:href="@{chat}"><i class="fa-solid fa-message"></i>Messages</a></li>
                 <li><a th:href="@{settings}"><i class="fa-solid fa-gear"></i>Settings</a></li>
-                <li><a th:href="@{admincp}"><i class="fa-solid fa-table"></i>Control Panel</a></li>
+                <li th:if="${isAdmin}"><a th:href="@{admincp}"><i class="fa-solid fa-table"></i>Control Panel</a></li>
             </ul>
         </div>
     </div>
@@ -70,15 +70,18 @@
                     <div class="filter-section-top">
                         <h3>Category</h3>
                         <hr>
-<!--                        CHECKBOX START-->
+                        <!--                        CHECKBOX START-->
                         <label>
-                            <input type="checkbox" name="category" value="electronics" class="filter-checkbox" data-filter="filter-Electronics"> Electronics
+                            <input type="checkbox" name="category" value="electronics" class="filter-checkbox"
+                                   data-filter="filter-Electronics"> Electronics
                         </label>
                         <label>
-                            <input type="checkbox" name="category" value="clothing" class="filter-checkbox"data-filter="filter-Clothing"> Clothing
+                            <input type="checkbox" name="category" value="clothing" class="filter-checkbox"
+                                   data-filter="filter-Clothing"> Clothing
                         </label>
                         <label>
-                            <input type="checkbox" name="category" value="furniture" class="filter-checkbox" data-filter="filter-Furniture"> Furniture
+                            <input type="checkbox" name="category" value="furniture" class="filter-checkbox"
+                                   data-filter="filter-Furniture"> Furniture
                         </label>
                     </div>
                     <div class="filter-section-slide">
@@ -119,12 +122,13 @@
                     <form method="post">
                         <input type="hidden" name="listingId" th:value="${item.id}">
                         <div class="bottom-grid-container">
-                        <button type="submit" class="edit-profile-button" name="save">
+                            <button type="submit" class="edit-profile-button" name="save">
                             <span class="fa-stack saved">
-                                <i class="fa-stack fa-bookmark" th:classappend="${item.saved} ? fa-solid : fa-regular"></i>
+                                <i class="fa-stack fa-bookmark"
+                                   th:classappend="${item.saved} ? fa-solid : fa-regular"></i>
                              </span>
-                        </button>
-                        <span class="tag" th:id="${item.category}" th:text="${item.category}"></span>
+                            </button>
+                            <span class="tag" th:id="${item.category}" th:text="${item.category}"></span>
                         </div>
                     </form>
                 </div>

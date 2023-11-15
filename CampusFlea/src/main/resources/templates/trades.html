@@ -35,11 +35,12 @@
             <ul>
                 <li><a class="nav-item" th:href="@{/}"><i class="fa-solid fa-store"></i>Browse All</a></li>
                 <li><a th:href="@{buying}" class="nav-item"><i class="fa-solid fa-comments-dollar"></i>Buying</a></li>
-                <li><a th:href="@{trades}" class="active nav-item"><i class="fa-regular fa-handshake"></i>Trades</a></li>
+                <li><a th:href="@{trades}" class="active nav-item"><i class="fa-regular fa-handshake"></i>Trades</a>
+                </li>
                 <li><a th:href="@{saved}" class=""><i class="fa-solid fa-bookmark"></i>Saved</a></li>
                 <li><a th:href="@{chat}"><i class="fa-solid fa-message"></i>Messages</a></li>
                 <li><a th:href="@{settings}"><i class="fa-solid fa-gear"></i>Settings</a></li>
-                <li><a th:href="@{admincp}"><i class="fa-solid fa-table"></i>Control Panel</a></li>
+                <li th:if="${isAdmin}"><a th:href="@{admincp}"><i class="fa-solid fa-table"></i>Control Panel</a></li>
             </ul>
         </div>
     </div>
@@ -121,7 +122,8 @@
                         <div class="bottom-grid-container">
                             <button type="submit" class="edit-profile-button" name="save">
                             <span class="fa-stack saved">
-                                <i class="fa-stack fa-bookmark" th:classappend="${item.saved} ? fa-solid : fa-regular"></i>
+                                <i class="fa-stack fa-bookmark"
+                                   th:classappend="${item.saved} ? fa-solid : fa-regular"></i>
                              </span>
                             </button>
                             <span class="tag" th:text="${item.category}"></span>

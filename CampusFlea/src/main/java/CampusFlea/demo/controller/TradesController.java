@@ -26,6 +26,7 @@ public class TradesController {
         // load items from saved items in DB
         Account user = AccountService.getAccount(userId);
         model.addAttribute("username", user.getUsername());
+        model.addAttribute("isAdmin", user.getIsAdmin());
 
         // Add the avatar link for loading
         String avatar = AccountService.getProfilePicture(userId);
@@ -45,10 +46,9 @@ public class TradesController {
             boolean saved = ListingService.listingIsSaved(userId, listingId);
             listings[i].setSaved(saved);
         }
-        
+
         //add to model for ThymeLeaf to read
         model.addAttribute("listings", listings);
-
         return "trades";
     }
 
