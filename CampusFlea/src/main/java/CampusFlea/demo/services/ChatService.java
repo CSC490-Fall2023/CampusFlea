@@ -214,4 +214,36 @@ public class ChatService {
         }
         return false;
     }
+
+    public static String getDateFromMessage(ChatMessage message) {
+        // Get the timestamp
+        int timestamp = message.getTimestamp();
+
+        // Get the timestamp of now
+        int currentTimestamp = (int) (System.currentTimeMillis() / 1000L);
+
+        // Get the difference
+        int diff = currentTimestamp - timestamp;
+
+        // Calculate days
+        if (diff / 86400 > 0) {
+            diff /= 86400;
+            return String.valueOf(diff) + " days ago";
+        }
+
+        // Calculate hours
+        if (diff / 3600 > 0) {
+            diff /= 3600;
+            return String.valueOf(diff) + " hours ago";
+        }
+
+        // Calculate minutes
+        if (diff / 60 > 0) {
+            diff /= 60;
+            return String.valueOf(diff) + " minutes ago";
+        }
+
+        // Return in seconds
+        return String.valueOf(diff) + " seconds ago";
+    }
 }

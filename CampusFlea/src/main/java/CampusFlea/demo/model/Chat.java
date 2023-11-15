@@ -1,5 +1,6 @@
 package CampusFlea.demo.model;
 
+import CampusFlea.demo.services.ChatService;
 import CampusFlea.demo.services.ListingService;
 
 public class Chat {
@@ -34,5 +35,10 @@ public class Chat {
     public String getTitle() {
         Listing listing = ListingService.getListing(listingId);
         return listing.getTitle();
+    }
+
+    public String getLastMessageTime() {
+        ChatMessage lastMessage = messages[messages.length - 1];
+        return ChatService.getDateFromMessage(lastMessage);
     }
 }
