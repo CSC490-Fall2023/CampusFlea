@@ -133,9 +133,8 @@ public class ChatService {
         try {
 
 
-
             // Create the query
-            query = "INSERT INTO messages (chatId, senderId, timestamp, message) VALUES (?, ?, ?, ?);";
+            String query = "INSERT INTO messages (chatId, senderId, timestamp, message) VALUES (?, ?, ?, ?);";
 
             // Prepare the query
             PreparedStatement preparedStatement = conn.prepareStatement(query);
