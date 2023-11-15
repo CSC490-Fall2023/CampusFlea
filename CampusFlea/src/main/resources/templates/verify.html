@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Email Verification</title>
-    <link rel="stylesheet" th:href="@{/static/css/emailVerification.css}">
+    <link rel="stylesheet" th:href="@{/css/emailVerification.css}">
 </head>
 <body>
-<img th:src="@{/static/images/Logos/logo.png}" alt="Logo" class="logo">
+<img th:src="@{/images/Logos/logo.png}" alt="Logo" class="logo">
 <div class="container">
     <h2>UNCG Email Verification</h2>
     <p>Please enter the verification code sent to your UNCG student email.</p>
-    <form action="#" method="post" th:action="@{/verify}">
+    <form method="post" th:action="@{verify}">
         <input type="text" name="verification_code" placeholder="Verification Code" required>
         <button type="submit">Verify Email</button>
     </form>
