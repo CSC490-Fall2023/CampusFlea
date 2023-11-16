@@ -40,7 +40,7 @@
                     <th:block th:each="item : ${listings}">
                         <div class="neumorphic-card">
                             <a th:href="@{listing(id=${item.id})}">
-                                <img th:src="${item.image}" alt="Product Image">
+                                <img th:src="${item.images[0]}" alt="${item.title}">
                                 <div class="item-text">
                                     <h2 th:text="${item.title}"></h2>
                                     <p class="price" th:text="${'$' + item.price}"></p>

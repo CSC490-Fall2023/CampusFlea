@@ -28,7 +28,9 @@
         <div class="slider">
             <div class="slides">
                 <div class="slide">
-                    <img th:src="${listing.image}" alt="Product Image 1">
+                    <th:block th:each="image : ${listing.images}">
+                        <img th:src="${image}" alt="Product Image">
+                    </th:block>
                 </div>
             </div>
             <div class="arrow prev" onclick="moveSlide(-1)">&#10094;</div>

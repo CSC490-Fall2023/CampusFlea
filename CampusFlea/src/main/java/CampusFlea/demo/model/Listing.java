@@ -12,7 +12,7 @@ public class Listing {
     private final int have;
     private final String category;
 
-    private String image;
+    private String[] images;
     private boolean saved;
 
     public Listing(int id, int uid, String title, String description, int type, int status, int price, int want, int have, String category) {
@@ -68,12 +68,12 @@ public class Listing {
         return category;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setImages(String[] images) {
+        this.images = images;
     }
 
-    public String getImage() {
-        return image;
+    public String[] getImages() {
+        return images;
     }
 
     public void setSaved(boolean saved) { this.saved = saved; }

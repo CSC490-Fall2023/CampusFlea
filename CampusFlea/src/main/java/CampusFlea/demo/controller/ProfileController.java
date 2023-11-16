@@ -34,7 +34,7 @@ public class ProfileController {
         for (int i = 0; i < listings.length; i++) {
             int listingId = listings[i].getId();
             String[] images = ListingService.getListingImages(listingId);
-            listings[i].setImage(images[0]);
+            listings[i].setImages(images);
         }
 
         //add to model for ThymeLeaf to read

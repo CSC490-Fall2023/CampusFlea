@@ -48,8 +48,8 @@ public class ListingController {
         Listing listing = ListingService.getListing(listingIdInt);
 
         // Add image to listing
-        String image = ListingService.getListingImages(listingIdInt)[0];
-        listing.setImage(image);
+        String[] images = ListingService.getListingImages(listingIdInt);
+        listing.setImages(images);
 
         // Create database connection
         DatabaseService dbSrv = new DatabaseService();

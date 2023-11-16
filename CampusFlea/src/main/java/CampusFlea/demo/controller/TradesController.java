@@ -40,7 +40,7 @@ public class TradesController {
 
             // Add image to listings
             String[] images = ListingService.getListingImages(listingId);
-            listings[i].setImage(images[0]);
+            listings[i].setImages(images);
 
             // Set save btn to listings
             boolean saved = ListingService.listingIsSaved(userId, listingId);
