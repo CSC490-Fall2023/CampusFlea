@@ -7,9 +7,8 @@ import jakarta.mail.internet.MimeMessage;
 import java.util.Properties;
 
 public class EmailService {
-    private static final String EMAIL = "";
-    private static final String USERNAME = "";
-    private static final String PASSWORD = "";
+    private static final String USERNAME = "handwritingpractice@gmail.com";
+    private static final String PASSWORD = "CodyDog_2000";
 
     public static void sendEmail(String emailTo, String subject, String body) {
         // Create connection properties
@@ -32,7 +31,7 @@ public class EmailService {
         try {
             // Create the new message
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(EMAIL));
+            message.setFrom(new InternetAddress(USERNAME));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailTo));
             message.setSubject(subject);
             message.setText(body);
