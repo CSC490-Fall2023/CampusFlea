@@ -22,6 +22,11 @@ public class HomePageController {
             return "redirect:/signin";
         }
 
+        // Check if the account is verified
+        if (!AccountService.isVerified(userId)) {
+            return "redirect:/verify";
+        }
+
         // Create the account object from the found userId
         Account user = AccountService.getAccount(userId);
 

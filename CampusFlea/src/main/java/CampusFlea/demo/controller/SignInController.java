@@ -34,8 +34,6 @@ public class SignInController {
         // Get the user id and use it to create a new session key
         int userId = AccountService.getId(conn, username);
 
-        System.out.printf("Found userId: %d\n", userId);
-
         String sessionKey = AccountService.createLoginSession(conn, userId);
 
         if (sessionKey == null) {
@@ -45,6 +43,11 @@ public class SignInController {
 
         // Save the session key
         session.setAttribute("session_key", sessionKey);
+
+        // Check if the user is verified
+        if (!AccountService.isVerified(userId)) {
+            return "redirect:/verify";
+        }
 
         return "redirect:/";
     }

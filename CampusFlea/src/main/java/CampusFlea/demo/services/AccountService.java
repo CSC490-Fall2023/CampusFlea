@@ -406,12 +406,12 @@ public class AccountService {
             // Execute the query
             ResultSet rs = preparedStatement.executeQuery();
             if (rs.next()) {
-                return true;
+                return false;
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        return false;
+        return true;
     }
 
     public static String getVerificationKey(int userId) {
@@ -420,7 +420,7 @@ public class AccountService {
         Connection conn = dbSrv.getConnection();
 
         // Create the query string
-        String query = "SELECT verified FROM verifications WHERE uid = ?;";
+        String query = "SELECT key FROM verifications WHERE uid = ?;";
 
         // Prepare the query
         try {
