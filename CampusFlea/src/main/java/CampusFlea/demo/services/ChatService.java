@@ -180,7 +180,7 @@ public class ChatService {
         }
     }
 
-    public static void saveChatMessage(int chatId, int senderId, int listingId, String message) {
+    public static void saveChatMessage(int chatId, int senderId, String message) {
         // Establish database connection
         DatabaseService dbSrv = new DatabaseService();
         Connection conn = dbSrv.getConnection();

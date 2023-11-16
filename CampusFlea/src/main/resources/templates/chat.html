@@ -78,7 +78,7 @@
 
                 <!-- Chat messages will be displayed here -->
                 <th:block th:each="thisMessage : ${chat?.getMessages()}" th:if="${chat != null && chat.getMessages().length > 0}">
-                <div class="message" th:classappend="${thisMessage.senderId == userId} ? received : sent">
+                <div class="message" th:classappend="${thisMessage.senderId == userId} ? sent : received">
                     <div class="message-content">
                         <p th:text="${thisMessage.message}"></p>
                     </div>

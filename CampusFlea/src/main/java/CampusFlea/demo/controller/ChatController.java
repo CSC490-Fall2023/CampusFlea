@@ -83,8 +83,8 @@ public class ChatController {
         return "chat";
     }
 
-    @RequestMapping(value = "/chat", params = {"id", "message"})
-    public String sendMessage(Model model, @RequestParam String id, @RequestParam String message, HttpSession session) {
+    @RequestMapping(value = "/chat", params = {"lid", "message"})
+    public String sendMessage(Model model, @RequestParam String lid, @RequestParam String message, HttpSession session) {
         // Check that the session key is valid (redirect them to login otherwise)
         int userId = SessionService.getUserIdFromSession(session);
         if (userId == -1) {
@@ -92,14 +92,14 @@ public class ChatController {
         }
 
         // Get the listing using the listingId
-        int listingId = Integer.parseInt(id);
+        int listingId = Integer.parseInt(lid);
         Listing listing = ListingService.getListing(listingId);
 
         // TODO: Check for duplicate messages
 
         // Save the chat
         int chatId = ChatService.getChatId(listingId, userId);
-        ChatService.saveChatMessage(chatId, listing.getUid(), listingId, message);
+        ChatService.saveChatMessage(chatId, userId, message);
 
         // Add the listing to the model
         model.addAttribute("listing", listing);
@@ -109,6 +109,30 @@ public class ChatController {
         model.addAttribute("chat", chat);
 
         // Save chat in database
+        load(model, userId, null);
+        return "chat";
+    }
+
+    @RequestMapping(value = "/chat", params = {"id", "message"})
+    public String sendReply(Model model, @RequestParam String id, @RequestParam String message, HttpSession session) {
+        // Check that the session key is valid (redirect them to login otherwise)
+        int userId = SessionService.getUserIdFromSession(session);
+        if (userId == -1) {
+            return "redirect:/signin";
+        }
+
+        // Add the Chat to the model
+        int chatId = Integer.parseInt(id);
+        Chat chat = ChatService.getChat(chatId);
+        model.addAttribute("chat", chat);
+
+        // Save the chat message
+        ChatService.saveChatMessage(chatId, userId, message);
+
+        // Add the listing to the model
+        Listing listing = ListingService.getListing(chat.getListingId());
+        model.addAttribute("listing", listing);
+
         load(model, userId, null);
         return "chat";
     }
