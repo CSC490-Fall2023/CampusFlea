@@ -18,13 +18,13 @@ import java.sql.Connection;
 public class ListingController {
 
     @GetMapping("/listing")
-    public String list(Model model, @RequestParam String id) {
-        load(model, id);
+    public String list(Model model, HttpSession session, @RequestParam String id) {
+        load(model, session, id);
         return "listview";
     }
 
     @RequestMapping(value = "/listing", params = "save")
-    public String saveListing(Model model, @RequestParam String id, HttpSession session) {
+    public String saveListing(Model model, HttpSession session, @RequestParam String id) {
         // Get current user id
         int userId = SessionService.getUserIdFromSession(session);
 
@@ -32,17 +32,17 @@ public class ListingController {
         ListingService.toggleSave(userId, id);
 
         // Load the page
-        load(model, id);
+        load(model, session, id);
         return "listview";
     }
 
     @RequestMapping(value = "/listing", params = "flag")
-    public String flagListing(Model model, @RequestParam String id) {
-        load(model, id);
+    public String flagListing(Model model, HttpSession session, @RequestParam String id) {
+        load(model, session, id);
         return "listview";
     }
 
-    private void load(Model model, String listingId) {
+    private void load(Model model, HttpSession session, String listingId) {
         // Get the listing information
         int listingIdInt = Integer.parseInt(listingId);
         Listing listing = ListingService.getListing(listingIdInt);
@@ -62,7 +62,13 @@ public class ListingController {
 
         // Attach the listing object
         model.addAttribute("listing", listing);
+
+        // Attach additional used information
         model.addAttribute("username", username);
         model.addAttribute("avatar", avatar);
+
+        // Get current user id
+        int userId = SessionService.getUserIdFromSession(session);
+        model.addAttribute("userId", userId);
     }
 }
