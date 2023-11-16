@@ -32,6 +32,7 @@ public class HomePageController {
 
         // Set the user attribute
         model.addAttribute("username", user.getUsername());
+        model.addAttribute("isAdmin", user.getIsAdmin());
 
         // Add the avatar link for loading
         String avatar = AccountService.getProfilePicture(userId);

@@ -18,12 +18,15 @@ public class AdminCPController {
             return "redirect:/signin";
         }
 
+        // Make sure the user has admin privileges, otherwise redirect back to home
+        Account adminAccount = AccountService.getAccount(userId);
+        if (!adminAccount.getIsAdmin()) {
+            return "redirect:/";
+        }
+
         // Get all users
         Account[] accounts = AccountService.getAllAccounts();
         model.addAttribute("users", accounts);
-
-        //TODO: Attach all users to model
-
         return "admincp";
     }
 }

@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ListingService {
-    private static final String[] CATEGORIES = {
+    public static final String[] CATEGORIES = {
             "Clothing",
             "Electronics",
             "Furniture",

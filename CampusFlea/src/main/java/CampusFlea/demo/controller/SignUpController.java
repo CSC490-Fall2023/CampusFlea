@@ -1,6 +1,5 @@
 package CampusFlea.demo.controller;
 
-import CampusFlea.demo.model.Account;
 import CampusFlea.demo.services.AccountService;
 import CampusFlea.demo.services.DatabaseService;
 import jakarta.servlet.http.HttpSession;
@@ -39,7 +38,11 @@ public class SignUpController {
             // Save the session key
             session.setAttribute("session_key", sessionKey);
 
-            return "redirect:/";
+            // Create a new verification request
+            AccountService.createNewVerification(userId);
+
+            // Redirect to verification page
+            return "redirect:/verify";
         }
 
         // If created unsuccessfully, redirect the user back to the signup

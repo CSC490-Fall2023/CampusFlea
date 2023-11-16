@@ -41,7 +41,7 @@
                 <li><a th:href="@{saved}" class="active"><i class="fa-solid fa-bookmark"></i>Saved</a></li>
                 <li><a th:href="@{chat}"><i class="fa-solid fa-message"></i>Messages</a></li>
                 <li><a th:href="@{settings}"><i class="fa-solid fa-gear"></i>Settings</a></li>
-                <li><a th:href="@{admincp}"><i class="fa-solid fa-table"></i>Control Panel</a></li>
+                <li th:if="${isAdmin}"><a th:href="@{admincp}"><i class="fa-solid fa-table"></i>Control Panel</a></li>
             </ul>
         </div>
     </div>
@@ -123,7 +123,8 @@
                         <div class="bottom-grid-container">
                             <button type="submit" class="edit-profile-button" name="save">
                             <span class="fa-stack saved">
-                                <i class="fa-stack fa-bookmark" th:classappend="${item.saved} ? fa-regular : fa-solid"></i>
+                                <i class="fa-stack fa-bookmark"
+                                   th:classappend="${item.saved} ? fa-regular : fa-solid"></i>
                              </span>
                             </button>
                             <span class="tag" th:id="${item.category}" th:text="${item.category}"></span>

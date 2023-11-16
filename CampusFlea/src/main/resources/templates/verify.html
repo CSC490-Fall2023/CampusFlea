@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Verification</title>
+    <link rel="stylesheet" th:href="@{/css/emailVerification.css}">
+</head>
+<body>
+<img th:src="@{/images/Logos/logo.png}" alt="Logo" class="logo">
+<div class="container">
+    <h2>UNCG Email Verification</h2>
+    <p>Please enter the verification code sent to your UNCG student email.</p>
+    <form method="post" th:action="@{verify}">
+        <input type="text" name="verificationCode" placeholder="Verification Code" required>
+        <button type="submit">Verify Email</button>
+    </form>
+</div>
+</body>
+</html>

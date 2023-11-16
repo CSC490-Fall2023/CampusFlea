@@ -1,6 +1,7 @@
 package CampusFlea.demo.controller;
 
 import CampusFlea.demo.model.Listing;
+import CampusFlea.demo.model.Counter;
 import CampusFlea.demo.services.DatabaseService;
 import CampusFlea.demo.services.ListingService;
 import CampusFlea.demo.services.SessionService;
@@ -28,6 +29,12 @@ public class EditListingController {
         if (userId == -1) {
             return "redirect:/signin";
         }
+
+        // Attach counter
+        model.addAttribute("counter", new Counter());
+
+        // Attach categories
+        model.addAttribute("categories", ListingService.CATEGORIES);
 
         // Get the listing
         Listing listing = ListingService.getListing(id);
