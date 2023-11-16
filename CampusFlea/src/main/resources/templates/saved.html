@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <title>Saved Items</title>
     <link th:href="@{/css/saved.css}" rel="stylesheet">
+    <script th:src="@{/js/filterScript.js}"></script>
     <script src="https://kit.fontawesome.com/9113ff3c75.js" crossorigin="anonymous"></script>
     <link href="../src/main/resources/static/css/index.css" rel="stylesheet"> <!-- FOR DEV PURPOSES-->
-    <!--    TODO: FIX FAVICON-->
     <link rel="icon" type="image/x-icon" th:src="@{/static/favicon.ico}">
 
 
@@ -20,13 +20,9 @@
         </div>
         <div class="container">
             <div class="user-profile">
-                <!--            THIS WILL BE REMOVED ONCE IMG IS ADDED-->
-                <!--         TODO: LOAD PFP DYNAMICALLY
-<span class="dots"></span>-->
                 <span>
                     <img th:src="${avatar}" alt="Profile Picture" class="dots">
                 </span>
-                <!--<img src="user-profile.jpg" alt="User Profile"> User profile picture should be loaded from DB;-->
                 <div class="text-container">
                     <a th:href="@{profile}">
                         <span th:text="${username}"></span>
@@ -58,12 +54,9 @@
     <!--    #SEARCH BAR#-->
     <div class="top-bar">
         <div class="search-bar">
-            <!--        TODO: Make Search function work-->
-            <form action="#" method="POST">
-                <button class="search-button" type="submit"><i class="fa fa-search"></i></button>
-                <input type="text" name="search_query" placeholder="Search...">
+            <button class="search-button" onclick="applySearch()"><i class="fa fa-search"></i></button>
+            <input type="text" id="search" placeholder="Search...">
 
-            </form>
 
             <!--    #FILTER BTN#-->
             <div class="filter-button">
@@ -73,25 +66,30 @@
                     <div class="filter-section-top">
                         <h3>Category</h3>
                         <hr>
+                        <!--                        CHECKBOX START-->
                         <label>
-                            <input type="checkbox" name="category" value="electronics"> Electronics
+                            <input type="checkbox" name="category" value="electronics" class="filter-checkbox" data-filter="filter-Electronics" onclick="updateFilter()"> Electronics
                         </label>
                         <label>
-                            <input type="checkbox" name="category" value="clothing"> Clothing
+                            <input type="checkbox" name="category" value="clothing" class="filter-checkbox"data-filter="filter-Clothing" onclick="updateFilter()"> Clothing
                         </label>
                         <label>
-                            <input type="checkbox" name="category" value="furniture"> Furniture
+                            <input type="checkbox" name="category" value="furniture" class="filter-checkbox" data-filter="filter-Furniture" onclick="updateFilter()"> Furniture
+                        </label>
+                        <label>
+                            <input type="checkbox" name="category" value="furniture" class="filter-checkbox" data-filter="filter-Jewelry" onclick="updateFilter()"> Jewelry
+                        </label>
+                        <label>
+                            <input type="checkbox" name="category" value="furniture" class="filter-checkbox" data-filter="filter-Vehicles" onclick="updateFilter()"> Vehicles
                         </label>
                     </div>
                     <div class="filter-section-slide">
                         <h3>Price Range</h3>
                         <hr>
                         <label for="min-price">Min:</label>
-                        <input type="number" id="min-price" name="min-price" min="0">
+                        <input type="number" id="min-price" name="min-price" min="0" placeholder="0" oninput="updateFilter()">
                         <label for="max-price">Max:</label>
-                        <input type="number" id="max-price" name="max-price" min="0">
-                        <input type="range" id="price-range" name="price-range" min="0" max="1000">
-                        <p id="price-label">Price: <span id="price-value">0</span></p>
+                        <input type="number" id="max-price" name="max-price" min="0" placeholder="Enter Max Price" oninput="updateFilter()">
                     </div>
                     <button id="apply-filter">Apply</button>
                 </div>
@@ -110,17 +108,16 @@
     <!--    #GRID-CONTAINER# -->
     <div class="grid-container">
         <!-- Repeat this container as needed -->
-        <div class="grid-item">
+        <div class="grid-item" id="grid-item">
             <th:block th:each="item : ${listings}">
-                <div class="neumorphic-card">
+                <div th:class="|neumorphic-card filter-${item.category}|">
                     <a th:href="@{listing(id=${item.id})}">
                         <img th:src="${item.image}" alt="Product Image">
                         <div class="item-text">
                             <h2 th:text="${item.title}"></h2>
-                            <p th:text="${'$' + item.price}"></p>
+                            <p class="price" th:text="${'$' + item.price}"></p>
                         </div>
                     </a>
-                    <!--                    TODO: FILL IN ICON ON CLICK-->
                     <form method="post">
                         <input type="hidden" name="listingId" th:value="${item.id}">
                         <div class="bottom-grid-container">
@@ -130,7 +127,7 @@
                                    th:classappend="${item.saved} ? fa-regular : fa-solid"></i>
                              </span>
                             </button>
-                            <span class="tag" th:text="${item.category}"></span>
+                            <span class="tag" th:id="${item.category}" th:text="${item.category}"></span>
                         </div>
                     </form>
                 </div>
@@ -144,9 +141,6 @@
     const applyFilterButton = document.getElementById("apply-filter");
     const minPriceInput = document.getElementById("min-price");
     const maxPriceInput = document.getElementById("max-price");
-    const priceRangeInput = document.getElementById("price-range");
-    const priceLabel = document.getElementById("price-label");
-    const priceValue = document.getElementById("price-value");
 
     // Function to open the filter callout
     openFilterButton.addEventListener("click", () => {
@@ -156,25 +150,19 @@
     // Function to close the filter callout
     applyFilterButton.addEventListener("click", () => {
         filterCallout.style.display = "none";
-        // Add your filtering logic here based on selected options and price range
-        // You can update the marketplace grid accordingly
-    });
-
-    // Update the price label as the price range slider is moved
-    priceRangeInput.addEventListener("input", () => {
-        priceValue.textContent = priceRangeInput.value;
-    });
-
-    // Update the price range slider when the min or max input fields change
-    minPriceInput.addEventListener("input", () => {
-        priceRangeInput.value = minPriceInput.value;
-        priceValue.textContent = minPriceInput.value;
     });
 
     maxPriceInput.addEventListener("input", () => {
         priceRangeInput.value = maxPriceInput.value;
         priceValue.textContent = maxPriceInput.value;
     });
+
+    // Let user hit enter key to search
+    document.getElementById('search').addEventListener('keyup', function (event) {
+          if (event.key === 'Enter') {
+            updateFilter();
+          }
+        });
 
 </script>
 

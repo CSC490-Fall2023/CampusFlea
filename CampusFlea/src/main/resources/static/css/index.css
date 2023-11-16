@@ -429,6 +429,7 @@ h2 {
     border-radius: 4px;
     padding: 10px 20px;
     cursor: pointer;
+    margin-top: 20px;
 }
 
 .price-input{
