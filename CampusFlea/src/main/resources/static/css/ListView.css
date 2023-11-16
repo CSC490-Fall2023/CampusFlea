@@ -8,7 +8,6 @@ html, body {
 header {
     background-color: #15171B;
     color: #fff;
-
 }
 
 .navbar {
@@ -41,6 +40,7 @@ header {
     margin-right: 20px;
     cursor: pointer;
 }
+
 .profile-info {
     display: flex;
     align-items: center;
@@ -56,6 +56,7 @@ header {
     height: 30px;
     border-radius: 50%;
 }
+
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -67,28 +68,56 @@ header {
     width: 60%;
     position: relative;
 }
+/*------SLIDER-------------*/
+.slider {
+    position: relative;
+    width: 80%; /* Adjust the width of the slider */
+    max-width: 500px; /* Set a maximum width */
+    margin: 90px auto 0; /* Adjust top margin to move it down */
+    overflow: hidden;
+    border: 1px solid #ccc; /* Optional: Add a border */
+}
+
+.slides {
+    display: flex;
+    transition: transform 0.5s ease-in-out; /* Adjust the transition duration and easing */
+}
+
+.slide {
+    width: 100%; /* Ensure each slide takes full width */
+    flex: 0 0 auto; /* Prevent resizing of the slides */
+    overflow: hidden;
+}
+
+.slide img {
+    width: 100%; /* Make the images fill the slide horizontally */
+    height: 300px; /* Set a maximum height for all images */
+    object-fit: contain; /* Fit entire image inside the container */
+}
+
+.arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 24px; /* Slightly smaller arrow size */
+    z-index: 1;
+    background-color: rgba(255, 255, 255, 0.5);
+    padding: 10px; /* Slightly smaller arrow padding */
+    border-radius: 50%; /* Optional: Add rounded corners to arrows */
+}
+
+.arrow.prev {
+    left: 8px; /* Adjust arrow position */
+}
+
+.arrow.next {
+    right: 8px; /* Adjust arrow position */
+}
 
 .right-column {
     width: 40%;
     margin-top: 60px;
-}
-
-/* Left Column */
-.left-column img {
-    width: 65%;
-    position: absolute;
-    left: 0;
-    top: 0;
-    opacity: 1;
-    transition: all 0.3s ease;
-    margin-top: 80px;
-    margin-left: 60px;
-    border-style: solid;
-    border-width: thin;
-}
-
-.left-column img.active {
-    opacity: 1;
 }
 
 .product-description {
@@ -206,19 +235,5 @@ header {
     .left-column,
     .right-column {
         width: 100%;
-    }
-
-    .left-column img {
-        width: 300px;
-        right: 0;
-        top: -65px;
-        left: initial;
-    }
-}
-
-@media (max-width: 535px) {
-    .left-column img {
-        width: 220px;
-        top: -85px;
     }
 }

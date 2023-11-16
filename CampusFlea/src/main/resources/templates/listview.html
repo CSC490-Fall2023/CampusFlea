@@ -23,11 +23,17 @@
 </header>
 
 <main class="container">
-
     <!-- Left Column / Product Images -->
     <div class="left-column">
-        <img th:src="${listing.image}" alt="ProductImage">
-        <!-- Replace with the product images -->
+        <div class="slider">
+            <div class="slides">
+                <div class="slide">
+                    <img th:src="${listing.image}" alt="Product Image 1">
+                </div>
+            </div>
+            <div class="arrow prev" onclick="moveSlide(-1)">&#10094;</div>
+            <div class="arrow next" onclick="moveSlide(1)">&#10095;</div>
+        </div>
     </div>
     <!-- Right Column -->
     <div class="right-column">
@@ -38,13 +44,10 @@
             <h1 th:text="${listing.title}"></h1>
             <p th:text="${listing.description}"></p>
         </div>
-
         <!-- Product Configuration -->
         <div class="product-configuration">
-
             <!-- User Choice Configuration -->
             <div class="likeShare-config">
-
                 <div class="user-choose">
                     <form method="post">
                         <button type="submit" name="save">Save</button>
@@ -53,7 +56,6 @@
                 </div>
             </div>
         </div>
-
         <!-- Product Pricing -->
         <div class="product-price">
             <span th:text="${'$' + listing.price}"></span>
@@ -61,5 +63,29 @@
         </div>
     </div>
 </main>
+<script>
+    let slideIndex = 1;
+
+    function showSlides() {
+        const slides = document.querySelectorAll('.slide');
+        if (slideIndex > slides.length) {
+            slideIndex = 1;
+        }
+        if (slideIndex < 1) {
+            slideIndex = slides.length;
+        }
+        slides.forEach(slide => {
+            slide.style.display = 'none';
+        });
+        slides[slideIndex - 1].style.display = 'block';
+    }
+
+    function moveSlide(n) {
+        slideIndex += n;
+        showSlides();
+    }
+
+    window.addEventListener('DOMContentLoaded', showSlides);
+</script>
 </body>
 </html>
