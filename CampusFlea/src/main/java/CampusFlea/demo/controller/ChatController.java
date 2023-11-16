@@ -73,9 +73,6 @@ public class ChatController {
         int listingId = Integer.parseInt(id);
         Listing listing = ListingService.getListing(listingId);
 
-        System.out.printf("id=%s\n", id);
-        System.out.printf("message=%s\n", message);
-
         // TODO: Check for duplicate messages
 
         // Save the chat

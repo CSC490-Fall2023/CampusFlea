@@ -20,11 +20,14 @@ public class SignUpController {
 
     @PostMapping("/signup")
     public String processSignUp(@RequestParam String username, @RequestParam String password, @RequestParam String email, HttpSession session) {
-        System.out.printf("Username=%s, password=%s, Email=%s\n", username, password, email);
-
         // Establish a database connection
         DatabaseService dbSrv = new DatabaseService();
         Connection conn = dbSrv.getConnection();
+
+        // Return back to signup if email does not end in '.edu'
+        if (!email.endsWith(".edu")) {
+            return "redirect:/signup";
+        }
 
         // Create the account
         boolean created = AccountService.createAccount(conn, username, password, email);
