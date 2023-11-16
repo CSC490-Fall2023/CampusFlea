@@ -27,11 +27,11 @@
     <div class="left-column">
         <div class="slider">
             <div class="slides">
-                <div class="slide">
-                    <th:block th:each="image : ${listing.images}">
+                <th:block th:each="image : ${listing.images}">
+                    <div class="slide">
                         <img th:src="${image}" alt="Product Image">
-                    </th:block>
-                </div>
+                    </div>
+                </th:block>
             </div>
             <div class="arrow prev" onclick="moveSlide(-1)">&#10094;</div>
             <div class="arrow next" onclick="moveSlide(1)">&#10095;</div>
@@ -61,25 +61,25 @@
         <!-- Product Pricing -->
         <div class="product-price">
             <span th:text="${'$' + listing.price}"></span>
-            <a th:if="${listing.uid != userId}" th:href="@{chat(id=${listing.id})}" class="contactSeller-btn">Contact Seller</a>
+            <a th:href="@{chat(id=${listing.id})}" class="contactSeller-btn">Contact Seller</a>
         </div>
     </div>
 </main>
 <script>
-    let slideIndex = 1;
+    let slideIndex = 0;
+    const slides = document.querySelectorAll('.slide');
 
     function showSlides() {
-        const slides = document.querySelectorAll('.slide');
-        if (slideIndex > slides.length) {
-            slideIndex = 1;
-        }
-        if (slideIndex < 1) {
-            slideIndex = slides.length;
-        }
         slides.forEach(slide => {
             slide.style.display = 'none';
         });
-        slides[slideIndex - 1].style.display = 'block';
+        if (slideIndex >= slides.length) {
+            slideIndex = 0;
+        }
+        if (slideIndex < 0) {
+            slideIndex = slides.length - 1;
+        }
+        slides[slideIndex].style.display = 'block';
     }
 
     function moveSlide(n) {
