@@ -121,13 +121,15 @@ public class ChatController {
             return "redirect:/signin";
         }
 
-        // Add the Chat to the model
+        // Get the chatId
         int chatId = Integer.parseInt(id);
-        Chat chat = ChatService.getChat(chatId);
-        model.addAttribute("chat", chat);
 
         // Save the chat message
         ChatService.saveChatMessage(chatId, userId, message);
+
+        // Get the latest chat info and add it to the model
+        Chat chat = ChatService.getChat(chatId);
+        model.addAttribute("chat", chat);
 
         // Add the listing to the model
         Listing listing = ListingService.getListing(chat.getListingId());
