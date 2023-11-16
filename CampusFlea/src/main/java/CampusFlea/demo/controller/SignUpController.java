@@ -42,7 +42,11 @@ public class SignUpController {
             session.setAttribute("session_key", sessionKey);
 
             // Create a new verification request
-            AccountService.createNewVerification(userId);
+            String verificationCode = AccountService.createNewVerification(userId);
+
+            if (verificationCode != null) {
+                AccountService.sendAccountVertificationEmail(username, email, verificationCode);
+            }
 
             // Redirect to verification page
             return "redirect:/verify";

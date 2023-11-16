@@ -414,7 +414,7 @@ public class AccountService {
         return false;
     }
 
-    public static String getVerificationCode(int userId) {
+    public static String getVerificationKey(int userId) {
         // Establish database connection
         DatabaseService dbSrv = new DatabaseService();
         Connection conn = dbSrv.getConnection();
@@ -431,8 +431,8 @@ public class AccountService {
             ResultSet rs = preparedStatement.executeQuery();
             if (rs.next()) {
                 // Get the salt
-                String code = rs.getString("code");
-                return code;
+                String key = rs.getString("key");
+                return key;
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -440,7 +440,7 @@ public class AccountService {
         return null;
     }
 
-    public static void createNewVerification(int userId) {
+    public static String createNewVerification(int userId) {
         // Generate a salt
         String salt = generateSalt();
 
@@ -449,7 +449,7 @@ public class AccountService {
         Connection conn = dbSrv.getConnection();
 
         // Create the query string
-        String query = "INSERT INTO verifications (uid, code) VALUES (?, ?);";
+        String query = "INSERT INTO verifications (uid, key) VALUES (?, ?);";
 
         try {
             // Prepare the query
@@ -459,8 +459,10 @@ public class AccountService {
 
             // Execute the query
             preparedStatement.executeUpdate();
+            return salt;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+            return null;
         }
     }
 
@@ -482,5 +484,17 @@ public class AccountService {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    public static void sendAccountVertificationEmail(String username, String email, String authKey) {
+        // Subject
+        String subject = "Welcome to Campus Flea";
+
+        // Body
+        String body = "<h2>Welcome to Campus Flea!</h2>";
+        body += "<p>Welcome, " + username + ". We are glad to have you aboard. Please enter the verification below to verify your account.</p>";
+        body += "<p><b>Code: " + authKey + "</b></p>";
+
+        EmailService.sendEmail(email, subject, body);
     }
 }
