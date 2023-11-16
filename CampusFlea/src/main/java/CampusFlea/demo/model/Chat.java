@@ -38,6 +38,11 @@ public class Chat {
     }
 
     public String getLastMessageTime() {
+        // If there are no messages, then there is no "last message time"
+        if (messages == null) {
+            return "";
+        }
+
         ChatMessage lastMessage = messages[messages.length - 1];
         return ChatService.getDateFromMessage(lastMessage);
     }

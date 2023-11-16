@@ -72,7 +72,7 @@
     <div class="main-content">
         <div class="chat-box">
             <div class="chat-messages">
-                <div th:if="${chat != null && chat.getMessages().length == 0}">
+                <div th:if="${chat != null && chat.getMessages() == null}">
                     <p>You have no messages yet with this user.</p>
                 </div>
 
