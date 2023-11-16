@@ -19,6 +19,12 @@ public class ListingController {
 
     @GetMapping("/listing")
     public String list(Model model, HttpSession session, @RequestParam String id) {
+        // Check that the session key is valid (redirect them to login otherwise)
+        int userId = SessionService.getUserIdFromSession(session);
+        if (userId == -1) {
+            return "redirect:/signin";
+        }
+
         load(model, session, id);
         return "listview";
     }

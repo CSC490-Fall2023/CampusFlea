@@ -52,8 +52,9 @@
             <div class="likeShare-config">
                 <div class="user-choose">
                     <form method="post">
-                        <button type="submit" name="save">Save</button>
-                        <button type="submit" name="flag">Flag</button>
+                        <a th:if="${userId == listing.uid}" th:href="@{editlisting(id=${listing.id})}">Edit</a>
+                        <button th:if="${userId != listing.uid}" type="submit" name="save">Save</button>
+                        <button th:if="${userId != listing.uid}" type="submit" name="flag">Flag</button>
                     </form>
                 </div>
             </div>
