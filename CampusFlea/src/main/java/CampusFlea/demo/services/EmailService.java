@@ -8,7 +8,7 @@ import java.util.Properties;
 
 public class EmailService {
     private static final String USERNAME = "handwritingpractice@gmail.com";
-    private static final String PASSWORD = "CodyDog_2000";
+    private static final String PASSWORD = "knnkxykwtypwuazj";
 
     public static void sendEmail(String emailTo, String subject, String body) {
         // Create connection properties
@@ -30,14 +30,12 @@ public class EmailService {
 
         try {
             // Create the new message
-            Message message = new MimeMessage(session);
+            MimeMessage message = new MimeMessage(session);
             message.setFrom(new InternetAddress(USERNAME));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailTo));
             message.setSubject(subject);
-            message.setText(body);
+            message.setText(body, "utf-8", "html");
             Transport.send(message);
-
-            System.out.printf("Sent email to %s\n", emailTo);
         } catch (MessagingException e) {
             System.out.println(e.getMessage());
         }

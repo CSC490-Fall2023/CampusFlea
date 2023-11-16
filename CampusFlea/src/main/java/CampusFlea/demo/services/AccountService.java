@@ -396,7 +396,7 @@ public class AccountService {
         Connection conn = dbSrv.getConnection();
 
         // Create the query string
-        String query = "SELECT * FROM verifications WHERE id = ?;";
+        String query = "SELECT * FROM verifications WHERE uid = ?;";
 
         // Prepare the query
         try {
@@ -442,7 +442,7 @@ public class AccountService {
 
     public static String createNewVerification(int userId) {
         // Generate a salt
-        String salt = generateSalt();
+        String key = generateVerificationKey();
 
         // Establish database connection
         DatabaseService dbSrv = new DatabaseService();
@@ -455,11 +455,11 @@ public class AccountService {
             // Prepare the query
             PreparedStatement preparedStatement = conn.prepareStatement(query);
             preparedStatement.setInt(1, userId);
-            preparedStatement.setString(2, salt);
+            preparedStatement.setString(2, key);
 
             // Execute the query
             preparedStatement.executeUpdate();
-            return salt;
+            return key;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             return null;
@@ -472,7 +472,7 @@ public class AccountService {
         Connection conn = dbSrv.getConnection();
 
         // Create the query string
-        String query = "DELETE FROM verifications WHERE id = ?;";
+        String query = "DELETE FROM verifications WHERE uid = ?;";
 
         // Prepare the query
         try {
@@ -496,5 +496,16 @@ public class AccountService {
         body += "<p><b>Code: " + authKey + "</b></p>";
 
         EmailService.sendEmail(email, subject, body);
+    }
+
+    private static String generateVerificationKey() {
+        int length = 6;
+
+        String key = "";
+        for (int i = 0; i < length; i++) {
+            int character = (int)(Math.random() * 10) + 48;
+            key += (char)character;
+        }
+        return key;
     }
 }
