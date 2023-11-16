@@ -61,7 +61,8 @@
         <!-- Product Pricing -->
         <div class="product-price">
             <span th:text="${'$' + listing.price}"></span>
-            <a th:if="${listing.uid != userId}" th:href="@{chat(id=${listing.id})}" class="contactSeller-btn">Contact Seller</a>
+            <a th:if="${listing.uid != userId}" th:href="@{chat(lid=${listing.id})}" class="contactSeller-btn">Contact
+                Seller</a>
         </div>
     </div>
 </main>

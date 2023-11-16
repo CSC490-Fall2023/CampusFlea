@@ -57,7 +57,7 @@
                 <img class="profile-pic" th:src="@{uploads/avatars/default.png}" alt="User 2">
                 <div class="chat-info">
                     <!-- Listing Title and Link -->
-                    <a th:href="@{chat(id=${chat.listingId})}">
+                    <a th:href="@{chat(id=${chat.id})}">
                         <h4 th:text="${chat.getTitle}"></h4>
                     </a>
                     <!-- Last Sent Time -->

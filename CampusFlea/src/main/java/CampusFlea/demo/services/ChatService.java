@@ -246,4 +246,35 @@ public class ChatService {
         // Return in seconds
         return String.valueOf(diff) + " seconds ago";
     }
+
+    public static Chat getChat(int chatId) {
+        // Establish database connection
+        DatabaseService dbSrv = new DatabaseService();
+        Connection conn = dbSrv.getConnection();
+
+        try {
+            // Get listingId and buyerId using the given chat id
+            String query = "SELECT listingId, buyerId FROM chats WHERE id = ?;";
+
+            // Prepare the query
+            PreparedStatement preparedStatement = conn.prepareStatement(query);
+            preparedStatement.setInt(1, chatId);
+
+            // Execute the query
+            ResultSet result = preparedStatement.executeQuery();
+
+            // Get the listingId and buyerId
+            int listingId = result.getInt("listingId");
+            int buyerId = result.getInt("buyerId");
+
+            // Get messages
+            ChatMessage[] messages = getChatMessages(chatId);
+
+            // Create the chat object
+            Chat chat = new Chat(chatId, listingId, buyerId, messages);
+            return chat;
+        } catch (SQLException ex) {
+            return null;
+        }
+    }
 }

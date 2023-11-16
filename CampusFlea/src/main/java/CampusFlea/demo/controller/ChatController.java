@@ -32,8 +32,8 @@ public class ChatController {
         return "chat";
     }
 
-    @RequestMapping(value = "/chat", params = "id")
-    public String comeFromListing(Model model, @RequestParam String id, HttpSession session) {
+    @RequestMapping(value = "/chat", params = "lid")
+    public String comeFromListing(Model model, @RequestParam String lid, HttpSession session) {
         // Check that the session key is valid (redirect them to login otherwise)
         int userId = SessionService.getUserIdFromSession(session);
         if (userId == -1) {
@@ -41,7 +41,7 @@ public class ChatController {
         }
 
         // Get the listing using the listingId
-        int listingId = Integer.parseInt(id);
+        int listingId = Integer.parseInt(lid);
         Listing listing = ListingService.getListing(listingId);
 
         // Add the listing to the model
@@ -54,6 +54,28 @@ public class ChatController {
         if (chat == null) {
             chat = new Chat(-1, listingId, userId, null);
         }
+
+        model.addAttribute("chat", chat);
+
+        load(model, userId, chat);
+        return "chat";
+    }
+
+    @RequestMapping(value = "/chat", params = "id")
+    public String chatClicked(Model model, @RequestParam String id, HttpSession session) {
+        // Check that the session key is valid (redirect them to login otherwise)
+        int userId = SessionService.getUserIdFromSession(session);
+        if (userId == -1) {
+            return "redirect:/signin";
+        }
+
+        // Attach the listing model using the chat id
+        int chatId = Integer.parseInt(id);
+        Chat chat = ChatService.getChat(chatId);
+
+        // Add the listing to the model
+        Listing listing = ListingService.getListing(chat.getListingId());
+        model.addAttribute("listing", listing);
 
         model.addAttribute("chat", chat);
 
