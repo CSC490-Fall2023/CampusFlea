@@ -32,9 +32,9 @@ public class SignInController {
         }
 
         // Get the user id and use it to create a new session key
-        int userId = AccountService.getId(conn, username);
+        int userId = AccountService.getId(username);
 
-        String sessionKey = AccountService.createLoginSession(conn, userId);
+        String sessionKey = AccountService.createLoginSession(userId);
 
         if (sessionKey == null) {
             System.out.println("sessionKey is null");

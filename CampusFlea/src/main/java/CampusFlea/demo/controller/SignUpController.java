@@ -35,8 +35,8 @@ public class SignUpController {
         // Redirect the new user to the home page
         if (created) {
             // Create a new session key
-            int userId = AccountService.getId(conn, username);
-            String sessionKey = AccountService.createLoginSession(conn, userId);
+            int userId = AccountService.getId(username);
+            String sessionKey = AccountService.createLoginSession(userId);
 
             // Save the session key
             session.setAttribute("session_key", sessionKey);

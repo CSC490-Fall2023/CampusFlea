@@ -192,7 +192,11 @@ public class AccountService {
         }
     }
 
-    public static String createLoginSession(Connection conn, int userId) {
+    public static String createLoginSession(int userId) {
+        // Establish database connection
+        DatabaseService dbSrv = new DatabaseService();
+        Connection conn = dbSrv.getConnection();
+
         // Create a new entry, or update the existing entry if present
         String sql = "INSERT OR REPLACE INTO login_sessions (uid, key) VALUES(?, ?);";
 
@@ -216,7 +220,11 @@ public class AccountService {
         }
     }
 
-    public static int getId(Connection conn, String username) {
+    public static int getId(String username) {
+        // Establish database connection
+        DatabaseService dbSrv = new DatabaseService();
+        Connection conn = dbSrv.getConnection();
+
         // Create the query string
         String sql = "SELECT id FROM accounts WHERE username = ?;";
 
@@ -238,7 +246,11 @@ public class AccountService {
         }
     }
 
-    public static String getUsername(Connection conn, int userId) {
+    public static String getUsername(int userId) {
+        // Establish database connection
+        DatabaseService dbSrv = new DatabaseService();
+        Connection conn = dbSrv.getConnection();
+
         // Create the query string
         String sql = "SELECT username FROM accounts WHERE id = ?;";
 
@@ -292,6 +304,32 @@ public class AccountService {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+        }
+    }
+
+    public static String getEmail(int userId) {
+        // Establish database connection
+        DatabaseService dbSrv = new DatabaseService();
+        Connection conn = dbSrv.getConnection();
+
+        // Create the query string
+        String sql = "SELECT email FROM accounts WHERE id = ?;";
+
+        // Prepare the query
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setInt(1, userId);
+
+            // Execute the query
+            ResultSet rs = preparedStatement.executeQuery();
+
+            // Get the email
+            String email = rs.getString("email");
+
+            // Return the email
+            return email;
+        } catch (SQLException e) {
+            return null;
         }
     }
 

@@ -63,7 +63,7 @@ public class ListingController {
 
         // Get the poster's username and profile picture
         int posterId = listing.getUid();
-        String username = AccountService.getUsername(conn, posterId);
+        String username = AccountService.getUsername(posterId);
         String avatar = AccountService.getProfilePicture(posterId);
 
         // Attach the listing object
