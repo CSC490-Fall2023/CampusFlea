@@ -19,14 +19,14 @@ public class ChatService {
         DatabaseService dbSrv = new DatabaseService();
         Connection conn = dbSrv.getConnection();
 
-        // Create the query
-        String query = "SELECT * FROM chats WHERE buyerId = ?;";
-        // TODO: Also get received messages
-
         try {
+            // Get both send and received messages
+            String query = "SELECT * FROM chats WHERE buyerId = ? OR (SELECT uid FROM listings WHERE id = listingId) = ?;";
+
             // Prepare the query
             PreparedStatement preparedStatement = conn.prepareStatement(query);
             preparedStatement.setInt(1, userId);
+            preparedStatement.setInt(2, userId);
 
             // Execute the query
             ResultSet rs = preparedStatement.executeQuery();
