@@ -1,33 +1,23 @@
 package CampusFlea.demo.controller;
 
+import CampusFlea.demo.model.Account;
 import CampusFlea.demo.model.Listing;
 import CampusFlea.demo.services.AccountService;
 import CampusFlea.demo.services.ListingService;
+import CampusFlea.demo.services.SessionService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import CampusFlea.demo.model.Account;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class HomePageController {
-    @GetMapping("/home")
+    @GetMapping("/")
     public String home(Model model, HttpSession session) {
-        // Get the user's session key
-        String sessionKey = (String) session.getAttribute("session_key");
-
-        // Check if session key is set
-        if (sessionKey == null) {
-            System.out.println("Did not find session key");
-            return "redirect:/signin";
-        }
-
-        System.out.printf("Found session key: %s\n", sessionKey);
-
-        // Get the user id based on the session key
-        int userId = AccountService.getUserIdFromSessionKey(sessionKey);
-
         // Check that the session key is valid (redirect them to login otherwise)
+        int userId = SessionService.getUserIdFromSession(session);
         if (userId == -1) {
             return "redirect:/signin";
         }
@@ -35,90 +25,51 @@ public class HomePageController {
         // Create the account object from the found userId
         Account user = AccountService.getAccount(userId);
 
-        // Set the user and email attributes
-        model.addAttribute("username", user.getUsername());
-        model.addAttribute("email", user.getEmail());
-
-        System.out.printf("Logged in (username=%s, email=%s)\n", user.getUsername(), user.getEmail());
-
-        Listing[] listings = ListingService.getAllListings();
-
-        //print to console listings w/ id
-        for (Listing listing : listings) {
-            System.out.printf("Showing listing (id=%d, title=%s)\n", listing.getId(), listing.getTitle());
+        if (user == null) {
+            System.out.printf("Error: User is null (userId=%d)\n", userId);
+            return "redirect:/signin";
         }
 
-        // Add to model for ThymeLeaf to read
+        // Set the user attribute
+        model.addAttribute("username", user.getUsername());
+        model.addAttribute("isAdmin", user.getIsAdmin());
+
+        // Add the avatar link for loading
+        String avatar = AccountService.getProfilePicture(userId);
+        model.addAttribute("avatar", avatar);
+
+        // Add listings to model for ThymeLeaf to read
+        Listing[] listings = ListingService.getAllListings();
+
+        // Go through each listing
+        for (int i = 0; i < listings.length; i++) {
+            int listingId = listings[i].getId();
+
+            // Add image to listings
+            String[] images = ListingService.getListingImages(listingId);
+            listings[i].setImage(images[0]);
+
+            // Set save btn to listings
+            boolean saved = ListingService.listingIsSaved(userId, listingId);
+            listings[i].setSaved(saved);
+        }
+
         model.addAttribute("listings", listings);
         return "home";
     }
 
-    @GetMapping("/settings")
-    public String userSetting(Model model, HttpSession session) {
-        // Get the user's session key
-        String sessionKey = (String) session.getAttribute("session_key");
-
-        // Check if session key is set
-        if (sessionKey == null) {
-            System.out.println("Did not find session key");
-            return "redirect:/signin";
-        }
-
-        System.out.printf("Found session key: %s\n", sessionKey);
-
-        // Get the user id based on the session key
-        int userId = AccountService.getUserIdFromSessionKey(sessionKey);
-
+    @RequestMapping(value = "/", params = "save")
+    public String saveListing(@RequestParam String listingId, HttpSession session) {
         // Check that the session key is valid (redirect them to login otherwise)
+        int userId = SessionService.getUserIdFromSession(session);
         if (userId == -1) {
             return "redirect:/signin";
         }
 
-        // Create the account object from the found userId
-        Account user = AccountService.getAccount(userId);
+        // Save the listing
+        ListingService.toggleSave(userId, listingId);
 
-        model.addAttribute("username", user.getUsername());
-        model.addAttribute("email", user.getEmail());
-        return "userSetting";
-    }
-
-    @GetMapping("/profile")
-    public String profile(Model model, HttpSession session) {
-        // Get the user's session key
-        String sessionKey = (String) session.getAttribute("session_key");
-
-        // Check if session key is set
-        if (sessionKey == null) {
-            System.out.println("Did not find session key");
-            return "redirect:/signin";
-        }
-
-        System.out.printf("Found session key: %s\n", sessionKey);
-
-        // Get the user id based on the session key
-        int userId = AccountService.getUserIdFromSessionKey(sessionKey);
-
-        // Check that the session key is valid (redirect them to login otherwise)
-        if (userId == -1) {
-            return "redirect:/signin";
-        }
-
-        // Create the account object from the found userId
-        Account user = AccountService.getAccount(userId);
-        model.addAttribute("username", user.getUsername());
-        model.addAttribute("email", user.getEmail());
-
-        System.out.printf("Logged in (username=%s, email=%s)\n", user.getUsername(), user.getEmail());
-
-        Listing[] listings = ListingService.getAllListings();
-
-        //print to console listings w/ id
-        for (Listing listing : listings) {
-            System.out.printf("Showing listing (id=%d, title=%s)\n", listing.getId(), listing.getTitle());
-        }
-        //add to model for ThymeLeaf to read
-        model.addAttribute("listings", listings);
-
-        return "profile";
+        // Reload
+        return "redirect:/";
     }
 }

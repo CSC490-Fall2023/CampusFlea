@@ -7,18 +7,34 @@
     <link rel="stylesheet" th:href="@{/css/ListView.css}">
 </head>
 <body>
+<header>
+    <nav class="navbar">
+        <div class="logo">
+            <a th:href="@{/}">
+                <img th:src="@{/images/Logos/logo.png}" alt="Logo">
+            </a>
+        </div>
+        <div class="profile-info">
+            <img class="profile-picture" th:src="${avatar}" alt="Profile Picture">
+            <div class="profile-name" th:text="${username}"></div>
+        </div>
+        <button class="back-button" onclick="history.back()">Back</button>
+    </nav>
+</header>
+
 <main class="container">
 
     <!-- Left Column / Product Images -->
     <div class="left-column">
-        <img th:src="@{/images/List Items/productExampleImage.jpg}" alt="ProductImage"> <!-- Replace with the product images -->
+        <img th:src="${listing.image}" alt="ProductImage">
+        <!-- Replace with the product images -->
     </div>
     <!-- Right Column -->
     <div class="right-column">
 
         <!-- Product Description -->
         <div class="product-description">
-            <span>Electronics</span> <!-- Replace with the product type -->
+            <span th:text="${listing.category}"></span>
             <h1 th:text="${listing.title}"></h1>
             <p th:text="${listing.description}"></p>
         </div>
@@ -30,27 +46,20 @@
             <div class="likeShare-config">
 
                 <div class="user-choose">
-                    <button onclick="like()">Like</button>
-                    <button onclick="save()">Save</button>
+                    <form method="post">
+                        <button type="submit" name="save">Save</button>
+                        <button type="submit" name="flag">Flag</button>
+                    </form>
                 </div>
             </div>
         </div>
 
         <!-- Product Pricing -->
         <div class="product-price">
-            <span>$69.95</span> <!-- Replace with product price -->
-            <a href="#" class="contactSeller-btn">Contact Seller</a>
+            <span th:text="${'$' + listing.price}"></span>
+            <a th:href="@{chat(id=${listing.id})}" class="contactSeller-btn">Contact Seller</a>
         </div>
     </div>
-    <script>
-        function like() {
-            console.log("Item Liked!");
-        }
-
-        function save() {
-            console.log("Item Saved!");
-        }
-    </script>
 </main>
 </body>
 </html>

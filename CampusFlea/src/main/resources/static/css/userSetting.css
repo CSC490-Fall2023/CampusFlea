@@ -55,7 +55,6 @@ h1, h2 {
 }
 
 form {
-    max-width: 400px;
 }
 
 label {
@@ -66,7 +65,7 @@ label {
 input[type="text"],
 input[type="email"],
 input[type="password"] {
-    width: 100%;
+    width: 97%;
     padding: 10px;
     margin-top: 5px;
     border: 1px solid #ccc;
