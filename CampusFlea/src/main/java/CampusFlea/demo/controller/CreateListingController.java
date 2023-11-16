@@ -37,7 +37,7 @@ public class CreateListingController {
     }
 
     @PostMapping("/createlisting")
-    public String processCreateListing(@RequestParam String title, @RequestParam int category, @RequestParam int price, @RequestParam String description, @RequestParam MultipartFile images, HttpSession session) throws IOException {
+    public String processCreateListing(@RequestParam String title, @RequestParam int category, @RequestParam int price, @RequestParam String description, @RequestParam MultipartFile[] images, HttpSession session) throws IOException {
         // Check that the session key is valid (redirect them to login otherwise)
         int userId = SessionService.getUserIdFromSession(session);
         if (userId == -1) {
@@ -52,19 +52,21 @@ public class CreateListingController {
             return "redirect:/";
         }
 
-        // Download the files
-        String fileName = images.getOriginalFilename();
-        byte[] bytes = images.getBytes();
+        for (MultipartFile image : images) {
+            // Download the file
+            String fileName = image.getOriginalFilename();
+            byte[] bytes = image.getBytes();
 
-        // Make sure the directory exists
-        String imageDir = "CampusFlea/target/classes/static/uploads/listings/" + listingId;
-        File directory = new File(imageDir);
-        if (!directory.exists()) {
-            directory.mkdir();
+            // Make sure the directory exists
+            String imageDir = "CampusFlea/target/classes/static/uploads/listings/" + listingId;
+            File directory = new File(imageDir);
+            if (!directory.exists()) {
+                directory.mkdir();
+            }
+            // save the image to disk
+            Path path = Paths.get(imageDir, fileName);
+            Files.write(path, bytes);
         }
-        // save the image to disk
-        Path path = Paths.get(imageDir, fileName);
-        Files.write(path, bytes);
 
         // TODO: Add visual confirmation
 
