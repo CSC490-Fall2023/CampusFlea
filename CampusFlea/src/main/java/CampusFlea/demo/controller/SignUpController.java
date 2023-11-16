@@ -25,7 +25,7 @@ public class SignUpController {
         Connection conn = dbSrv.getConnection();
 
         // Return back to signup if email does not end in '.edu'
-        if (!email.endsWith(".edu")) {
+        if (!email.endsWith("@uncg.edu")) {
             return "redirect:/signup";
         }
 
