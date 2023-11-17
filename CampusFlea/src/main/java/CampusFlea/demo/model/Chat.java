@@ -41,7 +41,7 @@ public class Chat {
 
     public String getLastMessageTime() {
         // If there are no messages, then there is no "last message time"
-        if (messages == null) {
+        if (messages == null || messages.length == 0) {
             return "";
         }
 
