@@ -14,11 +14,7 @@
                 <img th:src="@{/images/Logos/logo.png}" alt="Logo">
             </a>
         </div>
-        <div class="profile-info">
-            <img class="profile-picture" th:src="${avatar}" alt="Profile Picture">
-            <div class="profile-name" th:text="${username}"></div>
-        </div>
-        <button class="back-button" onclick="history.back()">Back</button>
+        <button style="padding: 10px 20px; margin-right:20px;" class="create-btn" onclick="history.back()">Back</button>
     </nav>
 </header>
 
@@ -35,6 +31,10 @@
             </div>
             <div class="arrow prev" onclick="moveSlide(-1)">&#10094;</div>
             <div class="arrow next" onclick="moveSlide(1)">&#10095;</div>
+        </div>
+        <div class="profile-info">
+            <img class="profile-picture" th:src="${avatar}" alt="Profile Picture">
+            <div class="profile-name" th:text="${username}"></div>
         </div>
     </div>
     <!-- Right Column -->
