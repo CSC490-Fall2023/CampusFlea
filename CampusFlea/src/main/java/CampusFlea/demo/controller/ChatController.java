@@ -3,10 +3,7 @@ package CampusFlea.demo.controller;
 import CampusFlea.demo.model.Account;
 import CampusFlea.demo.model.Chat;
 import CampusFlea.demo.model.Listing;
-import CampusFlea.demo.services.AccountService;
-import CampusFlea.demo.services.ChatService;
-import CampusFlea.demo.services.ListingService;
-import CampusFlea.demo.services.SessionService;
+import CampusFlea.demo.services.*;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -108,6 +105,10 @@ public class ChatController {
         Chat chat = ChatService.getListingChat(listingId, userId);
         model.addAttribute("chat", chat);
 
+        // Send notification to receiver
+        int toId = ChatService.getOtherUserIdInChat(listing.getId(), chat.getBuyerId(), userId);
+        NotificationService.sendChatNotification(userId, toId, message);
+
         // Save chat in database
         load(model, userId, null);
         return "chat";
@@ -134,6 +135,12 @@ public class ChatController {
         // Add the listing to the model
         Listing listing = ListingService.getListing(chat.getListingId());
         model.addAttribute("listing", listing);
+
+        // Get the other user's id.
+        int toId = ChatService.getOtherUserIdInChat(listing.getId(), chat.getBuyerId(), userId);
+
+        // Send notification to receiver
+        NotificationService.sendChatNotification(userId, toId, message);
 
         load(model, userId, null);
         return "chat";

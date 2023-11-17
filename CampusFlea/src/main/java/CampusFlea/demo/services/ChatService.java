@@ -247,6 +247,17 @@ public class ChatService {
         return String.valueOf(diff) + " seconds ago";
     }
 
+    public static int getOtherUserIdInChat(int listingId, int buyerId, int userId1) {
+        // Check if the other user is the buyer (seller -> buyer)
+        if (buyerId != userId1) {
+            return buyerId;
+        }
+
+        // The other user must be the seller
+        int sellerId = ListingService.getSellerId(listingId);
+        return sellerId;
+    }
+
     public static Chat getChat(int chatId) {
         // Establish database connection
         DatabaseService dbSrv = new DatabaseService();

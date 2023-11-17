@@ -434,4 +434,30 @@ public class ListingService {
             System.out.println(e.getMessage());
         }
     }
+
+    public static int getSellerId(int listingId) {
+        // Establish database connection
+        DatabaseService dbSrv = new DatabaseService();
+        Connection conn = dbSrv.getConnection();
+
+        String query = "SELECT uid FROM listings WHERE listingId = ?;";
+
+        try {
+            // Prepare the query
+            PreparedStatement preparedStatement = conn.prepareStatement(query);
+            preparedStatement.setInt(1, listingId);
+
+            // Execute the query
+            ResultSet rs = preparedStatement.executeQuery();
+
+            // return if exists
+            if (rs.next()) {
+                int uid = rs.getInt("uid");
+                return uid;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return -1;
+    }
 }
