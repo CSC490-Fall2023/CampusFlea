@@ -71,10 +71,10 @@
     </div>
     <div class="main-content">
         <div class="chat-header">
-            <h3>Username</h3>
+            <h3 th:if="${chatUsername != null}" th:text="'Username: ' + ${chatUsername}">Username</h3>
             <div class="chat-header-item">
-                <h3 id="item">Item Name</h3>
-                <h3 id="price">Price</h3>
+                <h3 id="item" th:if="${chatItemName != null}" th:text="'Item: ' + ${chatItemName}">Item Name</h3>
+                <h3 id="price" th:if="${chatPrice != null}" th:text="'Price: $' + ${chatPrice}">Price</h3>
             </div>
         </div>
         <div class="chat-box">

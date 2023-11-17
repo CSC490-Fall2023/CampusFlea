@@ -189,5 +189,15 @@ public class ChatController {
         }
 
         model.addAttribute("chats", chats);
+
+        // Set the header information if we have an active chat
+        if (chat != null) {
+            Listing listing = ListingService.getListing(chat.getListingId());
+            int otherId = ChatService.getOtherUserIdInChat(chat.getListingId(), chat.getBuyerId(), userId);
+            String otherUsername = AccountService.getUsername(otherId);
+            model.addAttribute("chatUsername", otherUsername);
+            model.addAttribute("chatItemName", listing.getTitle());
+            model.addAttribute("chatPrice", listing.getPrice());
+        }
     }
 }
