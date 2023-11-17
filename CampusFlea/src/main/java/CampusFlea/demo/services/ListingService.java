@@ -138,13 +138,13 @@ public class ListingService {
         }
     }
 
-    public static int createListing(String title, String description, int price, int category, int uid) {
+    public static int createListing(String title, String description, int type, int price, int category, int uid) {
         // Establish database connection
         DatabaseService dbSrv = new DatabaseService();
         Connection conn = dbSrv.getConnection();
 
         // Create the insertion query
-        String query = "INSERT INTO listings(uid, title, description, price, category) VALUES(?, ?, ?, ?, ?);";
+        String query = "INSERT INTO listings(uid, title, description, type, price, category) VALUES(?, ?, ?, ?, ?, ?);";
 
         // Prepare the query
         try {
@@ -152,22 +152,24 @@ public class ListingService {
             preparedStatement.setInt(1, uid);
             preparedStatement.setString(2, title);
             preparedStatement.setString(3, description);
-            preparedStatement.setInt(4, price);
-            preparedStatement.setInt(5, category);
+            preparedStatement.setInt(4, type);
+            preparedStatement.setInt(5, price);
+            preparedStatement.setInt(6, category);
 
             // Execute the query
             preparedStatement.executeUpdate();
 
             // Get the new listing ID
-            query = "SELECT id FROM listings WHERE uid = ? AND title = ? AND description = ? AND price = ? AND category = ?;";
+            query = "SELECT id FROM listings WHERE uid = ? AND title = ? AND description = ? AND TYPE = ? AND price = ? AND category = ?;";
 
             // Prepare the statement
             preparedStatement = conn.prepareStatement(query);
             preparedStatement.setInt(1, uid);
             preparedStatement.setString(2, title);
             preparedStatement.setString(3, description);
-            preparedStatement.setInt(4, price);
-            preparedStatement.setInt(5, category);
+            preparedStatement.setInt(4, type);
+            preparedStatement.setInt(5, price);
+            preparedStatement.setInt(6, category);
 
             // Execute the query
             ResultSet rs = preparedStatement.executeQuery();

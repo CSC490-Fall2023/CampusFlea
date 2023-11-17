@@ -11,7 +11,6 @@ public class Listing {
     private final int want;
     private final int have;
     private final String category;
-
     private String[] images;
     private boolean saved;
 
@@ -76,9 +75,15 @@ public class Listing {
         return images;
     }
 
-    public void setSaved(boolean saved) { this.saved = saved; }
+    public void setSaved(boolean saved) {
+        this.saved = saved;
+    }
 
-    public boolean getSaved() { return saved; };
+    public boolean getSaved() {
+        return saved;
+    }
+
+    ;
 
     public String toString() {
         return id + ", " + title + ", " + description;
