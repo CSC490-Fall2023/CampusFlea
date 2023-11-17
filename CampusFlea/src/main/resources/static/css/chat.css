@@ -224,11 +224,11 @@ ul {
 }
 
 .chat-header{
-    /*padding: 47px; */
-    background-color: lightgray;
+   border-color: lightgray;
+    border: solid 1px lightgray;
+    background-color: #f0f0f0;
     border-radius: 10px 10px 0px 0px;
     display: flex;
-    /* margin: 0px 0px 0px 0px; */
     justify-content: space-around;
     flex-direction: row;
     align-items: center;
@@ -275,14 +275,13 @@ ul {
 }
 
 .message {
-        padding: 0px 10px 0px 15px;
         border-radius: 13px;
         margin: 13px;
 }
 
 .message.received {
     background-color: #e5e5ea;
-    margin-right: 50%
+    margin-right: 50%;
     overflow-wrap: break-word;
 }
 
@@ -298,7 +297,25 @@ ul {
 
 }
 
+.active{
+    background-color: #2C313A;
+}
+
+.active{
+    background-color: #2C313A;
+}
+
+.chat-info-box:hover {
+    background-color: #2C313A;
+}
+
+.chat-link{
+    text-decoration: none;
+    color: white;
+}
+
 .message-content {
+    padding: 5px 10px 5px 15px;
     margin: 0;
 }
 
