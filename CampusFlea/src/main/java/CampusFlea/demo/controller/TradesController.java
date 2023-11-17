@@ -32,7 +32,7 @@ public class TradesController {
         String avatar = AccountService.getProfilePicture(userId);
         model.addAttribute("avatar", avatar);
 
-        Listing[] listings = ListingService.getAllListings();
+        Listing[] listings = ListingService.getListingsOfType(2);
 
         // Go through each listing
         for (int i = 0; i < listings.length; i++) {

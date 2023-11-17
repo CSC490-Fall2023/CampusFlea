@@ -32,7 +32,7 @@ public class BuyingController {
         String avatar = AccountService.getProfilePicture(userId);
         model.addAttribute("avatar", avatar);
 
-        Listing[] listings = ListingService.getAllListings();
+        Listing[] listings = ListingService.getListingsOfType(0);
 
         // Go through each listing
         for (int i = 0; i < listings.length; i++) {

@@ -23,6 +23,12 @@ public class ListingService {
             "SOLD"
     };
 
+    public static final String[] TYPES = {
+            "Buying",
+            "Selling",
+            "Trade"
+    };
+
     public static String DEFAULT_IMAGE = "images/List Items/item.jpg";
 
     public static Listing getListing(int listingId) {
@@ -225,6 +231,21 @@ public class ListingService {
             System.out.println(e.getMessage());
             return new String[0];
         }
+    }
+
+    public static Listing[] getListingsOfType(int type) {
+        Listing[] allListings = getAllListings();
+
+        List<Listing> buyingListings = new ArrayList<>();
+
+        for (Listing listing : allListings) {
+            // Add if buying type
+            if (listing.getType() == type) {
+                buyingListings.add(listing);
+            }
+        }
+
+        return buyingListings.toArray(new Listing[0]);
     }
 
     public static Listing[] getSavedListings(int userId) {
