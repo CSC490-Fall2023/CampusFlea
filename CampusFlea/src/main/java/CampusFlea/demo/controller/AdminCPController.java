@@ -38,16 +38,17 @@ public class AdminCPController {
         model.addAttribute("getEmail", accounts);
         model.addAttribute("isAdmin", accounts);
         //Get all items
-        Listing[] listings= ListingService.getAllListings();
-        model.addAttribute("id",listings);
-        model.addAttribute("uid",listings);
-        model.addAttribute("type",listings);
-        model.addAttribute("status",listings);
-        model.addAttribute("price",listings);
+        Listing[] listings = ListingService.getAllListings();
+        model.addAttribute("id", listings);
+        model.addAttribute("uid", listings);
+        model.addAttribute("type", listings);
+        model.addAttribute("status", listings);
+        model.addAttribute("price", listings);
         return "admincp";
 
 
     }
+
     //Create user
     @PostMapping("/user")
     public String createUser(Account account) {
@@ -55,32 +56,35 @@ public class AdminCPController {
         DatabaseService dbSrv = new DatabaseService();
         Connection conn = dbSrv.getConnection();
 
-        boolean result = AccountService.createAccount(conn,account.getUsername(), account.getPassword(), account.getEmail());
+        boolean result = AccountService.createAccount(conn, account.getUsername(), account.getPassword(), account.getEmail());
         return "redirect:/admincp";
     }
+
     //edit account username
     @PostMapping("/edit/{id}")
     public String editUser(@PathVariable("id") int userId, Model model) {
-    try {
-        Account user = AccountService.getAccount(userId);
-        String username=user.getUsername();
-        AccountService.updateUsername(userId, username);
-    } catch (Exception e) {
+        try {
+            Account user = AccountService.getAccount(userId);
+            String username = user.getUsername();
+            AccountService.updateUsername(userId, username);
+        } catch (Exception e) {
+        }
+        return "redirect:/admincp";
     }
-    return "redirect:/admincp";
-    }
+
     //create listing
     @PostMapping("/listing")
-    public String createList(Listing listing){
+    public String createList(Listing listing) {
         DatabaseService dbSrv = new DatabaseService();
         Connection conn = dbSrv.getConnection();
         //category is int and string
-        int createListing=ListingService.createListing(listing.getTitle(),listing.getDescription(),listing.getPrice(),listing.getHave(),listing.getUid());
+        int createListing = ListingService.createListing(listing.getTitle(), listing.getDescription(), listing.getType(), listing.getPrice(), listing.getHave(), listing.getUid());
         return "redirect:/admincp";
     }
+
     //delete listing
     @GetMapping("/delete/{id}")
-    public String deletelisting(@PathVariable("id") int listId){
+    public String deletelisting(@PathVariable("id") int listId) {
         ListingService.deleteListing(listId);
         return "redirect:/admincp";
     }

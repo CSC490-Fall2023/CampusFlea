@@ -138,13 +138,13 @@ public class ListingService {
         }
     }
 
-    public static int createListing(String title, String description, int price, int category, int uid) {
+    public static int createListing(String title, String description, int type, int price, int category, int uid) {
         // Establish database connection
         DatabaseService dbSrv = new DatabaseService();
         Connection conn = dbSrv.getConnection();
 
         // Create the insertion query
-        String query = "INSERT INTO listings(uid, title, description, price, category) VALUES(?, ?, ?, ?, ?);";
+        String query = "INSERT INTO listings(uid, title, description, type, price, category) VALUES(?, ?, ?, ?, ?, ?);";
 
         // Prepare the query
         try {
@@ -152,22 +152,24 @@ public class ListingService {
             preparedStatement.setInt(1, uid);
             preparedStatement.setString(2, title);
             preparedStatement.setString(3, description);
-            preparedStatement.setInt(4, price);
-            preparedStatement.setInt(5, category);
+            preparedStatement.setInt(4, type);
+            preparedStatement.setInt(5, price);
+            preparedStatement.setInt(6, category);
 
             // Execute the query
             preparedStatement.executeUpdate();
 
             // Get the new listing ID
-            query = "SELECT id FROM listings WHERE uid = ? AND title = ? AND description = ? AND price = ? AND category = ?;";
+            query = "SELECT id FROM listings WHERE uid = ? AND title = ? AND description = ? AND TYPE = ? AND price = ? AND category = ?;";
 
             // Prepare the statement
             preparedStatement = conn.prepareStatement(query);
             preparedStatement.setInt(1, uid);
             preparedStatement.setString(2, title);
             preparedStatement.setString(3, description);
-            preparedStatement.setInt(4, price);
-            preparedStatement.setInt(5, category);
+            preparedStatement.setInt(4, type);
+            preparedStatement.setInt(5, price);
+            preparedStatement.setInt(6, category);
 
             // Execute the query
             ResultSet rs = preparedStatement.executeQuery();
@@ -391,22 +393,23 @@ public class ListingService {
         }
     }
 
-    public static void updateListing(int id, String title, String description, int price, int category) {
+    public static void updateListing(int id, String title, String description, int type, int price, int category) {
         // Establish database connection
         DatabaseService dbSrv = new DatabaseService();
         Connection conn = dbSrv.getConnection();
 
         // Create the update query
-        String query = "UPDATE listings SET title = ?, description = ?, price = ?, category = ? WHERE id = ?;";
+        String query = "UPDATE listings SET title = ?, description = ?, type = ?, price = ?, category = ? WHERE id = ?;";
 
         // Prepare the query
         try {
             PreparedStatement preparedStatement = conn.prepareStatement(query);
             preparedStatement.setString(1, title);
             preparedStatement.setString(2, description);
-            preparedStatement.setInt(3, price);
-            preparedStatement.setInt(4, category);
-            preparedStatement.setInt(5, id);
+            preparedStatement.setInt(3, type);
+            preparedStatement.setInt(4, price);
+            preparedStatement.setInt(5, category);
+            preparedStatement.setInt(6, id);
 
             // Execute the query
             preparedStatement.executeUpdate();

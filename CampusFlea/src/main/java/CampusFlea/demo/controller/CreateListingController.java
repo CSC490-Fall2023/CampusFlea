@@ -37,7 +37,7 @@ public class CreateListingController {
     }
 
     @PostMapping("/createlisting")
-    public String processCreateListing(@RequestParam String title, @RequestParam int category, @RequestParam int price, @RequestParam String description, @RequestParam MultipartFile[] images, HttpSession session) throws IOException {
+    public String processCreateListing(@RequestParam String title, @RequestParam int category, @RequestParam int type, @RequestParam int price, @RequestParam String description, @RequestParam MultipartFile[] images, HttpSession session) throws IOException {
         // Check that the session key is valid (redirect them to login otherwise)
         int userId = SessionService.getUserIdFromSession(session);
         if (userId == -1) {
@@ -45,7 +45,7 @@ public class CreateListingController {
         }
 
         // Create the new listing
-        int listingId = ListingService.createListing(title, description, price, category, userId);
+        int listingId = ListingService.createListing(title, description, type, price, category, userId);
 
         if (listingId == -1) {
             System.out.println("Invalid listingId.");

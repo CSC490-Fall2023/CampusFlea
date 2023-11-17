@@ -46,7 +46,7 @@ public class EditListingController {
     }
 
     @PostMapping("/editlisting")
-    public String processEditListing(@RequestParam int id, @RequestParam String title, @RequestParam int category, @RequestParam int price, @RequestParam String description, @RequestParam MultipartFile[] images) throws IOException {
+    public String processEditListing(@RequestParam int id, @RequestParam String title, @RequestParam int type, @RequestParam int category, @RequestParam int price, @RequestParam String description, @RequestParam MultipartFile[] images) throws IOException {
         // Create a new instance of database
         DatabaseService dbSrv = new DatabaseService();
         Connection conn = dbSrv.getConnection();
@@ -68,7 +68,7 @@ public class EditListingController {
         }
 
         // Update the listing
-        ListingService.updateListing(id, title, description, price, category);
+        ListingService.updateListing(id, title, description, type, price, category);
 
         // Redirect back to profile
         return "redirect:/profile";
