@@ -9,12 +9,13 @@ import CampusFlea.demo.services.SessionService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 @Controller
 public class AdminCPController {
@@ -68,13 +69,15 @@ public class AdminCPController {
         model.addAttribute("username", user.getUsername());
         model.addAttribute("email", user.getEmail());
         model.addAttribute("avatar", avatar);
+        model.addAttribute("isAdmin", user.getIsAdmin());
 
     } catch (Exception e) {
     }
-    return "usersettings";
+    return "usersettingsAdmin";
     }
     @PostMapping("/edit/{id}")
-    public String updateSettings(@RequestParam String username, @RequestParam String email, @RequestParam String password, @RequestParam MultipartFile avatar, HttpSession session) throws IOException {
+    public String updateSettings(@RequestParam String username, @RequestParam String email, @RequestParam String password,
+                                 @RequestParam MultipartFile avatar, HttpSession session) throws IOException {
         // Check that the session key is valid (redirect them to login otherwise)
         int userId = SessionService.getUserIdFromSession(session);
         if (userId == -1) {
@@ -127,7 +130,8 @@ public class AdminCPController {
         String category=listing.getCategory();
         try{
             int Intcategory =Integer.parseInt(category);
-        int createListing=ListingService.createListing(listing.getTitle(),listing.getDescription(),listing.getPrice(),Intcategory,listing.getUid());
+        int createListing=ListingService.createListing(listing.getTitle(),listing.getDescription(),listing.getType(),listing.getPrice(),
+                Intcategory,listing.getUid());
 
     }catch(NumberFormatException e){
         System.out.println(category+"is not a valid integer number");

@@ -208,7 +208,8 @@ ul {
 .chat-info {
     margin-left: 10px;
     color: white;
-    margin-top: 10px
+    margin-top: 10px;
+    padding: 5px 0px 5px 0px;
 
 }
 
@@ -299,11 +300,9 @@ ul {
 
 .active{
     background-color: #2C313A;
+
 }
 
-.active{
-    background-color: #2C313A;
-}
 
 .chat-info-box:hover {
     background-color: #2C313A;

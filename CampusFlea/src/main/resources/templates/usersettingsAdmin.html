@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Settings</title>
+    <link th:href="@{/css/userSetting.css}" rel="stylesheet">
+</head>
+<body>
+<header>
+    <nav class="navbar">
+        <div class="logo">
+            <a th:href="@{/}">
+                <img th:src="@{/images/Logos/logo.png}" alt="Logo">
+            </a>
+
+        </div>
+        <button style="padding: 10px 20px; margin-right:20px;" class="create-btn" onclick="history.back()">Back</button>
+    </nav>
+</header>
+<div class="container">
+    <form method="post" enctype="multipart/form-data">
+    <div class="profile-section">
+        <div class="profile-picture">
+            <img th:src="${avatar}" alt="Profile Picture" id="profile-image">
+            <label for="avatar" class="edit-profile-button">Edit</label>
+            <input type="file" id="avatar" name="avatar" onchange=changeImage(this) accept="image/*" style="display: none;">
+        </div>
+        <h1>User Profile</h1>
+        <h3>Student</h3>
+    </div>
+    <div class="user-details">
+        <h2>Account</h2>
+        <hr>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" th:attr="placeholder=${username}">
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" th:attr="placeholder=${email}">
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" placeholder="Change your password">
+
+            <div class="form-group">
+                <label for="isAdmin">Admin:</label>
+                <input type="checkbox" id="isAdmin" name="isAdmin" th:checked="${isAdmin}">
+            </div>
+
+            <button type="submit">Save Changes</button>
+    </div>
+    </form>
+</div>
+</body>
+<script>
+    function changeImage(btn) {
+        const profileImage = document.getElementById("profile-image");
+        const file = btn.files[0];
+
+        profileImage.src = window.URL.createObjectURL(file);
+    }
+</script>
+</html>
