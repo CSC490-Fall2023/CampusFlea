@@ -14,6 +14,7 @@ public class ListingService {
             "Electronics",
             "Furniture",
             "Jewelry",
+            "Services",
             "Vehicles"
     };
 
