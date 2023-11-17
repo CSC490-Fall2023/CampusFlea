@@ -14,17 +14,19 @@
                 <img th:src="@{/images/Logos/logo.png}" alt="Logo">
             </a>
         </div>
+
         <button class="back-button" onclick="history.back()">Back</button>
     </nav>
 </header>
-<div class="header-box">
-    <h1>Users</h1>
-    <div class="search-bar">
-        <input class="search-input" type="text">
-        <button class="search-button">Search</button>
+<div class="content">
+    <div class="header-box">
+        <h1>Users</h1>
+        <div class="search-bar">
+            <input class="search-input" type="text">
+            <button class="search-button">Search</button>
+        </div>
+        <a class="create-button" th:href="@{'/create-admin'}">Create New Admin</a>
     </div>
-    <a class="create-button" th:href="@{'/create-admin'}">Create New Admin</a>
-</div>
 
 <table>
     <thead>
@@ -49,5 +51,6 @@
     </tr>
     </tbody>
 </table>
+</div>
 </body>
 </html>
