@@ -51,20 +51,27 @@ public class EditListingController {
         DatabaseService dbSrv = new DatabaseService();
         Connection conn = dbSrv.getConnection();
 
-        // Download the files
-        for (MultipartFile image : images) {
-            String fileName = image.getOriginalFilename();
-            byte[] bytes = image.getBytes();
+        // Download the files if exists
+        if (images != null) {
+            for (MultipartFile image : images) {
+                String fileName = image.getOriginalFilename();
 
-            // Make sure the directory exists
-            String imageDir = "CampusFlea/target/classes/static/uploads/listings/" + id;
-            File directory = new File(imageDir);
-            if (!directory.exists()) {
-                directory.mkdir();
+                if (fileName == null || fileName.isEmpty()) {
+                    continue;
+                }
+
+                byte[] bytes = image.getBytes();
+
+                // Make sure the directory exists
+                String imageDir = "CampusFlea/target/classes/static/uploads/listings/" + id;
+                File directory = new File(imageDir);
+                if (!directory.exists()) {
+                    directory.mkdir();
+                }
+                // save the image to disk
+                Path path = Paths.get(imageDir, fileName);
+                Files.write(path, bytes);
             }
-            // save the image to disk
-            Path path = Paths.get(imageDir, fileName);
-            Files.write(path, bytes);
         }
 
         // Update the listing
