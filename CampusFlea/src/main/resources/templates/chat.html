@@ -11,8 +11,9 @@
     <meta name="screen-orientation" content="portrait">
     <base target="_blank">
     <title>Chatroom</title>
-    <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-    <link rel="stylesheet" href="/css/chat.css">
+    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="css/chat.css">
+
 </head>
 
 <body>
@@ -63,13 +64,13 @@
                         </div>
 
                         <div class="abs br pnl-btn" id="submit" @click="submit"
-                             style="background-color: green; color: green;">
-                            send
+                             style="background-color: rgb(32, 196, 202); color: rgb(255, 255, 255);">
+                            Send
                         </div>
 
                     </div>
                 </div>
-
+                <!--End of chat-->
 
                 <div class="abs right pnl-right">
                     <div class="slider-container hide"></div>
@@ -101,8 +102,8 @@
         </div>
     </div>
 </div>
-<script src="/js/vue.js"></script>
-<script src="/js/axios-0.18.0.js"></script>
+<script src="js/vue.js"></script>
+<script src="js/axios-0.18.0.js"></script>
 <script>
     let ws;
     new Vue({
@@ -163,6 +164,7 @@
                 //show chat with user
                 this.chatMes = true;
             },
+            //submit button
             submit() {
                 this.sendMessage.toName = this.toName;
                 this.historyMessage.push(JSON.parse(JSON.stringify(this.sendMessage)));
@@ -186,16 +188,7 @@
                 //transfer to JSON
                 var res = JSON.parse(dataStr);
 
-               // fetch(`/${res.sender}/history`)
-              //      .then(response => response.json())
-              //      .then(data => {
-              //          data.forEach(message => {
-               //             displayMessage(message);
-                //        });
-               //     });
-             //   displayMessage(message){
-            //        this.historyMessage.push(message);
-               // }
+
                if(res.system) {
 
                     var names = res.message;

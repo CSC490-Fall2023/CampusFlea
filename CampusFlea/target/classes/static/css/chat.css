@@ -711,10 +711,6 @@ body {
     display: none
 }
 
-.pnl-warn-right {
-    line-height: 2.2
-}
-
 .pnl-warn-free {
     margin-right: .2em;
 }
@@ -1443,4 +1439,175 @@ ul, li {
     background-color: transparent !important;
     border-radius: 5px;
     background-image: url(../img/avatar/Member002.jpg);
+}
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background-color: #333;
+    color: #fff;
+}
+
+.left-sidebar {
+        width: 250px;
+        height: 100vh;
+        background-color: #2C313A;
+        color: #fff;
+        top: 0;
+        left: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+}
+
+.left-sidebar .logo img {
+    position: relative;
+    top: -30px;
+    width: 100%;
+    height: 100%;
+    margin-bottom: 20px;
+}
+
+.username{
+    color:white;
+    text-decoration: none;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    top: -30px;
+    align-items: center;
+}
+
+.container #email {
+    margin: 4px 0px 0px 0px;
+}
+
+.container span{
+}
+
+.container .dots {
+    float: left;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: white;
+    object-fit: cover;
+}
+
+.text-container {
+    margin-left: 5px;
+    display: flex;
+    /* gap: 10px; */
+    /* display: block; */
+    float: right;
+    color: white;
+    text-decoration: none;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.sidebar-top {
+    background-color: #15171B;
+        height: 28.8%;
+        z-index: 2;
+}
+
+.sidebar-mid {
+    background-color: #2C313A; /* Second section color */
+}
+
+.sidebar-bottom {
+   padding-top: 20px;
+       background-color: #15171B;
+       display: flex;
+       align-items: left;
+       justify-content: left;
+       padding-bottom: 20px;
+}
+
+.signout-button {
+    background-color: #007BFF; /* Button background color */
+    color: #fff; /* Button text color */
+    border: none;
+    border-radius: 4px;
+    padding: 7px 10px;
+    font-size: 14px;
+    cursor: pointer;
+
+    transition: background-color 0.3s ease-in-out;
+}
+
+.signout-button:hover {
+    background-color: #0056b3; /* Button background color on hover */
+}
+
+/* Additional styling for a neumorphic effect */
+.signout-button {
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Center the button horizontally */
+.signout-button {
+    display: block;
+    margin-left: 15px;
+}
+
+.nav-links{
+    display:flex;
+    align-items: stretch;
+
+}
+
+.nav-links ul {
+    width: 100%;
+    list-style: none;
+    text-align: left;
+}
+
+.nav-links li {
+    margin-bottom: 10px;
+    padding: 0;
+
+}
+
+.nav-links li a{
+      padding: 12px;
+      padding-left: 10%;
+      text-align:left;
+      text-decoration: none;
+      display: block;
+}
+
+.nav-links li a:hover{
+      background-color: #51BC58;
+}
+
+.nav-links .active{
+      background-color:#4A5160;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+}
+
+.nav-links i {
+    padding-right: 5%;
+}
+
+.right-sidebar {
+    background-color: #4A5160;
+}
+
+.profile-pic {
+    float: left;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: white;
+    object-fit: cover;
 }
