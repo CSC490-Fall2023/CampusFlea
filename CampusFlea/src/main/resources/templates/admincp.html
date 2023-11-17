@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User Management</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <link th:href="@{/css/admincp.css}" rel="stylesheet">
+</head>
+<body>
+<header>
+    <nav class="navbar">
+        <div class="logo">
+            <a th:href="@{/}">
+                <img th:src="@{/images/Logos/logo.png}" alt="Logo">
+            </a>
+        </div>
+        <button class="back-button" onclick="history.back()">Back</button>
+    </nav>
+</header>
+<div class="header-box">
+    <h1>Users</h1>
+    <div class="search-bar">
+        <input class="search-input" type="text">
+        <button class="search-button">Search</button>
+    </div>
+    <a class="create-button" th:href="@{'/create-admin'}">Create New Admin</a>
+</div>
+
+<table>
+    <thead>
+    <tr>
+        <th class="user-id">User ID</th>
+        <th class="user-name">Username</th>
+        <th class="user-email">Email</th>
+        <th class="user-role">Is Admin?</th>
+        <th class="user-action">Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${users}">
+        <td th:text="${user.id}"></td>
+        <td th:text="${user.username}"></td>
+        <td th:text="${user.email}"></td>
+        <td th:text="${user.isAdmin}"></td>
+        <td>
+            <a class="edit-button" th:href="@{'/edit/' + ${user.id}}"><i class="fas fa-edit"></i></a>
+            <a class="delete-button" th:href="@{'/delete/' + ${user.id}}"><i class="fas fa-trash delete-icon"></i></a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

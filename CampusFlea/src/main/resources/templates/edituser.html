@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit User Profile</title>
+    <link rel="stylesheet" th:href="@{/css/edituser.css}">
+</head>
+<body>
+<div class="container">
+    <h2>Edit Profile</h2>
+    <div class="form-container">
+        <form action="#" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" th:required="required" th:value="${user.username}">
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" th:required="required" th:value="${user.email}">
+            </div>
+
+            <!--<div class="form-group">
+                <label for="phoneNumber">Phone Number:</label>
+                <input type="text" id="phoneNumber" name="phoneNumber" th:value="${user.phone}">
+            </div>-->
+
+            <div class="form-group">
+                <label for="password">New Password:</label>
+                <input type="password" id="password" name="password">
+            </div>
+
+            <div class="form-group">
+                <label for="confirmPassword">Confirm Password:</label>
+                <input type="password" id="confirmPassword" name="confirmPassword">
+            </div>
+
+            <div class="form-group">
+                <label for="profilePicture">Profile Picture:</label>
+                <input type="file" id="profilePicture" name="profilePicture" accept=".jpg, .jpeg, .png">
+            </div>
+
+            <div class="button-group">
+                <input type="submit" value="Save Changes">
+                <input type="button" value="Cancel">
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

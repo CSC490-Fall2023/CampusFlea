@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Page</title>
+    <link rel="stylesheet" th:href="@{/css/ListView.css}">
+</head>
+<body>
+<header>
+    <nav class="navbar">
+        <div class="logo">
+            <a th:href="@{/}">
+                <img th:src="@{/images/Logos/logo.png}" alt="Logo">
+            </a>
+        </div>
+        <div class="profile-info">
+            <img class="profile-picture" th:src="${avatar}" alt="Profile Picture">
+            <div class="profile-name" th:text="${username}"></div>
+        </div>
+        <button class="back-button" onclick="history.back()">Back</button>
+    </nav>
+</header>
+
+<main class="container">
+
+    <!-- Left Column / Product Images -->
+    <div class="left-column">
+        <img th:src="${listing.image}" alt="ProductImage">
+        <!-- Replace with the product images -->
+    </div>
+    <!-- Right Column -->
+    <div class="right-column">
+
+        <!-- Product Description -->
+        <div class="product-description">
+            <span th:text="${listing.category}"></span>
+            <h1 th:text="${listing.title}"></h1>
+            <p th:text="${listing.description}"></p>
+        </div>
+
+        <!-- Product Configuration -->
+        <div class="product-configuration">
+
+            <!-- User Choice Configuration -->
+            <div class="likeShare-config">
+
+                <div class="user-choose">
+                    <form method="post">
+                        <button type="submit" name="save">Save</button>
+                        <button type="submit" name="flag">Flag</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product Pricing -->
+        <div class="product-price">
+            <span th:text="${'$' + listing.price}"></span>
+            <a th:href="@{chat(id=${listing.id})}" class="contactSeller-btn">Contact Seller</a>
+        </div>
+    </div>
+</main>
+</body>
+</html>
