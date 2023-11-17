@@ -9,24 +9,43 @@
 <body>
 <h1>Edit Listing</h1>
 <form th:action="@{/editlisting}" method="post" enctype="multipart/form-data">
-    <label for="title">Title:</label>
-    <input type="text" id="title" name="title" th:value="${listing.title}" required>
+    <div class="form-group">
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" th:value="${listing.title}" required>
+    </div>
 
-    <label for="category">Category:</label>
-    <select id="category" name="category" th:field="*{listing.category}" required>
-        <th:block th:each="category : ${categories}">
-            <option th:value="${counter.getAndIncrement()}" th:text="${category}"></option>
-        </th:block>
-    </select>
+    <div class="form-group">
+        <label for="category">Category:</label>
+        <select id="category" name="category" th:field="*{listing.category}" required>
+            <th:block th:each="category : ${categories}">
+                <option th:value="${counter.getAndIncrement()}" th:text="${category}"></option>
+            </th:block>
+        </select>
+    </div>
 
-    <label for="price">Price:</label>
-    <input type="number" id="price" name="price" th:value="${listing.price}" step="0.01" required>
+    <div class="form-group">
+        <label for="type">Type:</label>
+        <select id="type" name="type" required>
+            <option value="Buying">Buying</option>
+            <option value="Selling">Selling</option>
+            <option value="Trade">Trade</option>
+        </select>
+    </div>
 
-    <label for="description">Description:</label>
-    <textarea id="description" name="description" th:text="${listing.description}" required></textarea>
+    <div class="form-group">
+        <label for="price">Price:</label>
+        <input type="number" id="price" name="price" th:value="${listing.price}" step="0.01" required>
+    </div>
 
-    <label for="images">Images:</label>
-    <input type="file" id="images" name="images" accept="image/*" multiple required>
+    <div class="form-group">
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" th:text="${listing.description}" required></textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="images">Images:</label>
+        <input type="file" id="images" name="images" accept="image/*" multiple required>
+    </div>
 
     <input type="hidden" id="id" name="id" th:value="${id}">
 
