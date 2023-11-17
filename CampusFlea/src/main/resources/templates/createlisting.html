@@ -17,6 +17,7 @@
     <div class="form-group">
         <label for="category">Category:</label>
         <select id="category" name="category" required>
+            <option value="" disabled selected>Select a Category</option>
             <th:block th:each="category : ${categories}">
                 <option th:value="${counter.getAndIncrement()}" th:text="${category}"></option>
             </th:block>
@@ -26,6 +27,7 @@
     <div class="form-group">
         <label for="type">Type:</label>
         <select id="type" name="type" required>
+            <option value="" disabled selected>Select a Type</option>
             <option value="Buying">Buying</option>
             <option value="Selling">Selling</option>
             <option value="Trade">Trade</option>
