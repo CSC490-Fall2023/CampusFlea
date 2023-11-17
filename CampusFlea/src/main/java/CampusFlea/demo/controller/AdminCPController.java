@@ -50,41 +50,93 @@ public class AdminCPController {
     }
 
     //Create user
-    @PostMapping("/user")
+   @GetMapping("/create-admin")
     public String createUser(Account account) {
         // Establish a database connection
         DatabaseService dbSrv = new DatabaseService();
         Connection conn = dbSrv.getConnection();
 
-        boolean result = AccountService.createAccount(conn, account.getUsername(), account.getPassword(), account.getEmail());
+        boolean result = AccountService.createAccount(conn,account.getUsername(), account.getPassword(), account.getEmail());
         return "redirect:/admincp";
     }
-
     //edit account username
-    @PostMapping("/edit/{id}")
+    @GetMapping("/edit/{id}")
     public String editUser(@PathVariable("id") int userId, Model model) {
-        try {
-            Account user = AccountService.getAccount(userId);
-            String username = user.getUsername();
+    try {
+        Account user = AccountService.getAccount(userId);
+        String avatar = AccountService.getProfilePicture(userId);
+        model.addAttribute("username", user.getUsername());
+        model.addAttribute("email", user.getEmail());
+        model.addAttribute("avatar", avatar);
+
+    } catch (Exception e) {
+    }
+    return "usersettings";
+    }
+    @PostMapping("/edit/{id}")
+    public String updateSettings(@RequestParam String username, @RequestParam String email, @RequestParam String password, @RequestParam MultipartFile avatar, HttpSession session) throws IOException {
+        // Check that the session key is valid (redirect them to login otherwise)
+        int userId = SessionService.getUserIdFromSession(session);
+        if (userId == -1) {
+            return "redirect:/signin";
+        }
+
+        // Change the username if needed
+        if (!username.isEmpty()) {
             AccountService.updateUsername(userId, username);
-        } catch (Exception e) {
+        }
+
+        // Change the email if needed
+        if (!email.isEmpty()) {
+            AccountService.updateEmail(userId, email);
+        }
+
+        // Change the password if needed
+        if (!password.isEmpty()) {
+            AccountService.updatePassword(userId, password);
+        }
+
+        // Update the avatar if needed
+        if (!avatar.isEmpty()) {
+            AccountService.updateAvatar(userId, avatar);
         }
         return "redirect:/admincp";
     }
+    //delete user
+    @GetMapping("/delete/{id}")
+    public  String deleteUser(@PathVariable("id") int userId){
+        String query = "DELETE FROM accounts WHERE id = ?;";
+        try { DatabaseService dbSrv = new DatabaseService();
+            Connection conn = dbSrv.getConnection();
+            PreparedStatement preparedStatement = conn.prepareStatement(query);
+            preparedStatement.setInt(1, userId);
 
+            // Execute the query
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return "redirect:/admincp";
+    }
     //create listing
     @PostMapping("/listing")
-    public String createList(Listing listing) {
+    public String createList(Listing listing){
         DatabaseService dbSrv = new DatabaseService();
         Connection conn = dbSrv.getConnection();
         //category is int and string
-        int createListing = ListingService.createListing(listing.getTitle(), listing.getDescription(), listing.getType(), listing.getPrice(), listing.getHave(), listing.getUid());
+        String category=listing.getCategory();
+        try{
+            int Intcategory =Integer.parseInt(category);
+        int createListing=ListingService.createListing(listing.getTitle(),listing.getDescription(),listing.getPrice(),Intcategory,listing.getUid());
+
+    }catch(NumberFormatException e){
+        System.out.println(category+"is not a valid integer number");
+    }
         return "redirect:/admincp";
     }
-
     //delete listing
-    @GetMapping("/delete/{id}")
-    public String deletelisting(@PathVariable("id") int listId) {
+    @GetMapping("/deletelisting/{id}")
+    public String deletelisting(@PathVariable("id") int listId){
         ListingService.deleteListing(listId);
         return "redirect:/admincp";
     }
