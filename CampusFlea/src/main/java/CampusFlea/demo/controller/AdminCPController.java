@@ -70,13 +70,14 @@ public class AdminCPController {
         model.addAttribute("email", user.getEmail());
         model.addAttribute("avatar", avatar);
         model.addAttribute("isAdmin", user.getIsAdmin());
+        model.addAttribute("targetId", userId);
 
     } catch (Exception e) {
     }
     return "usersettingsAdmin";
     }
     @PostMapping("/edit/{id}")
-    public String updateSettings(@RequestParam String username, @RequestParam String email, @RequestParam String password,
+    public String updateSettings(@RequestParam int targetId, @RequestParam String username, @RequestParam String email, @RequestParam String password,
                                  @RequestParam MultipartFile avatar, HttpSession session) throws IOException {
         // Check that the session key is valid (redirect them to login otherwise)
         int userId = SessionService.getUserIdFromSession(session);
@@ -86,24 +87,28 @@ public class AdminCPController {
 
         // Change the username if needed
         if (!username.isEmpty()) {
-            AccountService.updateUsername(userId, username);
+            AccountService.updateUsername(targetId, username);
         }
 
         // Change the email if needed
         if (!email.isEmpty()) {
-            AccountService.updateEmail(userId, email);
+            AccountService.updateEmail(targetId, email);
         }
 
         // Change the password if needed
         if (!password.isEmpty()) {
-            AccountService.updatePassword(userId, password);
+            AccountService.updatePassword(targetId, password);
         }
 
         // Update the avatar if needed
         if (!avatar.isEmpty()) {
-            AccountService.updateAvatar(userId, avatar);
+            AccountService.updateAvatar(targetId, avatar);
         }
-        return "redirect:/admincp";
+
+        // Update admin status
+        //AccountService.updateAdminStatus(targetId, isAdmin);
+
+        return "redirect:/edit/{id}";
     }
     //delete user
     @GetMapping("/delete/{id}")
