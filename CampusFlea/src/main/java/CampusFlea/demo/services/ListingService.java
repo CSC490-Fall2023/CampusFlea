@@ -393,22 +393,23 @@ public class ListingService {
         }
     }
 
-    public static void updateListing(int id, String title, String description, int price, int category) {
+    public static void updateListing(int id, String title, String description, int type, int price, int category) {
         // Establish database connection
         DatabaseService dbSrv = new DatabaseService();
         Connection conn = dbSrv.getConnection();
 
         // Create the update query
-        String query = "UPDATE listings SET title = ?, description = ?, price = ?, category = ? WHERE id = ?;";
+        String query = "UPDATE listings SET title = ?, description = ?, type = ?, price = ?, category = ? WHERE id = ?;";
 
         // Prepare the query
         try {
             PreparedStatement preparedStatement = conn.prepareStatement(query);
             preparedStatement.setString(1, title);
             preparedStatement.setString(2, description);
-            preparedStatement.setInt(3, price);
-            preparedStatement.setInt(4, category);
-            preparedStatement.setInt(5, id);
+            preparedStatement.setInt(3, type);
+            preparedStatement.setInt(4, price);
+            preparedStatement.setInt(5, category);
+            preparedStatement.setInt(6, id);
 
             // Execute the query
             preparedStatement.executeUpdate();
