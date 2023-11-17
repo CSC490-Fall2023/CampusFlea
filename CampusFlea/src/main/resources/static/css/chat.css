@@ -196,15 +196,39 @@ ul {
     margin-left: 10px;
     color: white;
     margin-top: 10px
+
 }
 
 .chat-info h4 {
     margin: 0;
     font-weight: bold;
+    text-decoration: none;
+    color: white;
 }
 
 .chat-info p{
     margin-top: 10px;
+}
+
+.chat-header{
+    /*padding: 47px; */
+    background-color: lightgray;
+    border-radius: 10px 10px 0px 0px;
+    display: flex;
+    /* margin: 0px 0px 0px 0px; */
+    justify-content: space-around;
+    flex-direction: row;
+    align-items: center;
+}
+
+.chat-header-item{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.chat-header #item{
+    padding-right: 15px;
 }
 
 .chat-box-info {
@@ -221,14 +245,13 @@ ul {
     padding: 20px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
 }
 
 .chat-box {
     background-color: #fff;
     border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 20px;
+    border-radius: 0px 0px 5px 5px;
+    padding: 2px 10px 10px 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     overflow: hidden;
 }
@@ -239,19 +262,27 @@ ul {
 }
 
 .message {
-    padding: 10px;
-    border-radius: 5px;
-    margin: 10px;
+        padding: 0px 10px 0px 15px;
+        border-radius: 13px;
+        margin: 13px;
 }
 
 .message.received {
     background-color: #e5e5ea;
+    margin-right: 50%
+    overflow-wrap: break-word;
 }
 
 .message.sent {
-    background-color: #007BFF;
-    color: #fff;
-    align-self: flex-end;
+        background-color: #007BFF;
+        color: #fff;
+        align-self: flex-end;
+        display: flex;
+        flex-direction: column;
+        margin-left: 50%;
+        flex-wrap: nowrap;
+        overflow-wrap: break-word;
+
 }
 
 .message-content {
@@ -260,7 +291,7 @@ ul {
 
 .chat-input {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     margin-top: 20px;
 }
@@ -268,9 +299,11 @@ ul {
 input[type="text"] {
     flex: 1;
     padding: 10px;
+    padding-right: 10em;
     border: 1px solid #ccc;
     border-radius: 5px;
     outline: none;
+    width: 30em;
 }
 
 #send-button {
