@@ -51,17 +51,17 @@
         <!-- Recent Chats -->
         <ul class="chat-list">
 <!--            TODO: LOAD USER CHAT HISTORY DYNAMICALLY-->
-            <th:block th:each="chat : ${chats}">
-            <div class="chat-info-box">
+            <th:block th:each="thisChat : ${chats}">
+            <div class="chat-info-box" th:classappend="${chat != null && thisChat.id == chat.id} ? 'active' : ''">
             <li>
                 <img class="profile-pic" th:src="@{uploads/avatars/default.png}" alt="User 2">
                 <div class="chat-info">
                     <!-- Listing Title and Link -->
-                    <a th:href="@{chat(id=${chat.id})}">
-                        <h4 th:text="${chat.getTitle}"></h4>
+                    <a th:href="@{chat(id=${thisChat.id})}">
+                        <h4 th:text="${thisChat.getTitle}"></h4>
                     </a>
                     <!-- Last Sent Time -->
-                    <p th:text="${chat.getLastMessageTime}"></p>
+                    <p th:text="${thisChat.getLastMessageTime}"></p>
                 </div>
             </div>
             </th:block>
