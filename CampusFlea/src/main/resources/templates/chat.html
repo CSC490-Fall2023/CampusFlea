@@ -54,7 +54,7 @@
             <th:block th:each="thisChat : ${chats}">
             <div class="chat-info-box" th:classappend="${chat != null && thisChat.id == chat.id} ? 'active' : ''">
             <li>
-                <img class="profile-pic" th:src="@{uploads/avatars/default.png}" alt="User 2">
+                <img class="profile-pic" th:src="${thisChat.otherProfilePicture}" alt="User 2">
                 <div class="chat-info">
                     <!-- Listing Title and Link -->
                     <a th:href="@{chat(id=${thisChat.id})}">

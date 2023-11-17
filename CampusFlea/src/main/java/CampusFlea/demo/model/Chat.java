@@ -9,6 +9,8 @@ public class Chat {
     private final int buyerId;
     private final ChatMessage[] messages;
 
+    private String otherProfilePicture;
+
     public Chat(int id, int listingId, int buyerId, ChatMessage[] messages) {
         this.id = id;
         this.listingId = listingId;
@@ -45,5 +47,13 @@ public class Chat {
 
         ChatMessage lastMessage = messages[messages.length - 1];
         return ChatService.getDateFromMessage(lastMessage);
+    }
+
+    public void setOtherProfilePicture(String otherProfilePicture) {
+        this.otherProfilePicture = otherProfilePicture;
+    }
+
+    public String getOtherProfilePicture() {
+        return otherProfilePicture;
     }
 }

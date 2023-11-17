@@ -440,7 +440,7 @@ public class ListingService {
         DatabaseService dbSrv = new DatabaseService();
         Connection conn = dbSrv.getConnection();
 
-        String query = "SELECT uid FROM listings WHERE listingId = ?;";
+        String query = "SELECT uid FROM listings WHERE id = ?;";
 
         try {
             // Prepare the query

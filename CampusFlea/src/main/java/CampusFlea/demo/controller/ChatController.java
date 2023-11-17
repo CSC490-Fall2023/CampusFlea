@@ -177,6 +177,17 @@ public class ChatController {
                 chats = newChats;
             }
         }
+
+        // Add profile pictures to all chats
+        for (Chat thisChat : chats) {
+            // Get the user's profile picture
+            int otherUserId = ChatService.getOtherUserIdInChat(thisChat.getListingId(), thisChat.getBuyerId(), userId);
+            String profilePicture = AccountService.getProfilePicture(otherUserId);
+
+            // Set it
+            thisChat.setOtherProfilePicture(profilePicture);
+        }
+
         model.addAttribute("chats", chats);
     }
 }
