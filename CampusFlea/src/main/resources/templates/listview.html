@@ -52,9 +52,8 @@
             <div class="likeShare-config">
                 <div class="user-choose">
                     <form method="post">
-                        <a th:if="${userId == listing.uid}" th:href="@{editlisting(id=${listing.id})}">Edit</a>
-                        <button th:if="${userId != listing.uid}" type="submit" name="save">Save</button>
-                        <button th:if="${userId != listing.uid}" type="submit" name="flag">Flag</button>
+                        <button type="submit" name="save">Save</button>
+                        <button type="submit" name="flag">Flag</button>
                     </form>
                 </div>
             </div>
@@ -62,14 +61,15 @@
         <!-- Product Pricing -->
         <div class="product-price">
             <span th:text="${'$' + listing.price}"></span>
-            <a th:if="${listing.uid != userId}" th:href="@{chat(lid=${listing.id})}" class="contactSeller-btn">Contact
-                Seller</a>
+            <a th:if="${listing.uid != userId}" th:href="@{chat(id=${listing.id})}" class="contactSeller-btn">Contact Seller</a>
         </div>
     </div>
 </main>
 <script>
     let slideIndex = 0;
     const slides = document.querySelectorAll('.slide');
+    const prevArrow = document.querySelector('.arrow.prev');
+    const nextArrow = document.querySelector('.arrow.next');
 
     function showSlides() {
         slides.forEach(slide => {
@@ -82,6 +82,14 @@
             slideIndex = slides.length - 1;
         }
         slides[slideIndex].style.display = 'block';
+
+        if (slides.length > 1) {
+            prevArrow.style.display = 'block';
+            nextArrow.style.display = 'block';
+        } else {
+            prevArrow.style.display = 'none';
+            nextArrow.style.display = 'none';
+        }
     }
 
     function moveSlide(n) {
