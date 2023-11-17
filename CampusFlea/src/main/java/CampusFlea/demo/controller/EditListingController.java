@@ -46,27 +46,29 @@ public class EditListingController {
     }
 
     @PostMapping("/editlisting")
-    public String processEditListing(@RequestParam int id, @RequestParam String title, @RequestParam int category, @RequestParam int price, @RequestParam String description, @RequestParam MultipartFile images) throws IOException {
+    public String processEditListing(@RequestParam int id, @RequestParam String title, @RequestParam int type, @RequestParam int category, @RequestParam int price, @RequestParam String description, @RequestParam MultipartFile[] images) throws IOException {
         // Create a new instance of database
         DatabaseService dbSrv = new DatabaseService();
         Connection conn = dbSrv.getConnection();
 
         // Download the files
-        String fileName = images.getOriginalFilename();
-        byte[] bytes = images.getBytes();
+        for (MultipartFile image : images) {
+            String fileName = image.getOriginalFilename();
+            byte[] bytes = image.getBytes();
 
-        // Make sure the directory exists
-        String imageDir = "CampusFlea/target/classes/static/uploads/listings/" + id;
-        File directory = new File(imageDir);
-        if (!directory.exists()) {
-            directory.mkdir();
+            // Make sure the directory exists
+            String imageDir = "CampusFlea/target/classes/static/uploads/listings/" + id;
+            File directory = new File(imageDir);
+            if (!directory.exists()) {
+                directory.mkdir();
+            }
+            // save the image to disk
+            Path path = Paths.get(imageDir, fileName);
+            Files.write(path, bytes);
         }
-        // save the image to disk
-        Path path = Paths.get(imageDir, fileName);
-        Files.write(path, bytes);
 
         // Update the listing
-        ListingService.updateListing(id, title, description, price, category);
+        ListingService.updateListing(id, title, description, type, price, category);
 
         // Redirect back to profile
         return "redirect:/profile";

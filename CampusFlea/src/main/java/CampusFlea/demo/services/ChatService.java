@@ -19,14 +19,14 @@ public class ChatService {
         DatabaseService dbSrv = new DatabaseService();
         Connection conn = dbSrv.getConnection();
 
-        // Create the query
-        String query = "SELECT * FROM chats WHERE buyerId = ?;";
-        // TODO: Also get received messages
-
         try {
+            // Get both send and received messages
+            String query = "SELECT * FROM chats WHERE buyerId = ? OR (SELECT uid FROM listings WHERE id = listingId) = ?;";
+
             // Prepare the query
             PreparedStatement preparedStatement = conn.prepareStatement(query);
             preparedStatement.setInt(1, userId);
+            preparedStatement.setInt(2, userId);
 
             // Execute the query
             ResultSet rs = preparedStatement.executeQuery();
@@ -180,7 +180,7 @@ public class ChatService {
         }
     }
 
-    public static void saveChatMessage(int chatId, int senderId, int listingId, String message) {
+    public static void saveChatMessage(int chatId, int senderId, String message) {
         // Establish database connection
         DatabaseService dbSrv = new DatabaseService();
         Connection conn = dbSrv.getConnection();
@@ -245,5 +245,47 @@ public class ChatService {
 
         // Return in seconds
         return String.valueOf(diff) + " seconds ago";
+    }
+
+    public static int getOtherUserIdInChat(int listingId, int buyerId, int userId1) {
+        // Check if the other user is the buyer (seller -> buyer)
+        if (buyerId != userId1) {
+            return buyerId;
+        }
+
+        // The other user must be the seller
+        int sellerId = ListingService.getSellerId(listingId);
+        return sellerId;
+    }
+
+    public static Chat getChat(int chatId) {
+        // Establish database connection
+        DatabaseService dbSrv = new DatabaseService();
+        Connection conn = dbSrv.getConnection();
+
+        try {
+            // Get listingId and buyerId using the given chat id
+            String query = "SELECT listingId, buyerId FROM chats WHERE id = ?;";
+
+            // Prepare the query
+            PreparedStatement preparedStatement = conn.prepareStatement(query);
+            preparedStatement.setInt(1, chatId);
+
+            // Execute the query
+            ResultSet result = preparedStatement.executeQuery();
+
+            // Get the listingId and buyerId
+            int listingId = result.getInt("listingId");
+            int buyerId = result.getInt("buyerId");
+
+            // Get messages
+            ChatMessage[] messages = getChatMessages(chatId);
+
+            // Create the chat object
+            Chat chat = new Chat(chatId, listingId, buyerId, messages);
+            return chat;
+        } catch (SQLException ex) {
+            return null;
+        }
     }
 }

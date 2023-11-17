@@ -22,6 +22,11 @@ public class HomePageController {
             return "redirect:/signin";
         }
 
+        // Check if the account is verified
+        if (!AccountService.isVerified(userId)) {
+            return "redirect:/verify";
+        }
+
         // Create the account object from the found userId
         Account user = AccountService.getAccount(userId);
 
@@ -47,7 +52,7 @@ public class HomePageController {
 
             // Add image to listings
             String[] images = ListingService.getListingImages(listingId);
-            listings[i].setImage(images[0]);
+            listings[i].setImages(images);
 
             // Set save btn to listings
             boolean saved = ListingService.listingIsSaved(userId, listingId);

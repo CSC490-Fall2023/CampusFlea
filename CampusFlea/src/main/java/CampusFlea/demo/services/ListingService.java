@@ -14,6 +14,7 @@ public class ListingService {
             "Electronics",
             "Furniture",
             "Jewelry",
+            "Services",
             "Vehicles"
     };
 
@@ -21,6 +22,12 @@ public class ListingService {
             "ACTIVE",
             "PENDING",
             "SOLD"
+    };
+
+    public static final String[] TYPES = {
+            "Buying",
+            "Selling",
+            "Trade"
     };
 
     public static String DEFAULT_IMAGE = "images/List Items/item.jpg";
@@ -138,13 +145,13 @@ public class ListingService {
         }
     }
 
-    public static int createListing(String title, String description, int price, int category, int uid) {
+    public static int createListing(String title, String description, int type, int price, int category, int uid) {
         // Establish database connection
         DatabaseService dbSrv = new DatabaseService();
         Connection conn = dbSrv.getConnection();
 
         // Create the insertion query
-        String query = "INSERT INTO listings(uid, title, description, price, category) VALUES(?, ?, ?, ?, ?);";
+        String query = "INSERT INTO listings(uid, title, description, type, price, category) VALUES(?, ?, ?, ?, ?, ?);";
 
         // Prepare the query
         try {
@@ -152,22 +159,24 @@ public class ListingService {
             preparedStatement.setInt(1, uid);
             preparedStatement.setString(2, title);
             preparedStatement.setString(3, description);
-            preparedStatement.setInt(4, price);
-            preparedStatement.setInt(5, category);
+            preparedStatement.setInt(4, type);
+            preparedStatement.setInt(5, price);
+            preparedStatement.setInt(6, category);
 
             // Execute the query
             preparedStatement.executeUpdate();
 
             // Get the new listing ID
-            query = "SELECT id FROM listings WHERE uid = ? AND title = ? AND description = ? AND price = ? AND category = ?;";
+            query = "SELECT id FROM listings WHERE uid = ? AND title = ? AND description = ? AND TYPE = ? AND price = ? AND category = ?;";
 
             // Prepare the statement
             preparedStatement = conn.prepareStatement(query);
             preparedStatement.setInt(1, uid);
             preparedStatement.setString(2, title);
             preparedStatement.setString(3, description);
-            preparedStatement.setInt(4, price);
-            preparedStatement.setInt(5, category);
+            preparedStatement.setInt(4, type);
+            preparedStatement.setInt(5, price);
+            preparedStatement.setInt(6, category);
 
             // Execute the query
             ResultSet rs = preparedStatement.executeQuery();
@@ -223,6 +232,21 @@ public class ListingService {
             System.out.println(e.getMessage());
             return new String[0];
         }
+    }
+
+    public static Listing[] getListingsOfType(int type) {
+        Listing[] allListings = getAllListings();
+
+        List<Listing> buyingListings = new ArrayList<>();
+
+        for (Listing listing : allListings) {
+            // Add if buying type
+            if (listing.getType() == type) {
+                buyingListings.add(listing);
+            }
+        }
+
+        return buyingListings.toArray(new Listing[0]);
     }
 
     public static Listing[] getSavedListings(int userId) {
@@ -391,22 +415,23 @@ public class ListingService {
         }
     }
 
-    public static void updateListing(int id, String title, String description, int price, int category) {
+    public static void updateListing(int id, String title, String description, int type, int price, int category) {
         // Establish database connection
         DatabaseService dbSrv = new DatabaseService();
         Connection conn = dbSrv.getConnection();
 
         // Create the update query
-        String query = "UPDATE listings SET title = ?, description = ?, price = ?, category = ? WHERE id = ?;";
+        String query = "UPDATE listings SET title = ?, description = ?, type = ?, price = ?, category = ? WHERE id = ?;";
 
         // Prepare the query
         try {
             PreparedStatement preparedStatement = conn.prepareStatement(query);
             preparedStatement.setString(1, title);
             preparedStatement.setString(2, description);
-            preparedStatement.setInt(3, price);
-            preparedStatement.setInt(4, category);
-            preparedStatement.setInt(5, id);
+            preparedStatement.setInt(3, type);
+            preparedStatement.setInt(4, price);
+            preparedStatement.setInt(5, category);
+            preparedStatement.setInt(6, id);
 
             // Execute the query
             preparedStatement.executeUpdate();
@@ -433,5 +458,31 @@ public class ListingService {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    public static int getSellerId(int listingId) {
+        // Establish database connection
+        DatabaseService dbSrv = new DatabaseService();
+        Connection conn = dbSrv.getConnection();
+
+        String query = "SELECT uid FROM listings WHERE id = ?;";
+
+        try {
+            // Prepare the query
+            PreparedStatement preparedStatement = conn.prepareStatement(query);
+            preparedStatement.setInt(1, listingId);
+
+            // Execute the query
+            ResultSet rs = preparedStatement.executeQuery();
+
+            // return if exists
+            if (rs.next()) {
+                int uid = rs.getInt("uid");
+                return uid;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return -1;
     }
 }

@@ -43,7 +43,7 @@
         </div>
         <div class="sidebar-bottom">
             <a th:href="@{signin}">
-                <button class="signout-button">Sign Out</button>
+                <button class="create-btn">Sign Out</button>
             </a>
         </div>
         </div>
@@ -51,34 +51,44 @@
         <!-- Recent Chats -->
         <ul class="chat-list">
 <!--            TODO: LOAD USER CHAT HISTORY DYNAMICALLY-->
-            <th:block th:each="chat : ${chats}">
-            <div class="chat-info-box">
+            <th:block th:each="thisChat : ${chats}">
+                <a class="chat-link" th:href="@{chat(id=${thisChat.id})}">
+            <div class="chat-info-box" th:classappend="${chat != null && thisChat.id == chat.id} ? 'active' : ''">
             <li>
-                <img class="profile-pic" th:src="@{uploads/avatars/default.png}" alt="User 2">
+                <img class="profile-pic" th:src="${thisChat.otherProfilePicture}" alt="User 2">
                 <div class="chat-info">
                     <!-- Listing Title and Link -->
-                    <a th:href="@{chat(id=${chat.listingId})}">
-                        <h4 th:text="${chat.getTitle}"></h4>
-                    </a>
+
+                        <h4 th:text="${thisChat.getTitle}"></h4>
+
                     <!-- Last Sent Time -->
-                    <p th:text="${chat.getLastMessageTime}"></p>
+                    <p th:text="${thisChat.getLastMessageTime}"></p>
                 </div>
             </div>
+                </a>
             </th:block>
             </li>
             <!-- Add more chat entries as needed -->
         </ul>
     </div>
     <div class="main-content">
+        <div class="chat-header">
+            <h3 th:if="${chatUsername != null}" th:text="'Username: ' + ${chatUsername}">Username</h3>
+            <div class="chat-header-item">
+                <h3 id="item" th:if="${chatItemName != null}" th:text="'Item: ' + ${chatItemName}">Item Name</h3>
+                <h3 id="price" th:if="${chatPrice != null}" th:text="'Price: $' + ${chatPrice}">Price</h3>
+            </div>
+        </div>
         <div class="chat-box">
+
             <div class="chat-messages">
-                <div th:if="${chat != null && chat.getMessages().length == 0}">
+                <div th:if="${chat != null && chat.getMessages() == null}">
                     <p>You have no messages yet with this user.</p>
                 </div>
 
                 <!-- Chat messages will be displayed here -->
                 <th:block th:each="thisMessage : ${chat?.getMessages()}" th:if="${chat != null && chat.getMessages().length > 0}">
-                <div class="message" th:classappend="${thisMessage.senderId == userId} ? received : sent">
+                <div class="message" th:classappend="${thisMessage.senderId == userId} ? sent : received">
                     <div class="message-content">
                         <p th:text="${thisMessage.message}"></p>
                     </div>
@@ -92,10 +102,10 @@
                     <button type="submit" id="send-button">Send</button>
                 </form>
             </div>
-            <div th:if="${chats == null}">
+            <div th:if="${chats.length == 0}">
                 <p>You do not have any conversations.</p>
             </div>
-            <div th:if="${chats != null && chat == null}">
+            <div th:if="${chats.length > 0 && chat == null}">
                 <p>Click on a conversation to load.</p>
             </div>
         </div>

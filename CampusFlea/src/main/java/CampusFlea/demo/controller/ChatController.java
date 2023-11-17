@@ -3,10 +3,7 @@ package CampusFlea.demo.controller;
 import CampusFlea.demo.model.Account;
 import CampusFlea.demo.model.Chat;
 import CampusFlea.demo.model.Listing;
-import CampusFlea.demo.services.AccountService;
-import CampusFlea.demo.services.ChatService;
-import CampusFlea.demo.services.ListingService;
-import CampusFlea.demo.services.SessionService;
+import CampusFlea.demo.services.*;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,8 +29,8 @@ public class ChatController {
         return "chat";
     }
 
-    @RequestMapping(value = "/chat", params = "id")
-    public String comeFromListing(Model model, @RequestParam String id, HttpSession session) {
+    @RequestMapping(value = "/chat", params = "lid")
+    public String comeFromListing(Model model, @RequestParam String lid, HttpSession session) {
         // Check that the session key is valid (redirect them to login otherwise)
         int userId = SessionService.getUserIdFromSession(session);
         if (userId == -1) {
@@ -41,7 +38,7 @@ public class ChatController {
         }
 
         // Get the listing using the listingId
-        int listingId = Integer.parseInt(id);
+        int listingId = Integer.parseInt(lid);
         Listing listing = ListingService.getListing(listingId);
 
         // Add the listing to the model
@@ -61,8 +58,30 @@ public class ChatController {
         return "chat";
     }
 
-    @RequestMapping(value = "/chat", params = {"id", "message"})
-    public String sendMessage(Model model, @RequestParam String id, @RequestParam String message, HttpSession session) {
+    @RequestMapping(value = "/chat", params = "id")
+    public String chatClicked(Model model, @RequestParam String id, HttpSession session) {
+        // Check that the session key is valid (redirect them to login otherwise)
+        int userId = SessionService.getUserIdFromSession(session);
+        if (userId == -1) {
+            return "redirect:/signin";
+        }
+
+        // Attach the listing model using the chat id
+        int chatId = Integer.parseInt(id);
+        Chat chat = ChatService.getChat(chatId);
+
+        // Add the listing to the model
+        Listing listing = ListingService.getListing(chat.getListingId());
+        model.addAttribute("listing", listing);
+
+        model.addAttribute("chat", chat);
+
+        load(model, userId, chat);
+        return "chat";
+    }
+
+    @RequestMapping(value = "/chat", params = {"lid", "message"})
+    public String sendMessage(Model model, @RequestParam String lid, @RequestParam String message, HttpSession session) {
         // Check that the session key is valid (redirect them to login otherwise)
         int userId = SessionService.getUserIdFromSession(session);
         if (userId == -1) {
@@ -70,17 +89,14 @@ public class ChatController {
         }
 
         // Get the listing using the listingId
-        int listingId = Integer.parseInt(id);
+        int listingId = Integer.parseInt(lid);
         Listing listing = ListingService.getListing(listingId);
-
-        System.out.printf("id=%s\n", id);
-        System.out.printf("message=%s\n", message);
 
         // TODO: Check for duplicate messages
 
         // Save the chat
         int chatId = ChatService.getChatId(listingId, userId);
-        ChatService.saveChatMessage(chatId, listing.getUid(), listingId, message);
+        ChatService.saveChatMessage(chatId, userId, message);
 
         // Add the listing to the model
         model.addAttribute("listing", listing);
@@ -89,7 +105,43 @@ public class ChatController {
         Chat chat = ChatService.getListingChat(listingId, userId);
         model.addAttribute("chat", chat);
 
+        // Send notification to receiver
+        int toId = ChatService.getOtherUserIdInChat(listing.getId(), chat.getBuyerId(), userId);
+        NotificationService.sendChatNotification(userId, toId, message);
+
         // Save chat in database
+        load(model, userId, null);
+        return "chat";
+    }
+
+    @RequestMapping(value = "/chat", params = {"id", "message"})
+    public String sendReply(Model model, @RequestParam String id, @RequestParam String message, HttpSession session) {
+        // Check that the session key is valid (redirect them to login otherwise)
+        int userId = SessionService.getUserIdFromSession(session);
+        if (userId == -1) {
+            return "redirect:/signin";
+        }
+
+        // Get the chatId
+        int chatId = Integer.parseInt(id);
+
+        // Save the chat message
+        ChatService.saveChatMessage(chatId, userId, message);
+
+        // Get the latest chat info and add it to the model
+        Chat chat = ChatService.getChat(chatId);
+        model.addAttribute("chat", chat);
+
+        // Add the listing to the model
+        Listing listing = ListingService.getListing(chat.getListingId());
+        model.addAttribute("listing", listing);
+
+        // Get the other user's id.
+        int toId = ChatService.getOtherUserIdInChat(listing.getId(), chat.getBuyerId(), userId);
+
+        // Send notification to receiver
+        NotificationService.sendChatNotification(userId, toId, message);
+
         load(model, userId, null);
         return "chat";
     }
@@ -125,6 +177,27 @@ public class ChatController {
                 chats = newChats;
             }
         }
+
+        // Add profile pictures to all chats
+        for (Chat thisChat : chats) {
+            // Get the user's profile picture
+            int otherUserId = ChatService.getOtherUserIdInChat(thisChat.getListingId(), thisChat.getBuyerId(), userId);
+            String profilePicture = AccountService.getProfilePicture(otherUserId);
+
+            // Set it
+            thisChat.setOtherProfilePicture(profilePicture);
+        }
+
         model.addAttribute("chats", chats);
+
+        // Set the header information if we have an active chat
+        if (chat != null) {
+            Listing listing = ListingService.getListing(chat.getListingId());
+            int otherId = ChatService.getOtherUserIdInChat(chat.getListingId(), chat.getBuyerId(), userId);
+            String otherUsername = AccountService.getUsername(otherId);
+            model.addAttribute("chatUsername", otherUsername);
+            model.addAttribute("chatItemName", listing.getTitle());
+            model.addAttribute("chatPrice", listing.getPrice());
+        }
     }
 }

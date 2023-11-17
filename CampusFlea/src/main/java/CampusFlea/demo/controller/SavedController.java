@@ -36,8 +36,8 @@ public class SavedController {
 
         for (int i = 0; i < listings.length; i++) {
             int listingId = listings[i].getId();
-            String image = ListingService.getListingImages(listingId)[0];
-            listings[i].setImage(image);
+            String[] images = ListingService.getListingImages(listingId);
+            listings[i].setImages(images);
         }
 
         //add to model for ThymeLeaf to read

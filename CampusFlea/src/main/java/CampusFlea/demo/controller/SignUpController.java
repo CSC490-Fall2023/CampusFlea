@@ -20,11 +20,14 @@ public class SignUpController {
 
     @PostMapping("/signup")
     public String processSignUp(@RequestParam String username, @RequestParam String password, @RequestParam String email, HttpSession session) {
-        System.out.printf("Username=%s, password=%s, Email=%s\n", username, password, email);
-
         // Establish a database connection
         DatabaseService dbSrv = new DatabaseService();
         Connection conn = dbSrv.getConnection();
+
+        // Return back to signup if email does not end in '.edu'
+        if (!email.endsWith("@uncg.edu")) {
+            return "redirect:/signup";
+        }
 
         // Create the account
         boolean created = AccountService.createAccount(conn, username, password, email);
@@ -32,14 +35,18 @@ public class SignUpController {
         // Redirect the new user to the home page
         if (created) {
             // Create a new session key
-            int userId = AccountService.getId(conn, username);
-            String sessionKey = AccountService.createLoginSession(conn, userId);
+            int userId = AccountService.getId(username);
+            String sessionKey = AccountService.createLoginSession(userId);
 
             // Save the session key
             session.setAttribute("session_key", sessionKey);
 
             // Create a new verification request
-            AccountService.createNewVerification(userId);
+            String verificationCode = AccountService.createNewVerification(userId);
+
+            if (verificationCode != null) {
+                AccountService.sendAccountVertificationEmail(username, email, verificationCode);
+            }
 
             // Redirect to verification page
             return "redirect:/verify";

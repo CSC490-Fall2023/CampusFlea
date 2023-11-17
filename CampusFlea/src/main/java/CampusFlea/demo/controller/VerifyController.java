@@ -37,7 +37,7 @@ public class VerifyController {
         }
 
         // Get the user's actual verification code
-        String realCode = AccountService.getVerificationCode(userId);
+        String realCode = AccountService.getVerificationKey(userId);
 
         // Compare codes
         if (verificationCode.equals(realCode)) {

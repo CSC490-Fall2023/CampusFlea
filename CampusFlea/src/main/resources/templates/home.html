@@ -45,7 +45,7 @@
     </div>
     <div class="sidebar-bottom">
         <a th:href="@{signin}">
-            <button class="signout-button">Sign Out</button>
+            <button class="create-btn">Sign Out</button>
         </a>
     </div>
 </div>
@@ -53,14 +53,9 @@
     <!--    #SEARCH BAR#-->
     <div class="top-bar">
         <div class="search-bar">
-            <!--        TODO: Make Search function work-->
-            <form action="#" method="POST">
-                <!-- action should link to endpoint which java handles with @WebServlet("/") -->
-                <button class="search-button" type="submit"><i class="fa fa-search"></i></button>
-                <input type="text" name="search_query" placeholder="Search...">
-                <!--"search_query" should be the request.getParameter("search_query"); -->
+            <button class="search-button" onclick="applySearch()"><i class="fa fa-search"></i></button>
+            <input type="text" id="search" placeholder="Search...">
 
-            </form>
 
             <!--    #FILTER BTN#-->
             <div class="filter-button">
@@ -72,27 +67,28 @@
                         <hr>
                         <!--                        CHECKBOX START-->
                         <label>
-                            <input type="checkbox" name="category" value="electronics" class="filter-checkbox"
-                                   data-filter="filter-Electronics"> Electronics
+                            <input type="checkbox" name="category" value="electronics" class="filter-checkbox" data-filter="filter-Electronics" onclick="updateFilter()"> Electronics
                         </label>
                         <label>
-                            <input type="checkbox" name="category" value="clothing" class="filter-checkbox"
-                                   data-filter="filter-Clothing"> Clothing
+                            <input type="checkbox" name="category" value="clothing" class="filter-checkbox"data-filter="filter-Clothing" onclick="updateFilter()"> Clothing
                         </label>
                         <label>
-                            <input type="checkbox" name="category" value="furniture" class="filter-checkbox"
-                                   data-filter="filter-Furniture"> Furniture
+                            <input type="checkbox" name="category" value="furniture" class="filter-checkbox" data-filter="filter-Furniture" onclick="updateFilter()"> Furniture
+                        </label>
+                        <label>
+                            <input type="checkbox" name="category" value="furniture" class="filter-checkbox" data-filter="filter-Jewelry" onclick="updateFilter()"> Jewelry
+                        </label>
+                        <label>
+                            <input type="checkbox" name="category" value="furniture" class="filter-checkbox" data-filter="filter-Vehicles" onclick="updateFilter()"> Vehicles
                         </label>
                     </div>
                     <div class="filter-section-slide">
                         <h3>Price Range</h3>
                         <hr>
                         <label for="min-price">Min:</label>
-                        <input type="number" id="min-price" name="min-price" min="0">
+                        <input type="number" id="min-price" name="min-price" min="0" placeholder="0" oninput="updateFilter()">
                         <label for="max-price">Max:</label>
-                        <input type="number" id="max-price" name="max-price" min="0">
-                        <input type="range" id="price-range" name="price-range" min="0" max="1000">
-                        <p id="price-label">Price: <span id="price-value">0</span></p>
+                        <input type="number" id="max-price" name="max-price" min="0" placeholder="Enter Max Price" oninput="updateFilter()">
                     </div>
                     <button id="apply-filter">Apply</button>
                 </div>
@@ -109,14 +105,14 @@
     <!--    #GRID-CONTAINER# -->
     <div class="grid-container">
         <!-- Repeat this container as needed -->
-        <div class="grid-item">
+        <div class="grid-item" id="grid-item">
             <th:block th:each="item : ${listings}">
                 <div th:class="|neumorphic-card filter-${item.category}|">
                     <a th:href="@{listing(id=${item.id})}">
-                        <img th:src="${item.image}" alt="Product Image">
+                        <img th:src="${item.images[0]}" th:alt="${item.title}">
                         <div class="item-text">
                             <h2 th:text="${item.title}"></h2>
-                            <p th:text="${'$' + item.price}"></p>
+                            <p class="price" th:text="${'$' + item.price}"></p>
                         </div>
                     </a>
                     <form method="post">
@@ -142,9 +138,6 @@
     const applyFilterButton = document.getElementById("apply-filter");
     const minPriceInput = document.getElementById("min-price");
     const maxPriceInput = document.getElementById("max-price");
-    const priceRangeInput = document.getElementById("price-range");
-    const priceLabel = document.getElementById("price-label");
-    const priceValue = document.getElementById("price-value");
 
     // Function to open the filter callout
     openFilterButton.addEventListener("click", () => {
@@ -154,25 +147,19 @@
     // Function to close the filter callout
     applyFilterButton.addEventListener("click", () => {
         filterCallout.style.display = "none";
-        // Add your filtering logic here based on selected options and price range
-        // You can update the marketplace grid accordingly
-    });
-
-    // Update the price label as the price range slider is moved
-    priceRangeInput.addEventListener("input", () => {
-        priceValue.textContent = priceRangeInput.value;
-    });
-
-    // Update the price range slider when the min or max input fields change
-    minPriceInput.addEventListener("input", () => {
-        priceRangeInput.value = minPriceInput.value;
-        priceValue.textContent = minPriceInput.value;
     });
 
     maxPriceInput.addEventListener("input", () => {
         priceRangeInput.value = maxPriceInput.value;
         priceValue.textContent = maxPriceInput.value;
     });
+
+    // Let user hit enter key to search
+    document.getElementById('search').addEventListener('keyup', function (event) {
+          if (event.key === 'Enter') {
+            updateFilter();
+          }
+        });
 </script>
 
 

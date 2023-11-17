@@ -38,16 +38,17 @@ public class AdminCPController {
         model.addAttribute("getEmail", accounts);
         model.addAttribute("isAdmin", accounts);
         //Get all items
-        Listing[] listings= ListingService.getAllListings();
-        model.addAttribute("id",listings);
-        model.addAttribute("uid",listings);
-        model.addAttribute("type",listings);
-        model.addAttribute("status",listings);
-        model.addAttribute("price",listings);
+        Listing[] listings = ListingService.getAllListings();
+        model.addAttribute("id", listings);
+        model.addAttribute("uid", listings);
+        model.addAttribute("type", listings);
+        model.addAttribute("status", listings);
+        model.addAttribute("price", listings);
         return "admincp";
 
 
     }
+
     //Create user
    @GetMapping("/create-admin")
     public String createUser(Account account) {

@@ -192,7 +192,11 @@ public class AccountService {
         }
     }
 
-    public static String createLoginSession(Connection conn, int userId) {
+    public static String createLoginSession(int userId) {
+        // Establish database connection
+        DatabaseService dbSrv = new DatabaseService();
+        Connection conn = dbSrv.getConnection();
+
         // Create a new entry, or update the existing entry if present
         String sql = "INSERT OR REPLACE INTO login_sessions (uid, key) VALUES(?, ?);";
 
@@ -216,7 +220,11 @@ public class AccountService {
         }
     }
 
-    public static int getId(Connection conn, String username) {
+    public static int getId(String username) {
+        // Establish database connection
+        DatabaseService dbSrv = new DatabaseService();
+        Connection conn = dbSrv.getConnection();
+
         // Create the query string
         String sql = "SELECT id FROM accounts WHERE username = ?;";
 
@@ -238,7 +246,11 @@ public class AccountService {
         }
     }
 
-    public static String getUsername(Connection conn, int userId) {
+    public static String getUsername(int userId) {
+        // Establish database connection
+        DatabaseService dbSrv = new DatabaseService();
+        Connection conn = dbSrv.getConnection();
+
         // Create the query string
         String sql = "SELECT username FROM accounts WHERE id = ?;";
 
@@ -292,6 +304,32 @@ public class AccountService {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+        }
+    }
+
+    public static String getEmail(int userId) {
+        // Establish database connection
+        DatabaseService dbSrv = new DatabaseService();
+        Connection conn = dbSrv.getConnection();
+
+        // Create the query string
+        String sql = "SELECT email FROM accounts WHERE id = ?;";
+
+        // Prepare the query
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setInt(1, userId);
+
+            // Execute the query
+            ResultSet rs = preparedStatement.executeQuery();
+
+            // Get the email
+            String email = rs.getString("email");
+
+            // Return the email
+            return email;
+        } catch (SQLException e) {
+            return null;
         }
     }
 
@@ -396,7 +434,7 @@ public class AccountService {
         Connection conn = dbSrv.getConnection();
 
         // Create the query string
-        String query = "SELECT * FROM verifications WHERE id = ?;";
+        String query = "SELECT * FROM verifications WHERE uid = ?;";
 
         // Prepare the query
         try {
@@ -406,21 +444,21 @@ public class AccountService {
             // Execute the query
             ResultSet rs = preparedStatement.executeQuery();
             if (rs.next()) {
-                return true;
+                return false;
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        return false;
+        return true;
     }
 
-    public static String getVerificationCode(int userId) {
+    public static String getVerificationKey(int userId) {
         // Establish database connection
         DatabaseService dbSrv = new DatabaseService();
         Connection conn = dbSrv.getConnection();
 
         // Create the query string
-        String query = "SELECT verified FROM verifications WHERE uid = ?;";
+        String query = "SELECT key FROM verifications WHERE uid = ?;";
 
         // Prepare the query
         try {
@@ -431,8 +469,8 @@ public class AccountService {
             ResultSet rs = preparedStatement.executeQuery();
             if (rs.next()) {
                 // Get the salt
-                String code = rs.getString("code");
-                return code;
+                String key = rs.getString("key");
+                return key;
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -440,27 +478,29 @@ public class AccountService {
         return null;
     }
 
-    public static void createNewVerification(int userId) {
+    public static String createNewVerification(int userId) {
         // Generate a salt
-        String salt = generateSalt();
+        String key = generateVerificationKey();
 
         // Establish database connection
         DatabaseService dbSrv = new DatabaseService();
         Connection conn = dbSrv.getConnection();
 
         // Create the query string
-        String query = "INSERT INTO verifications (uid, code) VALUES (?, ?);";
+        String query = "INSERT INTO verifications (uid, key) VALUES (?, ?);";
 
         try {
             // Prepare the query
             PreparedStatement preparedStatement = conn.prepareStatement(query);
             preparedStatement.setInt(1, userId);
-            preparedStatement.setString(2, salt);
+            preparedStatement.setString(2, key);
 
             // Execute the query
             preparedStatement.executeUpdate();
+            return key;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+            return null;
         }
     }
 
@@ -470,7 +510,7 @@ public class AccountService {
         Connection conn = dbSrv.getConnection();
 
         // Create the query string
-        String query = "DELETE FROM verifications WHERE id = ?;";
+        String query = "DELETE FROM verifications WHERE uid = ?;";
 
         // Prepare the query
         try {
@@ -482,5 +522,28 @@ public class AccountService {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    public static void sendAccountVertificationEmail(String username, String email, String authKey) {
+        // Subject
+        String subject = "Welcome to Campus Flea";
+
+        // Body
+        String body = "<h2>Welcome to Campus Flea!</h2>";
+        body += "<p>Welcome, " + username + ". We are glad to have you aboard. Please enter the verification below to verify your account.</p>";
+        body += "<p><b>Code: " + authKey + "</b></p>";
+
+        EmailService.sendEmail(email, subject, body);
+    }
+
+    private static String generateVerificationKey() {
+        int length = 6;
+
+        String key = "";
+        for (int i = 0; i < length; i++) {
+            int character = (int)(Math.random() * 10) + 48;
+            key += (char)character;
+        }
+        return key;
     }
 }

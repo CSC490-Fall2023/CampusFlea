@@ -1,7 +1,7 @@
 body {
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
+    font-family: 'Roboto', sans-serif;
 }
 
 .app {
@@ -96,20 +96,33 @@ body {
        padding-bottom: 20px;
 }
 
-.signout-button {
-    background-color: #007BFF; /* Button background color */
-    color: #fff; /* Button text color */
-    border: none;
-    border-radius: 4px;
-    padding: 7px 10px;
-    font-size: 14px;
+.create-btn {
+    background-color: #D33A2C;
+    margin-left: 10px;
+    background-position: 0 0;
+    border: #FFE7E7;
+    border-radius: 11px;
+    box-sizing: border-box;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 2px 0 rgba(255, 255, 255, 0.3);
+    box-sizing: border-box;
+    color: #FFE7E7;
     cursor: pointer;
-
-    transition: background-color 0.3s ease-in-out;
+    font-family: "Inter var",ui-sans-serif,system-ui,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+    font-size: 14px;
+    outline: none;
+    outline: 0;
+    padding: 10px 10px;
+    text-align: center;
+    transform: translateY(0);
+    transition: transform 150ms, box-shadow 150ms;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
 }
 
-.signout-button:hover {
-    background-color: #0056b3; /* Button background color on hover */
+.create-btn:hover {
+  box-shadow: rgba(0, 0, 0, .15) 0 3px 9px 0;
+  transform: translateY(-2px);
 }
 
 /* Additional styling for a neumorphic effect */
@@ -196,15 +209,39 @@ ul {
     margin-left: 10px;
     color: white;
     margin-top: 10px
+
 }
 
 .chat-info h4 {
     margin: 0;
     font-weight: bold;
+    text-decoration: none;
+    color: white;
 }
 
 .chat-info p{
     margin-top: 10px;
+}
+
+.chat-header{
+   border-color: lightgray;
+    border: solid 1px lightgray;
+    background-color: #f0f0f0;
+    border-radius: 10px 10px 0px 0px;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+    align-items: center;
+}
+
+.chat-header-item{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.chat-header #item{
+    padding-right: 15px;
 }
 
 .chat-box-info {
@@ -221,14 +258,13 @@ ul {
     padding: 20px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
 }
 
 .chat-box {
     background-color: #fff;
     border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 20px;
+    border-radius: 0px 0px 5px 5px;
+    padding: 2px 10px 10px 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     overflow: hidden;
 }
@@ -239,28 +275,53 @@ ul {
 }
 
 .message {
-    padding: 10px;
-    border-radius: 5px;
-    margin: 10px;
+        border-radius: 13px;
+        margin: 13px;
 }
 
 .message.received {
     background-color: #e5e5ea;
+    margin-right: 50%;
+    overflow-wrap: break-word;
 }
 
 .message.sent {
-    background-color: #007BFF;
-    color: #fff;
-    align-self: flex-end;
+        background-color: #007BFF;
+        color: #fff;
+        align-self: flex-end;
+        display: flex;
+        flex-direction: column;
+        margin-left: 50%;
+        flex-wrap: nowrap;
+        overflow-wrap: break-word;
+
+}
+
+.active{
+    background-color: #2C313A;
+}
+
+.active{
+    background-color: #2C313A;
+}
+
+.chat-info-box:hover {
+    background-color: #2C313A;
+}
+
+.chat-link{
+    text-decoration: none;
+    color: white;
 }
 
 .message-content {
+    padding: 5px 10px 5px 15px;
     margin: 0;
 }
 
 .chat-input {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     margin-top: 20px;
 }
@@ -268,9 +329,11 @@ ul {
 input[type="text"] {
     flex: 1;
     padding: 10px;
+    padding-right: 10em;
     border: 1px solid #ccc;
     border-radius: 5px;
     outline: none;
+    width: 30em;
 }
 
 #send-button {

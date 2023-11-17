@@ -14,20 +14,28 @@
                 <img th:src="@{/images/Logos/logo.png}" alt="Logo">
             </a>
         </div>
-        <div class="profile-info">
-            <img class="profile-picture" th:src="${avatar}" alt="Profile Picture">
-            <div class="profile-name" th:text="${username}"></div>
-        </div>
-        <button class="back-button" onclick="history.back()">Back</button>
+        <button style="padding: 10px 20px; margin-right:20px;" class="create-btn" onclick="history.back()">Back</button>
     </nav>
 </header>
 
 <main class="container">
-
     <!-- Left Column / Product Images -->
     <div class="left-column">
-        <img th:src="${listing.image}" alt="ProductImage">
-        <!-- Replace with the product images -->
+        <div class="slider">
+            <div class="slides">
+                <th:block th:each="image : ${listing.images}">
+                    <div class="slide">
+                        <img th:src="${image}" alt="Product Image">
+                    </div>
+                </th:block>
+            </div>
+            <div class="arrow prev" onclick="moveSlide(-1)">&#10094;</div>
+            <div class="arrow next" onclick="moveSlide(1)">&#10095;</div>
+        </div>
+        <div class="profile-info">
+            <img class="profile-picture" th:src="${avatar}" alt="Profile Picture">
+            <div class="profile-name" th:text="${username}"></div>
+        </div>
     </div>
     <!-- Right Column -->
     <div class="right-column">
@@ -38,28 +46,60 @@
             <h1 th:text="${listing.title}"></h1>
             <p th:text="${listing.description}"></p>
         </div>
-
         <!-- Product Configuration -->
         <div class="product-configuration">
-
             <!-- User Choice Configuration -->
             <div class="likeShare-config">
-
                 <div class="user-choose">
                     <form method="post">
-                        <button type="submit" name="save">Save</button>
-                        <button type="submit" name="flag">Flag</button>
+                        <a th:if="${userId == listing.uid}" th:href="@{editlisting(id=${listing.id})}">Edit</a>
+                        <button th:if="${userId != listing.uid}" type="submit" name="save">Save</button>
+                        <button th:if="${userId != listing.uid}" type="submit" name="flag">Flag</button>
                     </form>
                 </div>
             </div>
         </div>
-
         <!-- Product Pricing -->
         <div class="product-price">
             <span th:text="${'$' + listing.price}"></span>
-            <a th:href="@{chat(id=${listing.id})}" class="contactSeller-btn">Contact Seller</a>
+            <a th:if="${listing.uid != userId}" th:href="@{chat(lid=${listing.id})}" class="contactSeller-btn">Contact
+                Seller</a>
         </div>
     </div>
 </main>
+<script>
+    let slideIndex = 0;
+    const slides = document.querySelectorAll('.slide');
+    const prevArrow = document.querySelector('.arrow.prev');
+    const nextArrow = document.querySelector('.arrow.next');
+
+    function showSlides() {
+        slides.forEach(slide => {
+            slide.style.display = 'none';
+        });
+        if (slideIndex >= slides.length) {
+            slideIndex = 0;
+        }
+        if (slideIndex < 0) {
+            slideIndex = slides.length - 1;
+        }
+        slides[slideIndex].style.display = 'block';
+
+        if (slides.length > 1) {
+            prevArrow.style.display = 'block';
+            nextArrow.style.display = 'block';
+        } else {
+            prevArrow.style.display = 'none';
+            nextArrow.style.display = 'none';
+        }
+    }
+
+    function moveSlide(n) {
+        slideIndex += n;
+        showSlides();
+    }
+
+    window.addEventListener('DOMContentLoaded', showSlides);
+</script>
 </body>
 </html>

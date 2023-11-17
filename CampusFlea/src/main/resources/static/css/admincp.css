@@ -1,12 +1,16 @@
 body {
-    font-family: "Times New Roman", Times, serif;
-    margin: 20px;
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
 }
 
 header {
     background-color: #15171B;
     color: #fff;
 
+}
+
+.content{
+    margin: 10px;
 }
 
 .navbar {
@@ -146,4 +150,33 @@ a:hover.delete-button {
 
 .delete-icon {
     color: white;
+}
+
+.create-btn {
+  background-color: #28a745;
+  /* border: 1px solid #13aa52; */
+    border: 0;
+  border-radius: .5rem;
+  box-sizing: border-box;
+  border-radius: .5rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  font-family: "Inter var",ui-sans-serif,system-ui,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+  font-size: 16px;
+  outline: none;
+  outline: 0;
+  padding: .75rem .95rem;
+  text-align: center;
+  transform: translateY(0);
+  transition: transform 150ms, box-shadow 150ms;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.create-btn:hover {
+  box-shadow: rgba(0, 0, 0, .15) 0 3px 9px 0;
+  transform: translateY(-2px);
 }

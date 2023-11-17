@@ -16,7 +16,7 @@
             </a>
             <!--      <img src="../static/images/Logos/logo.png"  alt="Logo">-->
         </div>
-        <button class="save-button" onclick="history.back()">Back</button>
+        <button style="padding: 10px 20px; margin-right:20px;" class="create-btn" onclick="history.back()">Back</button>
     </nav>
 </header>
 <main>
@@ -40,7 +40,7 @@
                     <th:block th:each="item : ${listings}">
                         <div class="neumorphic-card">
                             <a th:href="@{listing(id=${item.id})}">
-                                <img th:src="${item.image}" alt="Product Image">
+                                <img th:src="${item.images[0]}" alt="${item.title}">
                                 <div class="item-text">
                                     <h2 th:text="${item.title}"></h2>
                                     <p class="price" th:text="${'$' + item.price}"></p>
