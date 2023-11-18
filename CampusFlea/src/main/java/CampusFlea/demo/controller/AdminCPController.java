@@ -78,7 +78,7 @@ public class AdminCPController {
     }
     @PostMapping("/edit/{id}")
     public String updateSettings(@RequestParam int targetId, @RequestParam String username, @RequestParam String email, @RequestParam String password,
-                                 @RequestParam MultipartFile avatar, HttpSession session) throws IOException {
+                                 @RequestParam MultipartFile avatar, @RequestParam(name = "isAdmin", required = false) boolean isAdmin,HttpSession session) throws IOException {
         // Check that the session key is valid (redirect them to login otherwise)
         int userId = SessionService.getUserIdFromSession(session);
         if (userId == -1) {
@@ -107,8 +107,37 @@ public class AdminCPController {
 
         // Update admin status
         //AccountService.updateAdminStatus(targetId, isAdmin);
+        System.out.println(isAdmin);
+        if(isAdmin==true){
+            Account user=AccountService.getAccount(userId);
+            String query = "UPDATE accounts SET admin = 1 WHERE id = ?;";
+            try {
 
-        return "redirect:/edit/{id}";
+                DatabaseService dbSrv = new DatabaseService();
+                Connection conn = dbSrv.getConnection();
+                PreparedStatement preparedStatement = conn.prepareStatement(query);
+                preparedStatement.setInt(1, targetId);
+                preparedStatement.executeUpdate();
+
+            }catch (SQLException e){
+                System.out.println(e.getMessage());
+            }
+        }
+        else{
+            String query2 = "UPDATE accounts SET admin = 0 WHERE id = ?;";
+            try {
+
+                DatabaseService dbSrv = new DatabaseService();
+                Connection conn = dbSrv.getConnection();
+                PreparedStatement preparedStatement = conn.prepareStatement(query2);
+                preparedStatement.setInt(1, targetId);
+                preparedStatement.executeUpdate();
+
+            }catch (SQLException e){
+                System.out.println(e.getMessage());
+            }
+        }
+        return "redirect:/admincp";
     }
     //delete user
     @GetMapping("/delete/{id}")
