@@ -25,32 +25,32 @@
             <input class="search-input" type="text">
             <button class="search-button">Search</button>
         </div>
-<!--        <a class="create-button" th:href="@{'/create-admin'}">Create New Admin</a>-->
     </div>
 
-<table>
-    <thead>
-    <tr>
-        <th class="user-id">User ID</th>
-        <th class="user-name">Username</th>
-        <th class="user-email">Email</th>
-        <th class="user-role">Is Admin?</th>
-        <th class="user-action">Actions</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="user : ${users}">
-        <td th:text="${user.id}"></td>
-        <td th:text="${user.username}"></td>
-        <td th:text="${user.email}"></td>
-        <td th:text="${user.isAdmin}"></td>
-        <td>
-            <a class="edit-button" th:href="@{'/edit/' + ${user.id}}"><i class="fas fa-edit"></i></a>
-            <a class="delete-button" th:href="@{'/delete/' + ${user.id}}"><i class="fas fa-trash delete-icon"></i></a>
-        </td>
-    </tr>
-    </tbody>
-</table>
+    <table>
+        <thead>
+        <tr>
+            <th class="user-id">User ID</th>
+            <th class="user-name">Username</th>
+            <th class="user-email">Email</th>
+            <th class="user-role">Is Admin?</th>
+            <th class="user-action">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.username}"></td>
+            <td th:text="${user.email}"></td>
+            <td th:text="${user.isAdmin}"></td>
+            <td>
+                <a class="edit-button" th:href="@{'/edit/' + ${user.id}}"><i class="fas fa-edit"></i></a>
+                <a class="delete-button" th:href="@{'/delete/' + ${user.id}}"><i
+                        class="fas fa-trash delete-icon"></i></a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 </body>
 </html>

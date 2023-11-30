@@ -32,42 +32,41 @@ header {
 }
 
 .create-btn {
-  background-color: #28a745;
-  /* border: 1px solid #13aa52; */
+    background-color: #28a745;
     text-decoration: none;
     border: 0;
-  border-radius: .5rem;
-  box-sizing: border-box;
-  border-radius: .5rem;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-  box-sizing: border-box;
-  color: #fff;
-  cursor: pointer;
-  font-family: "Inter var",ui-sans-serif,system-ui,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
-  font-size: 16px;
-  outline: none;
-  outline: 0;
-  padding: .75rem .95rem;
-  text-align: center;
-  transform: translateY(0);
-  transition: transform 150ms, box-shadow 150ms;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
+    border-radius: .5rem;
+    box-sizing: border-box;
+    border-radius: .5rem;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    font-family: "Inter var", ui-sans-serif, system-ui, -apple-system, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-size: 16px;
+    outline: none;
+    outline: 0;
+    padding: .75rem .95rem;
+    text-align: center;
+    transform: translateY(0);
+    transition: transform 150ms, box-shadow 150ms;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
 }
 
 .create-btn:hover {
-  box-shadow: rgba(0, 0, 0, .15) 0 3px 9px 0;
-  transform: translateY(-2px);
+    box-shadow: rgba(0, 0, 0, .15) 0 3px 9px 0;
+    transform: translateY(-2px);
 }
 
 .profile-info {
     display: flex;
-        align-items: center;
-        justify-content: flex-start;
-        margin: 3% 0 0 15%;
-        font-size: 20px;
-        float: left;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 3% 0 0 15%;
+    font-size: 20px;
+    float: left;
 }
 
 .profile-name {
@@ -91,31 +90,32 @@ header {
     width: 60%;
     position: relative;
 }
-/*------SLIDER-------------*/
+
+/* Image Slider */
 .slider {
-      position: relative;
-      width: 80%;
-      max-width: 500px;
-      margin: 60px auto 0;
-      overflow: hidden;
-      border: 1px solid #ccc;
+    position: relative;
+    width: 80%;
+    max-width: 500px;
+    margin: 60px auto 0;
+    overflow: hidden;
+    border: 1px solid #ccc;
 }
 
 .slides {
     display: flex;
-    transition: transform 0.5s ease-in-out; /* Adjust the transition duration and easing */
+    transition: transform 0.5s ease-in-out;
 }
 
 .slide {
-    width: 100%; /* Ensure each slide takes full width */
-    flex: 0 0 auto; /* Prevent resizing of the slides */
+    width: 100%;
+    flex: 0 0 auto;
     overflow: hidden;
 }
 
 .slide img {
-    width: 100%; /* Make the images fill the slide horizontally */
-    height: 300px; /* Set a maximum height for all images */
-    object-fit: contain; /* Fit entire image inside the container */
+    width: 100%;
+    height: 300px;
+    object-fit: contain;
 }
 
 .arrow {
@@ -123,19 +123,19 @@ header {
     top: 50%;
     transform: translateY(-50%);
     cursor: pointer;
-    font-size: 24px; /* Slightly smaller arrow size */
+    font-size: 24px;
     z-index: 1;
     background-color: rgba(255, 255, 255, 0.5);
-    padding: 10px; /* Slightly smaller arrow padding */
-    border-radius: 50%; /* Optional: Add rounded corners to arrows */
+    padding: 10px;
+    border-radius: 50%;
 }
 
 .arrow.prev {
-    left: 8px; /* Adjust arrow position */
+    left: 8px;
 }
 
 .arrow.next {
-    right: 8px; /* Adjust arrow position */
+    right: 8px;
 }
 
 .right-column {

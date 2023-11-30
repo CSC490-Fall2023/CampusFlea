@@ -11,8 +11,8 @@ body {
 }
 
 .logo {
-    max-width: 400px; /* Adjust as needed */
-    margin-bottom: 10px; /* Spacing between logo and container */
+    max-width: 400px;
+    margin-bottom: 10px;
 }
 
 .container {
@@ -30,7 +30,7 @@ h2 {
 }
 
 input {
-    width: calc(100% - 20px); /* Adjust for padding */
+    width: calc(100% - 20px);
     padding: 10px;
     margin: 10px 0;
     box-sizing: border-box;
