@@ -10,6 +10,7 @@ import java.util.List;
 
 public class ListingService {
     public static final String[] CATEGORIES = {
+            "Books",
             "Clothing",
             "Electronics",
             "Furniture",
